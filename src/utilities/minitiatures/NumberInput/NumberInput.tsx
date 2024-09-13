@@ -7,7 +7,7 @@ type Props = {
     name?: string,
     value?: string,
     maxLength?: number,
-    onChange: (number: '' | number, e?: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange?: (number: '' | number, e?: React.ChangeEvent<HTMLInputElement>) => void,
     options?: {
         error?: string,
     },
