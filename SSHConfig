@@ -1,0 +1,5 @@
+Host maboo-server
+    HostName 102.16.254.6
+    User admin-maboo
+    ServerAliveInterval 60
+    ServerAliveCountMax 10
