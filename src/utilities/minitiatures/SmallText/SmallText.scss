@@ -1,0 +1,14 @@
+.smalltext-button {
+    cursor: pointer;
+    font-size: .9rem;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    color: $success;
+    text-decoration: underline;
+    transition: color .3s ease-in-out;
+
+    &:hover {
+        color: lighten($success, 50%);
+    }
+}

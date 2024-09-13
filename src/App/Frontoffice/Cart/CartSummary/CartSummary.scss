@@ -1,0 +1,18 @@
+.cart-summary {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: $light;
+    height: 4rem;
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 0 2px 2px rgba($dark, .05);
+    padding: 0 3rem;
+
+    .cart-subtotal{
+        font-size: 1.3rem;
+    }
+}

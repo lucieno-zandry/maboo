@@ -1,0 +1,35 @@
+.variant-name{
+    font-weight: bold;
+}
+
+.product-variants-list {
+    display: flex;
+    gap: 1rem;
+    padding-left: 0;
+
+
+    .product-variant-item {
+        list-style: none;
+        height: 5rem;
+        width: 5rem;
+    }
+
+    label {
+        opacity: .8;
+        transition: opacity .3s ease-in-out;
+        cursor: pointer;
+        border-radius: $border-radius;
+        height: 100%;
+        width: 100%;
+    }
+
+    input:checked~label {
+        opacity: 1;
+        box-shadow: 0 0 0 4px rgba($dark, .2);
+    }
+
+    input:disabled ~ label {
+        opacity: .3;
+        pointer-events: none;
+    }
+}

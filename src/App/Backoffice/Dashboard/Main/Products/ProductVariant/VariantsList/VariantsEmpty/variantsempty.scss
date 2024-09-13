@@ -1,0 +1,13 @@
+.variants-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .variants-empty-image{
+        width: 10rem;
+    }
+    
+    .variants-empty-title {
+        font-size: 1.4rem;
+    }
+}

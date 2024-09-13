@@ -1,0 +1,12 @@
+.squared-image {
+    aspect-ratio: 1;
+    width: 100%;
+    background-color: rgba($dark, .6);
+    border-radius: $border-radius;   
+}
+
+img.squared-image{
+    padding: .1rem;
+    object-fit: cover;
+    object-position: center;
+}

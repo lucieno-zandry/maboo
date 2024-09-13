@@ -1,0 +1,13 @@
+.colors-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .colors-empty-image{
+        width: 10rem;
+    }
+    
+    .colors-empty-title {
+        font-size: 1.4rem;
+    }
+}

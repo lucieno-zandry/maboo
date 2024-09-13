@@ -1,0 +1,107 @@
+// Configurations
+@import "./assets/sass/variables.scss";
+@import "./assets/fontawesome/css/all.min.css";
+@import "./assets/bootstrap/scss/bootstrap.scss";
+@import "./assets/sass/mixins.scss";
+@import "./App/App.scss";
+// @import './assets/sass/externalComponents.scss';
+
+// utilities
+@import "./utilities/minitiatures/HoverableProduct/HoverableProduct.scss";
+@import "./utilities/minitiatures/Checkbox/Checkbox.scss";
+@import "./utilities/minitiatures/CodeInput/CodeInput.scss";
+@import "./utilities/minitiatures/PagePreloader/PagePreloader.scss";
+@import "./utilities/minitiatures/Toast/Toast.scss";
+@import "./utilities/minitiatures/ResendEmailCountdown/ResendEmailCountdown.scss";
+@import "./utilities/minitiatures/SmallText/SmallText.scss";
+@import "./utilities/minitiatures/ImageInputDD/imageinputdd.scss";
+@import "./utilities/minitiatures/RoundedImage/RoundedImage.scss";
+@import "./utilities/minitiatures/SquaredImage/SquaredImage.scss";
+@import "./utilities/minitiatures/CategorySelect/CategorySelect.scss";
+@import "./utilities/minitiatures/Accordion/accordion.scss";
+@import "./utilities/minitiatures/TablePlaceholder/TablePlaceholder.scss";
+@import "./utilities/minitiatures/Price/Price.scss";
+@import "./utilities/minitiatures/CountButton/CountButton.scss";
+@import "./utilities/minitiatures/Loading/Loading.scss";
+@import "./utilities/minitiatures/ColorBubble/ColorBubble.scss";
+@import "./utilities/minitiatures/ImagePreview/ImagePreview.scss";
+@import "./utilities/minitiatures/OrderItemComponent/OrderItemComponent.scss";
+@import "./utilities/minitiatures/Notification/Notification.scss";
+@import "./utilities/minitiatures/LogoutDialog/LogoutDialog.scss";
+@import "./utilities/minitiatures/Profile/Profile.scss";
+@import "./utilities/minitiatures/Profile/Overview/Overview.scss";
+@import "./utilities/minitiatures/Auth/Auth.scss";
+
+// --------------------------------------------Components------------------------------------------
+
+// Customer
+.frontoffice-container {
+  @import "./App/Frontoffice/Navbar/Navbar.scss";
+  @import "./App/Frontoffice/Navbar/UserDropdown/UserDropdown.scss";
+  @import "./App/Frontoffice/Navbar/Submenu/Submenu.scss";
+  @import "./App/Frontoffice/Homepage/Header/Header.scss";
+  @import "./App/Frontoffice/Homepage/Footer/Footer.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Sections.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/Categories.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForBoth/ForBoth.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForTheBaby/ForTheBaby.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForTheMother/ForTheMother.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Functionnalities/Functionnalities.scss";
+  @import "./App/Frontoffice/Homepage/Sections/FeaturedProducts/FeaturedProducts.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Offers/Offers.scss";
+  @import "./App/Frontoffice/User/User.scss";
+  @import "./App/Frontoffice/Category/Category.scss";
+  @import "./App/Frontoffice/Category/ProductsEmpty/ProductsEmpty.scss";
+  @import "./App/Frontoffice/Product/Product.scss";
+  @import "./App/Frontoffice/Product/LeftSide/LeftSide.scss";
+  @import "./App/Frontoffice/Product/RightSide/RightSide.scss";
+  @import "./App/Frontoffice/Navbar/Cart/CartButton.scss";
+  @import "./App/Frontoffice/Cart/Cart.scss";
+  @import "./App/Frontoffice/Cart/CartEmpty/CartEmpty.scss";
+  @import "./App/Frontoffice/Cart/CartSummary/CartSummary.scss";
+  @import "./App/Frontoffice/Cart/CartItemsList/CartItemsList.scss";
+  @import "./App/Frontoffice/Navbar/Search/Search.scss";
+  @import "./App/Frontoffice/Orders/Orders.scss";
+  @import "./App/Frontoffice/Orders/Order/Order.scss";
+  @import "./App/Frontoffice/Orders/Order/PaymentMethod/PaymentMethod.scss";
+  @import "./App/Frontoffice/Orders/Order/OrderSummary/OrderSummary.scss";
+  @import "./App/Frontoffice/Orders/OrderItemsGroup/OrderItemsGroup.scss";
+  @import "./App/Frontoffice/Orders/EmptyOrders/EmptyOrders.scss";
+  @import "./App/Frontoffice/Product/RightSide/ProductVariants/ProductVariants.scss";
+  @import "./App/Frontoffice/Search/Search.scss";
+}
+
+// Admin
+.backoffice-container {
+  @import "./App/Backoffice/Dashboard/Dashboard.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/Navbar.scss";
+  @import "./App/Backoffice/Dashboard/Sidebar/Sidebar.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/UserDropdown/UserDropdown.scss";
+  @import "./App/Backoffice/Dashboard/Main/User/User.scss";
+  @import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
+  @import "./App/Backoffice/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/Search/Search.scss";
+  @import "./App/Backoffice/Dashboard/Main/Orders/OrderItemGroup/OrderItemGroup.scss";
+  @import "./App/Backoffice/Dashboard/Main/Orders/Processing/List/List.scss";
+  @import "./App/Backoffice/Dashboard/Main/Overview/DiagramBlock/DiagramBlock.scss";
+}
+
+// Portals
+
+// ---------------------------------------------- Backoffice ----------------------------------------------
+
+// Categories
+@import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/SelectedCategory/SelectedCategory.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/Categories.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/DeleteCategory/DeleteCategory.scss";
+
+// Products
+
+@import "./App/Backoffice/Dashboard/Main/Products/AddImages/AddImages.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/AddProduct/AddProduct.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/ProductVariant/ProductVariant.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/ProductColor/ProductColor.scss";
+
+// -----------------------------------------------Customer -------------------------------------------

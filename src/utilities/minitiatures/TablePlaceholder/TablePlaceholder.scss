@@ -1,0 +1,20 @@
+.categories-placeholder{
+    height: 60px;
+
+    div{
+        border-radius: $border-radius;
+    }
+
+    >div:first-child{  
+        aspect-ratio: 1;
+        border-radius: 50%;
+    }
+}
+
+@for $i from 1 through 4{
+    .categories-placeholder:nth-child(#{$i}){
+        .placeholder{
+            animation-delay: .5s;
+        }
+    }
+}

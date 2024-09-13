@@ -1,0 +1,26 @@
+.user-dropdown {
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .user-profile-image,
+    .user-profile {
+        display: inline-block;
+        width: 2rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+    }
+
+    .user-profile-image {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .user-profile {
+        font-size: 1rem;
+        color: $light;
+        padding: .3rem;
+        background-color: $primary;
+    }
+}

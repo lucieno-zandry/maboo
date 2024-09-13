@@ -1,0 +1,16 @@
+.price-container {
+    &.dashed {
+        text-decoration: line-through;
+        opacity: .7;
+        transform: scale(.8);
+
+        small{
+            display: none;
+        }
+    }
+
+    small {
+        font-size: .8rem;
+        color: rgba($dark, .6);
+    }
+}

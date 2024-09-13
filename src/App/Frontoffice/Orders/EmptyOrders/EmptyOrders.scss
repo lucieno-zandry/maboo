@@ -1,0 +1,15 @@
+.orders-empty-container {
+    width: 100%;
+    min-height: 300px;
+    height: calc(100vh - 12rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    
+    img{
+        width: 256px;
+        aspect-ratio: 1;
+    }
+}

@@ -1,0 +1,31 @@
+.nav-item:hover>.submenu-container {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.submenu-container {
+    background-color: $light;
+    position: absolute;
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    left: 5%;
+    top: 6.8rem;
+    box-shadow: 0 0 2px 2px rgba($dark, .05);
+    padding: 1rem 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+
+    .submenu-item {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        >a {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+}

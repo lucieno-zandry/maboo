@@ -1,0 +1,54 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+
+    .logo-container {
+        max-width: 25%;
+    }
+
+    h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    ul {
+        margin-top: 1rem;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    li a {
+        text-decoration: none;
+    }
+
+    li,
+    li a {
+        color: rgba($dark, .6);
+    }
+
+    .logo {
+        object-fit: contain;
+        object-position: center;
+        aspect-ratio: 2;
+    }
+
+    p {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .brand-logo {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        object-fit: cover;
+        object-position: center;
+    }
+}

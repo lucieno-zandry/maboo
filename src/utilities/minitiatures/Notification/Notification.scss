@@ -1,0 +1,78 @@
+.notification-dropdown {
+
+  .dropdown-menu{
+    max-height: calc(100vh - 8rem);
+    overflow: auto;
+  }
+
+  .notification-item {
+    margin: .5rem 0;
+  }
+
+  .notification-item.placeholder-glow {
+    .info {
+      width: 5rem;
+    }
+
+    .content {
+      margin-top: 0.5rem;
+      width: 20rem;
+      height: 1rem;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .info {
+    text-align: end;
+    display: block;
+    font-size: 0.7rem;
+  }
+
+  .notification-item.read {
+    opacity: 0.5;
+  }
+
+  .notification-item i {
+    font-size: 2rem;
+  }
+
+  p,
+  h6 {
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h6 {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .empty-notification {
+    display: flex;
+    width: 20rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .count {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.5rem;
+    z-index: 10;
+    background-color: $danger;
+    color: $light;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: 0.1rem 0.3rem;
+  }
+}

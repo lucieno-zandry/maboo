@@ -1,0 +1,72 @@
+.functionnalities-container {
+    .carousel.slide {
+        height: 400px;
+        width: 100%;
+
+        .carousel-inner {
+            height: 100%;
+        }
+    }
+
+    .carousel-item {
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        &:nth-child(1) {
+            background-image: url(./App/Frontoffice/Homepage/Sections/Functionnalities/carouselImage1.webp);
+
+            .functionnality-gradient {
+                background: linear-gradient(to bottom right, rgba($success, .5), rgba($secondary, .5));
+                justify-content: end;
+            }
+
+            .functionnality-content {
+                color: $light;
+                // h6 {
+                // }
+            }
+        }
+
+        &:nth-child(2) {
+            background-image: url(./App/Frontoffice/Homepage/Sections/Functionnalities/carouselImage2.webp);
+
+            .functionnality-gradient {
+                background: linear-gradient(to bottom right, rgba($warning, .5), rgba($secondary, .5));
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        &:nth-child(3) {
+            color: $light;
+            background-image: url(./App/Frontoffice/Homepage/Sections/Functionnalities/carouselImage3.webp);
+            
+            .functionnality-gradient {
+                background: linear-gradient(to bottom right, rgba($primary, .5), rgba($secondary, .5));
+            }
+            
+            .functionnality-content {
+                margin: 0 2.5rem;
+                justify-self: end;
+            }
+        }
+
+
+        .functionnality-gradient {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .functionnality-content {
+            width: 50%;
+
+            h6 {
+                font-size: 2.5rem;
+            }
+        }
+    }
+}

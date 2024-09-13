@@ -1,0 +1,43 @@
+.overview-container {
+    width: 100%;
+    // height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .profile-picture {
+        width: 20%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .profile-picture-action {
+        position: absolute;
+        bottom: 6%;
+        right: 6%;
+    }
+
+    .profile-picture-placeholder,
+    img {
+        border-radius: 50%;
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .profile-picture-placeholder {
+        background-color: rgba($dark, .5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+}

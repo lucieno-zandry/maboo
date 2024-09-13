@@ -1,0 +1,10 @@
+.categories-list-container {
+    input:checked {
+        +label {
+            &::before {
+                background-color: $danger;
+                border-color: $danger;
+            }
+        }
+    }
+}

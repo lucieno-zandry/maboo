@@ -1,0 +1,10 @@
+.count-button {
+    background-color: rgba($dark, .1);
+    display: flex;
+    justify-content: space-between;
+    border-radius: $border-radius;
+    
+    .btn{
+        border-radius: 0;
+    }
+}
