@@ -1,0 +1,19 @@
+{
+    "name": "willcoco/maboo_websocket",
+    "description": "this is the websocket folder of the maboo application",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "lucieno zandry"
+        }
+    ],
+    "require": {
+        "cboden/ratchet": "^0.4"
+    }
+}
