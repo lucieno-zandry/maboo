@@ -149,7 +149,7 @@ const Products = React.memo(() => {
             <Fade show={Boolean(products && products.length > 0)}>
                 <ProductsList />
             </Fade>
-            <Fade show={products?.length === 0}>
+            <Fade show={Boolean(products && products.length === 0)}>
                 <ProductsEmpty />
             </Fade>
             <ScrollEnd show={query.scrollEnd} whileInView={handleScrollEnd}>

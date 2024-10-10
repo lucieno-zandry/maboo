@@ -38,7 +38,7 @@ const Footer = React.memo(() => {
         <div>
             <h6>Contactez-nous sur</h6>
             <ul>
-                <li><a href="https://www.facebook.com/anaknay"><i className="fa-brands fa-facebook"></i> Facebook</a></li>
+                <li><a href="https://www.facebook.com/mg.maboo"><i className="fa-brands fa-facebook"></i> Facebook</a></li>
                 <li><i className="fa-brands fa-whatsapp"></i> Whatsapp</li>
                 <li ><i className="fa fa-phone"></i> +261 34 15 956 11</li>
                 <li ><i className="fa fa-envelope"></i> anak.nay@gmail.com</li>

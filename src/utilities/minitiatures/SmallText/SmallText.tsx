@@ -10,7 +10,9 @@ type Props = {
 const REPLACESTRING = '...';
 
 const SmallText = React.memo((props: Props) => {
-    const { children, maxLength = 5, isExtendable = false } = props;
+    let { children, maxLength = 5, isExtendable = false } = props;
+
+    if(!children) children = "";
 
     const defaultHidden = React.useMemo(() => {
         return children.length > maxLength;
