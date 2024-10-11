@@ -6,8 +6,9 @@ const validationPage = `${basePath}/auth/validation`;
 const emailConfirmation = `${basePath}/auth/confirmation`;
 const loginPage = `${basePath}/auth/login`;
 const signupPage = `${basePath}/auth/signup`;
-const authPage = basePath ? `${basePath}/dashboard` : "/";
+const authPage = basePath ? `${basePath}/dashboard/` : "/";
 const forgottenPassword = `${basePath}/auth/password-forgotten`;
+const settings = `${authPage}user/profile`;
 
 const getAuth = `/${userType()}/auth/user`;
 const signup = `/${userType()}/auth/signup`;
@@ -24,5 +25,6 @@ export default {
   getAuth,
   signup,
   login,
-  addToCart
+  addToCart,
+  settings
 };

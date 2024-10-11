@@ -2,9 +2,13 @@ import React from 'react'
 import Checkbox from '../../../../../../utilities/minitiatures/Checkbox/Checkbox';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
+import useAuth from '../../../../../../utilities/hooks/useAuth';
+import links from '../../../../../../utilities/helpers/links';
 
 
 const Offer3 = React.memo(() => {
+    const { auth } = useAuth();
+
     return <motion.div
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0, transition: { delay: .5, duration: .5 } }}
@@ -40,7 +44,7 @@ const Offer3 = React.memo(() => {
             </div>
         </div>
         <Link
-            to='/subscriptionpayment/premium'
+            to={auth ? links.settings : links.loginPage}
             className='btn btn-outline-dark btn-sm'>
             <i className="fa-regular fa-crown"></i> Je m'abonne
         </Link>
