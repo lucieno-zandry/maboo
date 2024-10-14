@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Actions\Mail\ConfirmationActions;
 use App\Actions\Mail\PasswordResetActions;
 use App\Actions\UserActions;
-use App\Rules\ExistingEmail;
+// use App\Rules\ExistingEmail;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -33,7 +33,7 @@ class AuthController extends Controller
 
     public function verifyEmailConformity(Request $request)
     {
-        $request->validate(['email' => ['bail', 'required', 'email', 'unique:users', new ExistingEmail]]);
+        $request->validate(['email' => ['bail', 'required', 'email', 'unique:users']]);
         return response()->json(['valid' => true]);
     }
 
