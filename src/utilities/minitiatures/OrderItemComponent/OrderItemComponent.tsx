@@ -17,7 +17,7 @@ const OrderItemComponent = React.memo((props: Props) => {
   const { className = '' } = props;
   const item = props.orderItem.cart_item || fakeCartItem;
   const { product } = item;
-  const image = item.product_variant?.image || product.images[0]?.name;
+  const image = item.product_variant?.image || product?.images[0]?.name || null ;
 
   return <div key={item.id} className={`item-row ${className}`}>
     <SquaredImage image={appImage(image)} />

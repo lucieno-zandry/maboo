@@ -6,7 +6,7 @@ import OrdersEmpty from "../OrdersEmpty/OrdersEmpty";
 import Loading from "../../../../../../utilities/minitiatures/Loading/Loading";
 
 const Delivered = React.memo(() => {
-    const { delivered } = useSelector((state: Rootstate) => state.backoffice.order);
+    const { delivered } = useSelector((state: Rootstate) => state.backoffice?.order);
     const dispatch = useDispatch<AppDispatch>();
 
     React.useEffect(() => {

@@ -89,6 +89,7 @@ const HoverableProduct = React.memo((props: Props) => {
             </div>
 
             {product.images.length > 0 ? <img
+                alt="An image of a product"
                 src={appImage(product.images[0].name)} className="product-image" /> :
                 <div className="product-image" />}
         </div>
