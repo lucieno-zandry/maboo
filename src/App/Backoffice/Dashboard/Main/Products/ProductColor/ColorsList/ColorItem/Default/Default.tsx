@@ -28,7 +28,7 @@ const Default = React.memo((props: PartialsProps) => {
                     <Dropdown.Item
                         className="text-danger"
                         onClick={() => deleteProductColors.setCurrents([color])}>
-                        supprimer
+                        <i className="fa-light fa-trash"></i> Supprimer
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
