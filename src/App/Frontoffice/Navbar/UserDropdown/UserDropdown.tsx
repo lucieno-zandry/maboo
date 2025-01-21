@@ -15,7 +15,7 @@ const UserDropdown = React.memo(() => {
         if (user) {
             return <>
                 {user.image ?
-                    <img className="user-profile-image" src={appImage(user.image)} /> :
+                    <img className="user-profile-image" src={appImage(user.image)} alt=""/> :
                     <span className="user-profile">
                         {user.name.charAt(0)}
                     </span>} <SmallText maxLength={6} isExtendable={false}>

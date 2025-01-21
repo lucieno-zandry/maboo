@@ -1,0 +1,57 @@
+$spacing: 20px;
+
+.article {
+  padding: $spacing;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: $primary;
+    font-size: 2.5em;
+    margin-bottom: $spacing;
+  }
+
+  h2 {
+    color: darken($primary, 10%);
+    font-size: 2em;
+    margin-top: $spacing;
+    margin-bottom: $spacing / 2;
+  }
+
+  h3 {
+    color: darken($primary, 20%);
+    font-size: 1.5em;
+    margin-top: $spacing / 2;
+    margin-bottom: $spacing / 4;
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: $spacing / 2;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: $spacing / 2;
+    border-radius: 4px;
+
+    &.float-left {
+      float: left;
+      margin-right: $spacing;
+    }
+
+    &.float-right {
+      float: right;
+      margin-left: $spacing;
+    }
+  }
+
+  .section {
+    margin-bottom: $spacing * 2;
+  }
+
+  .subsection {
+    margin-bottom: $spacing;
+  }
+}

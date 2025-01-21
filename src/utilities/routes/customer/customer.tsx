@@ -19,6 +19,7 @@ import Guest from "../../minitiatures/Guest/Guest";
 import Auth from "../../minitiatures/Auth/Auth";
 import Authenticated from "../../minitiatures/Authenticated/Authenticated";
 import Cart from "../../../App/Frontoffice/Cart/Cart";
+import Articles from "../../../App/Frontoffice/Articles/Articles";
 
 export default function () {
     return <Routes>
@@ -27,6 +28,7 @@ export default function () {
             <Route element={<Category />} path='category/:id' />
             <Route element={<Product />} path='product/:slug' />
             <Route element={<Search />} path='search/:words' />
+            <Route element={<Articles />} path='articles' />
 
             <Route element={<Guest />}>
                 <Route element={<Auth />} path="auth">

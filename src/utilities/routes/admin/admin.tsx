@@ -23,6 +23,7 @@ import Unchecked from "../../../App/Backoffice/Dashboard/Main/Orders/Unchecked/U
 import Delivered from "../../../App/Backoffice/Dashboard/Main/Orders/Delivered/Delivered";
 import Confirmation from "../../minitiatures/Confirmation/Confirmation";
 import Validation from "../../minitiatures/Validation/Validation";
+import Articles from "../../../App/Backoffice/Dashboard/Main/Articles/Articles";
 
 export default function () {
     return <Routes>
@@ -54,6 +55,7 @@ export default function () {
                         <Route element={<Unchecked />} path="unchecked" />
                         <Route element={<Delivered />} path="delivered" />
                     </Route>
+                    <Route element={<Articles />} path="articles" />
                 </Route>
                 <Route element={<Auth />} path="auth">
                     <Route element={<Confirmation />} path="confirmation" />

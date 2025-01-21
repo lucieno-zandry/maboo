@@ -31,6 +31,7 @@
 @import "./utilities/minitiatures/Profile/Profile.scss";
 @import "./utilities/minitiatures/Profile/Overview/Overview.scss";
 @import "./utilities/minitiatures/Auth/Auth.scss";
+@import "./utilities/minitiatures/Article/Article.scss";
 
 // --------------------------------------------Components------------------------------------------
 
@@ -69,6 +70,7 @@
   @import "./App/Frontoffice/Orders/EmptyOrders/EmptyOrders.scss";
   @import "./App/Frontoffice/Product/RightSide/ProductVariants/ProductVariants.scss";
   @import "./App/Frontoffice/Search/Search.scss";
+  @import "./App/Frontoffice/Articles/Articles.scss";
 }
 
 // Admin
@@ -78,7 +80,6 @@
   @import "./App/Backoffice/Dashboard/Sidebar/Sidebar.scss";
   @import "./App/Backoffice/Dashboard/Navbar/UserDropdown/UserDropdown.scss";
   @import "./App/Backoffice/Dashboard/Main/User/User.scss";
-  @import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
   @import "./App/Backoffice/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss";
   @import "./App/Backoffice/Dashboard/Navbar/Search/Search.scss";
   @import "./App/Backoffice/Dashboard/Main/Orders/OrderItemGroup/OrderItemGroup.scss";
@@ -91,7 +92,6 @@
 // ---------------------------------------------- Backoffice ----------------------------------------------
 
 // Categories
-@import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
 @import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/SelectedCategory/SelectedCategory.scss";
 @import "./App/Backoffice/Dashboard/Main/Categories/Categories.scss";
 @import "./App/Backoffice/Dashboard/Main/Categories/DeleteCategory/DeleteCategory.scss";

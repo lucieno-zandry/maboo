@@ -20,6 +20,11 @@ const pages = [
         title: 'Produits',
         path: '/products',
         icon: 'fa-light fa-list-dropdown'
+    },
+    {
+        title: 'Articles',
+        path: '/articles',
+        icon: 'fa-light fa-newspaper'
     }
 ];
 

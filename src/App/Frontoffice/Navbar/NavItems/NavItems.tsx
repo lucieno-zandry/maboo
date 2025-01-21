@@ -36,6 +36,10 @@ const NavItems = React.memo(() => {
                         categories={hierarchy.children} />}
             </li>
         })}
+
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname === '/articles' && 'active'}`} to="/articles">Articles</Link>
+        </li>
     </ul>
 });
 export default NavItems;

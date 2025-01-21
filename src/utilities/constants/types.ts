@@ -141,3 +141,39 @@ export type Notification = {
 }
 
 export type UserType = 'customer' | 'admin' | 'seller' | 'professional';
+
+export interface Article {
+  id: number;
+  title: string;
+  author: string;
+  created_at: string;
+  updated_at: string;
+  sections: Section[];
+  images: Image[];
+}
+
+export interface Image {
+  id: number;
+  url: string;
+  caption: string;
+  order?: number;
+}
+
+export interface Paragraph {
+  id: number;
+  content: string;
+}
+
+export interface Subsection {
+  id: number;
+  title: string;
+  order?: number;
+  paragraphs: Paragraph[];
+}
+
+export interface Section {
+  id: number;
+  title: string;
+  order?: number;
+  subsections: Subsection[];
+}
