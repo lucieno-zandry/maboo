@@ -1,0 +1,17 @@
+.add-variant-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+
+    .add-variant-image{
+        height: 10rem;
+        width: 10rem;
+    }
+
+    .add-product-variant-action{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+}

@@ -1,0 +1,17 @@
+.order-container {
+    display: flex;
+    justify-content: space-between;
+
+    >div {
+        position: relative;
+    }
+
+    .order-section {
+        padding: 1rem 0;
+        border-bottom: 2px solid rgba($dark, .3);
+    }
+
+    .order-section-title {
+        font-size: 1.3rem;
+    }
+}

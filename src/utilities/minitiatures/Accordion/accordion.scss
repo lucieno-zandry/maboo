@@ -1,0 +1,25 @@
+.accordion-container {
+  .accordion-body {
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+  }
+
+  .accordion-icon {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .accordion-button {
+    width: 100%;
+  }
+
+  .accordion-state-checkbox:checked ~ label .accordion-icon {
+    transform: rotate(-180deg);
+  }
+
+  .accordion-state-checkbox:checked ~ .accordion-body {
+    height: 20px;
+    overflow: visible;
+  }
+}

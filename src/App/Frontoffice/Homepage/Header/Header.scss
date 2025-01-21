@@ -1,0 +1,33 @@
+.header-container {
+    height: calc(100vh - 6rem);
+    width: 100%;
+    margin-top: 6rem;
+    background-image: url(./App/Frontoffice/Homepage/Header/baby.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.header-gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, rgba($dark, .8), rgba($warning, .7));
+    display: flex;
+    align-items: center;
+
+    .header-content {
+        width: 50%;
+    }
+}
+
+.header-action{
+    display: flex;
+    gap: .5rem;
+    width: fit-content;
+
+    i{
+        align-self: center;
+        font-size: .8rem;
+    }
+}

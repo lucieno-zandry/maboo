@@ -1,0 +1,7 @@
+#search-bar{
+    border: none;
+
+    &:focus{
+        box-shadow: none;
+    }
+}

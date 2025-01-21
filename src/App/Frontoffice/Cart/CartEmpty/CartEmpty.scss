@@ -1,0 +1,15 @@
+.cart-empty-container {
+    height: calc(100vh - 8rem);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 256px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: center;
+    }
+}

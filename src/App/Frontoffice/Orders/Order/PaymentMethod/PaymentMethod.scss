@@ -1,0 +1,27 @@
+.payment-method-container {
+
+    .payment-method-form {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            width: 50px;
+        }
+
+        label {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: .5rem;
+            border-radius: $border-radius;
+            border: 1px solid rgba($dark, .2);
+            width: 30%;
+            transition: background-color .3s ease-in-out;
+            cursor: pointer;
+        }
+
+        label.active {
+            background-color: rgba($dark, .1);
+        }
+    }
+}

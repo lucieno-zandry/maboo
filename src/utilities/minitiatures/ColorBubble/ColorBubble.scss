@@ -1,0 +1,15 @@
+.color-bubble {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+
+    &.sm {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    &.lg {
+        height: 4rem;
+        width: 4rem;
+    }
+}

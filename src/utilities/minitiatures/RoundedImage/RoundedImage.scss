@@ -1,0 +1,12 @@
+.rounded-image {
+    width: 50px;
+    aspect-ratio: 1;
+    background-color: rgba($dark, .6);
+    border-radius: 50%;
+    
+}
+img.rounded-image{
+    padding: .1rem;
+    object-fit: cover;
+    object-position: center;
+}

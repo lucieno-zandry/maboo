@@ -1,0 +1,51 @@
+$fallback-font: 'Varela Round', 'Arial', 'sans-serif';
+$primary-font: 'Linotte';
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/linotteJC/Linotte Light.woff") format('woff');
+  font-weight: light;
+}
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/linotteJC/Linotte Bold.woff") format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/linotteJC/Linotte Regular.woff") format('woff');
+  font-weight: normal;
+}
+
+html {
+  font-size: 16px;
+  color: $dark;
+}
+
+body {
+  font-family: $primary-font, $fallback-font;
+  background-color: $light;
+  overflow-x: hidden;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.actions-dropdown {
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.nth-modal{
+  background-color: rgba($dark, .5);
+}
+
+.bold{
+  font-weight: bold;
+}

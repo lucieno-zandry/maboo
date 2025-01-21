@@ -1,0 +1,20 @@
+.cart-button {
+    span {
+        display: inline-block;
+        position: relative;
+    }
+
+    small {
+        display: block;
+        position: absolute;
+        top: -.4rem;
+        right: -.3rem;
+        font-size: .5rem;
+        z-index: 10;
+        background-color: $danger;
+        color: $light;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        padding: .1rem .3rem;
+    }
+}

@@ -1,0 +1,23 @@
+.category-select-container {
+    .category-select-label {
+        display: flex;
+        width: 80%;
+        justify-content: space-around;
+        align-items: center;
+        cursor: pointer;
+        border-radius: $border-radius;
+        transition: background-color .3s ease-in-out;
+        padding: .5rem 0;
+    }
+
+    li {
+        list-style: none;
+        margin: 1rem 0;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    input:checked + label{
+        background-color: rgba($success, .5);
+    }
+}
