@@ -10,9 +10,9 @@ import links from "../../helpers/links";
 import useAuth from "../../hooks/useAuth";
 
 export type Payload = {
+    [x: string]: number;
     product_id: number,
     quantity: number,
-    product_variant_id?: number,
 }
 
 type UseAddToCartProps = {

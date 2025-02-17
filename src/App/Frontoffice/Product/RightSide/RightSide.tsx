@@ -14,6 +14,7 @@ import {
 } from "../../../../utilities/api/customer/hooks";
 import ProductVariants from "./ProductVariants/ProductVariants";
 import { ProductVariant } from "../../../../utilities/constants/types";
+import ColorSelector from "./Colors/ColorSelector";
 
 const RightSide = React.memo(() => {
   const addToCart = useAddToCart();
@@ -34,17 +35,28 @@ const RightSide = React.memo(() => {
     count: 1,
     loading: false,
     variant: defaultVariant,
+    selectedColor: product.colors?.[0] || null, // Initialisation avec la première couleur
   });
-
   const handleCountChange = React.useCallback((count: number) => {
     setState((s) => ({ ...s, count }));
   }, []);
+
+
+  const handleColorChange = React.useCallback((color: any) => {
+    setState((s) => ({ ...s, selectedColor: color }));
+  }, []);
+
 
   const handleAddToCart = React.useCallback(() => {
     const payload = {
       product_id: product.id,
       quantity: state.count,
+      // color_id: state.selectedColor?.id // Ajout de la couleur au payload
     } as Payload;
+     
+    if (state.selectedColor) {
+      payload.color_id = state.selectedColor?.id ;
+    }
 
     if (state.variant) {
       payload.product_variant_id = state.variant.id;
@@ -56,7 +68,9 @@ const RightSide = React.memo(() => {
       onFinally: () => setState((s) => ({ ...s, loading: false })),
       product_slug: product.slug,
     });
-  }, [product.id, state.count, state.variant, product.slug]);
+
+    console.log('payload is: ', payload);
+  },[product.id, state.count, state.variant, state.selectedColor, product.slug]);
 
   const price = React.useMemo(() => {
     const others = state.variant?.price || product.sale_price;
@@ -89,6 +103,13 @@ const RightSide = React.memo(() => {
     [state]
   );
 
+
+  console.log("state is: ",state);
+  console.log("product is: ",product);
+
+  console.log("state variant: ",state.variant);
+  console.log("state color: ",state.selectedColor);
+
   return (
     <Fade className="right-side-container" show>
       <div className="product-hierarchy">
@@ -104,6 +125,11 @@ const RightSide = React.memo(() => {
       </div>
 
       <DoublePrice firstPrice={product.price} secondPrice={price} />
+      
+      <div>
+        <span>En stock: </span>
+        {state.variant?.inStock}
+      </div>
 
       <div className="d-flex gap-3">
         <CountButton
@@ -123,6 +149,17 @@ const RightSide = React.memo(() => {
           <i className="fa fa-cart-plus"></i> Ajouter au panier
         </Button>
       </div>
+
+
+       {/* Ajout du sélecteur de couleurs */}
+       {product.colors && product.colors.length > 0 && (
+        <ColorSelector
+          colors={product.colors}
+          selectedColor={state.selectedColor}
+          onChange={handleColorChange}
+        />
+      )}
+      
 
       <ProductVariants onChange={handleVariantChange} active={state.variant} />
 

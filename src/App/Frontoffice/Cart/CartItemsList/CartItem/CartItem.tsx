@@ -100,6 +100,10 @@ const CartItem = React.memo((props: Props) => {
         return appImage(cartItem.product.images[0]?.name)
     }, []);
 
+
+    // ADDING SELECTED COLOR
+    console.log("cartItem is: ",cartItem);
+
     return <div className="cart-item">
         <Checkbox
             label=''
