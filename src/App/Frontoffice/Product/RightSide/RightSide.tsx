@@ -51,11 +51,11 @@ const RightSide = React.memo(() => {
     const payload = {
       product_id: product.id,
       quantity: state.count,
-      // color_id: state.selectedColor?.id // Ajout de la couleur au payload
+      // product_color_id: state.selectedColor?.id // Ajout de la couleur au payload
     } as Payload;
      
     if (state.selectedColor) {
-      payload.color_id = state.selectedColor?.id ;
+      payload.product_color_id = state.selectedColor?.id ;
     }
 
     if (state.variant) {
