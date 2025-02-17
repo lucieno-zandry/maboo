@@ -38,6 +38,7 @@ class CartActions extends Actions
             $subtotal = $this->getRowSubtotal($item->product_id, [
                 'quantity' => $cartItem['quantity'],
                 'product_variant_id' => $item->product_variant_id,
+                'product_color_id' => $item->product_color_id,
             ]);
 
             $cartItem['subtotal'] = $subtotal;
@@ -62,6 +63,10 @@ class CartActions extends Actions
 
         if (isset($cartItem['product_variant_id'])) {
             $options['product_variant_id'] = $cartItem['product_variant_id'];
+        }
+
+        if (isset($cartItem['product_color_id'])) {
+            $options['product_color_id'] = $cartItem['product_color_id'];
         }
 
         $subtotal = $this->getRowSubtotal($cartItem['product_id'], $options);
