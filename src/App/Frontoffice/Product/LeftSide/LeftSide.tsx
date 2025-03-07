@@ -51,6 +51,8 @@ const LeftSide = React.memo(() => {
 
             </div>
         </>}
+
+        
     </Fade>
 })
 

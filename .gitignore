@@ -9,13 +9,11 @@ lerna-debug.log*
 logs.txt
 .env.*
 node_modules
-.git
 
 webhook.bash
 dist
 dist-ssr
 *.local
-src/assets/fontawesome
 
 # Editor directories and files
 .vscode/*

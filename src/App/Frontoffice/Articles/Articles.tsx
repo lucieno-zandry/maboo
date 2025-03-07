@@ -62,7 +62,7 @@ const articleDatas = [
     images: [
         {
             id: 1,
-            url: "https://example.com/images/madagascar.jpg",
+            url: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png",
             caption: "Beautiful landscape of Madagascar",
             order: 1
         }
@@ -88,7 +88,7 @@ const articleDatas = [
                     paragraphs: [
                         {
                             id: 1,
-                            content: "Madagascar is an island nation located off the southeastern coast of Africa. It is known for its unique wildlife and biodiversity."
+                            content: "A recent Scout study carried out by Mediahub found that young people love to re-watch action movies from the past. With that in mind, we’re taking a look at some of the best movies from the decade that put the genre on the map: the 1980s. The following are therefore films that hit big at the time and continue to influence writers, actors, and directors to this day."
                         }
                     ]
                 }
@@ -101,23 +101,23 @@ const articleDatas = [
             subsections: [
                 {
                     id: 2,
-                    title: "Lemurs",
+                    title: "RAIDERS OF THE LOST ARK (1981)",
                     order: 1,
                     paragraphs: [
                         {
                             id: 2,
-                            content: "Madagascar is home to many species of lemurs, which are found nowhere else in the world."
+                            content: "Combing their love of the 1930s serials with an affection for James Bond, George Lucas and Steven Spielberg came up with archeologist, treasure hunter, and soldier of fortune Indiana Jones. Played with effortless charm by Harrison Ford, his first adventure found “Indy” competing with the Nazis to find the fabled Ark of the Covenant. The film combed action, adventure, romance, drama, and a dash of horror in irresistible fashion. So much so that Indy returned in three more flicks, with another apparently on its way. But there were far more pretenders to his fedora, with the intervening years filled with rip-offs — some good (Romancing the Stone, National Treasure, Tomb Raider, The Mummy) and some bad (High Road to China, Sahara, Sky Pirates, Jungle Raiders)."
                         }
                     ]
                 },
                 {
                     id: 3,
-                    title: "Chameleons",
+                    title: "MAD MAX 2 (1981)",
                     order: 2,
                     paragraphs: [
                         {
                             id: 3,
-                            content: "The island is also famous for its diverse species of chameleons."
+                            content: "If the original Mad Max was a film about the title character losing his humanity, this sequel — retitled The Road Warrior in America — saw him regain it, with Max helping to protect a peaceful community of settlers against a gang of violent marauders. But the power of Mad Max 2 isn’t in its plot. Instead, it comes from the film’s look — a post-apocalyptic punk aesthetic that has influenced everything from video games (Fallout) and festivals (Burning Man) to comic book characters (Tank Girl) and music videos (Phil Collins’ “Don’t Lose My Number“). Then there’s the action itself, with much of the movie an adrenalin-fuelled chase sequence that has been aped and copied ever since. But the only film that has come close to matching it for insane stunts and onscreen carnage is the belated sequel, Mad Max: Fury Road."
                         }
                     ]
                 }
@@ -127,7 +127,7 @@ const articleDatas = [
     images: [
         {
             id: 1,
-            url: "https://example.com/images/madagascar.jpg",
+            url: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png",
             caption: "Beautiful landscape of Madagascar",
             order: 1
         }

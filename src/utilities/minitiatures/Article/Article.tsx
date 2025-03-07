@@ -1,16 +1,12 @@
-// import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import { FC } from 'react';
 import Section, { SectionProps } from './Section/Section';
 import { ImageProps } from './Image/Image';
-import React from 'react';
 import { getCategoryProducts } from '../../api/actions';
 import Fade from '../Fade/Fade';
 import HoverableProduct, { HoverableProductPlaceholder } from '../HoverableProduct/HoverableProduct';
 import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
-
-
-// import React, { useState } from 'react';
-// import { Share, Heart } from 'lucide-react';
-// import './ProductPage.scss';
 
 
 interface ArticleProps {
@@ -25,11 +21,16 @@ interface ArticleProps {
 }
 
 const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_id, sections, images }) => {
-
-
   // INTEGRATION CATEGORIE
   const id = category_id;
      
+  // Récupérer l'ID de l'article depuis l'URL
+  const { articleId } = useParams();
+
+  // Créer une référence pour l'élément article
+  const articleRef = useRef<HTMLDivElement>(null);
+
+
   // État local pour les produits et le chargement
   const [state, setState] = React.useState({
       products: [],
@@ -65,24 +66,44 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
     loadRelatedProducts();
   }, [category_id]);
 
+  // Effet pour faire défiler jusqu'à l'article si l'ID correspond
+  useEffect(() => {
+    // Vérifier si l'ID de l'article correspond à celui de l'URL
+    if (articleId && id.toString() === articleId) {
+      // Faire défiler jusqu'à cet article avec une animation fluide
+      articleRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [articleId, id]);
+
   // Si erreur, on ne montre rien
   if (state.hasError) {
       return null;
   }
 
   return (
-    <div className='article'>
+    <div className='article' ref={articleRef}>
       <h1>{title}</h1>
       <p>By {author}</p>
       <p>Created at: {new Date(created_at).toLocaleDateString()}</p>
-      {sections.map((section) => (
-        <Section key={section.id} {...section} />
-      ))}
-      {images.map((image) => (
-        <img key={image.id} src={image.url} alt={image.caption} />
-      ))}
 
-
+      <div className="content-wrapper">
+        {/* Première section */}
+        {sections.length > 0 && (
+          <Section key={sections[0].id} {...sections[0]} />
+        )}
+        {/* Images */}
+        <div className="images-container">
+          {images.map((image) => (
+            <img key={image.id} src={image.url} alt="" />
+          ))}
+        </div>
+        {/* Sections restantes */}
+        <div className="remaining-sections">
+          {sections.slice(1).map((section) => (
+            <Section key={section.id} {...section} />
+          ))}
+        </div>
+      </div>
 
       <div className="section-information">
         <h5 className="display-6">
@@ -95,12 +116,12 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
       </div>
 
 
-        {/* test */}
+        {/* Produits similaire */}
         <div className="related-products-container">
             <h3>Produits similaires</h3>
             
             {/* Affichage des produits */}
-            <Fade show={Boolean(state.products.length > 0)} className="d-flex flex-nowrap gap-4">
+            <Fade show={Boolean(state.products.length > 0)} className="d-flex flex-nowrap spacing gap-4">
                 {state.products.map((product, key) => (
                     <HoverableProduct 
                         product={product} 
@@ -111,7 +132,7 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
             </Fade>
 
             {/* État de chargement */}
-            <Fade show={state.isLoading} className="d-flex flex-nowrap gap-4">
+            <Fade show={state.isLoading} className="d-flex flex-nowrap spacing gap-4">
                 {[...Array(5)].map((_, key) => (
                     <HoverableProductPlaceholder
                         key={key}
@@ -125,8 +146,6 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
                 <ProductsEmpty />
             </Fade>
         </div>
-
-
 
 
 

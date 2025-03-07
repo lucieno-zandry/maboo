@@ -1,0 +1,233 @@
+.related-articles {
+    max-width: 1200px;
+    // margin: 0 auto;
+    // padding: 20px;
+  
+    h2 {
+      // text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .articles-container-connexe {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+  
+    .article-card {
+      flex: 0 0 calc(50% - 10px);
+      margin: 0 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+      }
+  
+      img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+  
+      .article-info {
+        padding: 15px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+  
+        h3 {
+          margin: 0;
+          font-size: 18px;
+          line-height: 1.2;
+        }
+  
+        p {
+          margin: 10px 0 0;
+          font-size: 14px;
+          line-height: 1.4;
+          color: #666;
+        }
+      }
+    }
+  
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+        transition: background-color 0.3s ease;
+    
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.9);
+        }
+    
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+    
+        &.left {
+          left: 10px;
+        }
+    
+        &.right {
+          right: 10px;
+        }
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .related-articles {
+        .articles-container-connexe {
+          flex-direction: column;
+        }
+    
+        .article-card {
+          flex: 0 0 100%;
+          margin: 10px 0;
+        }
+    
+        .arrow {
+          display: none;
+        }
+      }
+    }
+    
+
+// .related-articles {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 20px;
+
+//   h2 {
+//     text-align: center;
+//     margin-bottom: 20px;
+//   }
+
+//   .carousel-container {
+//     position: relative;
+//     display: flex;
+//     align-items: center;
+//   }
+
+//   .articles-container-connexe {
+//     display: flex;
+//     gap: 20px;
+//     overflow: hidden;
+//   }
+
+//   .article-card {
+//     flex: 0 0 calc(50% - 10px);
+//     background-color: #fff;
+//     border: 1px solid #e0e0e0;
+//     border-radius: 8px;
+//     overflow: hidden;
+//     cursor: pointer;
+//     transition: box-shadow 0.3s ease;
+//     display: flex;
+//     flex-direction: column;
+
+//     &:hover {
+//       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     }
+
+//     .image-container-connexe {
+//       width: 100%;
+//       padding-top: 56.25%; // 16:9 aspect ratio
+//       position: relative;
+//       overflow: hidden;
+
+//       img {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//       }
+//     }
+
+//     .article-info {
+//       padding: 15px;
+//       flex-grow: 1;
+//   display: flex;
+//   flex-direction: column;
+
+//       h3 {
+//         margin: 0 0 10px;
+//         font-size: 18px;
+//         line-height: 1.3;
+//       }
+
+//       p {
+//         margin: 0;
+//         font-size: 14px;
+//         line-height: 1.5;
+//         color: #666;
+//       }
+//     }
+//   }
+
+//   .arrow {
+//     background: rgba(255, 255, 255, 0.7);
+//     border: none;
+//     border-radius: 50%;
+//     color: #333;
+//     cursor: pointer;
+//     font-size: 24px;
+//     height: 40px;
+//     width: 40px;
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     z-index: 2;
+//     transition: background-color 0.3s ease;
+
+//     &:hover {
+//       background-color: rgba(255, 255, 255, 0.9);
+//     }
+
+//     &:disabled {
+//       opacity: 0.5;
+//       cursor: not-allowed;
+//     }
+
+//     &.left {
+//       left: -20px;
+//     }
+
+//     &.right {
+//       right: -20px;
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .related-articles {
+//     .articles-container {
+//       flex-direction: column;
+//     }
+
+//     .article-card {
+//       flex: 0 0 100%;
+//     }
+
+//     .arrow {
+//       display: none;
+//     }
+//   }
+// }

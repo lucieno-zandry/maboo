@@ -40,6 +40,10 @@ const NavItems = React.memo(() => {
         <li className="nav-item">
             <Link className={`nav-link ${location.pathname === '/articles' && 'active'}`} to="/articles">Articles</Link>
         </li>
+
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname === '/professionals' && 'active'}`} to="/professionals">Professionnels</Link>
+        </li>
     </ul>
 });
 export default NavItems;

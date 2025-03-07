@@ -103,6 +103,20 @@ const CartItem = React.memo((props: Props) => {
 
     // ADDING SELECTED COLOR
     console.log("cartItem is: ",cartItem);
+    // const selected_color_id = cartItem.product_color_id;
+    // const all_color = cartItem.product.colors
+
+    // console.log('all color is: ', all_color);
+    // console.log(typeof(all_color)); 
+    let selected_color = "couleur unique";
+    cartItem.product.colors.map(({id, name}: any) => {
+        // console.log('id is: ',id,'name: ',name);
+        if(id == cartItem.product_color_id){
+            selected_color = name
+        }
+     });
+    console.log('selected_color is:',selected_color);
+    
 
     return <div className="cart-item">
         <Checkbox
@@ -124,6 +138,7 @@ const CartItem = React.memo((props: Props) => {
                     {cartItem.product.description}
                 </SmallText>
             </p>
+            <span>Couleur: {selected_color}</span>
             {cartItem.product_variant &&
                 <div>Variant: <span className="bold">{cartItem.product_variant.name}</span></div>}
         </div>
