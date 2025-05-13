@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
@@ -168,6 +169,14 @@ Route::prefix('auth')
         Route::post('/verify-email-conformity', 'verifyEmailConformity');
         Route::post('/reset-password', 'resetPassword');
     });
+
+Route::prefix('article')->controller(ArticleController::class)->group(function () {
+    Route::get('all', 'index');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', 'store');
+    });
+});
 
 Route::prefix('customer')
     ->group(function () {

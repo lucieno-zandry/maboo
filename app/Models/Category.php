@@ -26,4 +26,9 @@ class Category extends Model
 
         return Product::whereIn('category_id', $relatedCategories);
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }
