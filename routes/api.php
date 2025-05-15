@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Article\ImageController;
+use App\Http\Controllers\Article\ParagraphController;
+use App\Http\Controllers\Article\SectionController;
+use App\Http\Controllers\Article\SubsectionController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -170,11 +174,42 @@ Route::prefix('auth')
         Route::post('/reset-password', 'resetPassword');
     });
 
-Route::prefix('article')->controller(ArticleController::class)->group(function () {
-    Route::get('all', 'index');
+Route::prefix('article')->group(function () {
+    Route::controller(ArticleController::class)->group(function () {
+        Route::get('all', 'index');
 
-    Route::middleware('auth:sanctum')->group(function () {
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('create', 'store');
+            Route::put('update/{article}', 'update');
+            Route::delete('delete', 'destroy');
+        });
+    });
+
+    Route::prefix('section')->controller(SectionController::class)->group(function () {
         Route::post('create', 'store');
+        Route::put('update/{section}', 'update');
+        Route::get('all', 'index');
+        Route::delete('delete', 'destroy');
+    });
+
+    Route::prefix('subsection')->controller(SubsectionController::class)->group(function () {
+        Route::post('create', 'store');
+        Route::put('update/{subsection}', 'update');
+        Route::get('all', 'index');
+        Route::delete('delete', 'destroy');
+    });
+
+    Route::prefix('paragraph')->controller(ParagraphController::class)->group(function () {
+        Route::post('create', 'store');
+        Route::put('update/{paragraph}', 'update');
+        Route::get('all', 'index');
+        Route::delete('delete', 'destroy');
+    });
+
+    Route::prefix('image')->controller(ImageController::class)->group(function () {
+        Route::post('create', 'store');
+        Route::get('all', 'index');
+        Route::delete('delete', 'destroy');
     });
 });
 

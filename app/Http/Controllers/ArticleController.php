@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CategoryActions;
+use App\Helpers\Helpers;
+use App\Http\Requests\ArticleDestroyRequest;
 use App\Http\Requests\ArticleStoreRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Paragraph;
 use App\Models\Product;
 use App\Models\Section;
@@ -103,8 +107,41 @@ class ArticleController extends Controller
             }
         }
 
+        if ($request->has('images')) {
+            $images = new Collection();
+
+            foreach ($data['images'] as $image_data) {
+                $image_data['url'] = Helpers::store_uploaded_file($image_data['url'], ['folder' => 'articles']);
+                $image_data['article_id'] = $article->id;
+                $image = Image::create($image_data);
+                $images->add($image);
+            }
+
+            $article->setAttribute('images', $images);
+        }
+
         return [
             'article' => $article
+        ];
+    }
+
+    public function update(ArticleUpdateRequest $request, Article $article)
+    {
+        $data = $request->validated();
+        $article->update(attributes: $data);
+
+        return [
+            'article' => $article
+        ];
+    }
+
+    public function destroy(ArticleDestroyRequest $request)
+    {
+        $ids = explode(',', $request->articles_ids);
+        $deleted = Article::whereIn('id', $ids)->delete();
+
+        return [
+            'deleted' => $deleted
         ];
     }
 }

@@ -49,8 +49,8 @@ return new class extends Migration {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table->string('caption');
-            $table->integer('order');
+            $table->string('caption')->nullable();
+            $table->integer('order')->nullable();
             $table->foreignId('article_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

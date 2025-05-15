@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -45,5 +46,14 @@ class Helpers
     public static function debugVar($variable)
     {
         throw new HttpException(300, json_encode(['variable' => $variable]));
+    }
+
+    public static function store_uploaded_file(UploadedFile $file, array $options = [])
+    {
+        if (empty($options['folder']))
+            $options['folder'] = 'users';
+
+        $path = $file->store($options['folder'], $options);
+        return $path;
     }
 }
