@@ -15,7 +15,7 @@ type Props = {
     maxAllowedSize?: number
 }
 
-const DEFAULTMAXALLOWEDSIZE = 5000000;
+const DEFAULTMAXALLOWEDSIZE = 10_000_000;
 
 const authorizedFileType = 'image';
 
