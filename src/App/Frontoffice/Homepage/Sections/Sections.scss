@@ -1,10 +1,31 @@
 .sections-container {
     >section {
         margin-top: 1.5rem;
+
+        @media (max-width: 768px) {
+            margin-top: 1rem;
+            padding: 0 1rem;
+        }
     }
 }
 
 .section-information {
     text-align: center;
     margin-bottom: 1.5rem;
+
+    h5 {
+        @media (max-width: 768px) {
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 1.5rem;
+        }
+    }
+
+    p {
+        @media (max-width: 768px) {
+            font-size: 0.9rem;
+        }
+    }
 }

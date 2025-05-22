@@ -15,7 +15,7 @@ const Offer2 = React.memo(() => {
         className='subscription-item'>
         <div>
             <div className='subscription-name'>Boo Prestige</div>
-            <div className='subscription-price'>200.000 Ariary</div>
+            <div className='subscription-price'>500.000 Ariary</div>
         </div>
         <div className="subscription-pack-items">
             <div className='subscription-pack-item'>
@@ -64,7 +64,7 @@ const Offer2 = React.memo(() => {
         <Link
             to={auth ? links.settings : links.loginPage}
             type='button'
-            className='btn btn-outline-dark'><i className="fa-solid fa-crown"></i> Je m'abonne
+            className='btn btn-outline-dark subscription-button'><i className="fa-solid fa-crown"></i> Je m'abonne
         </Link>
     </motion.div>
 });

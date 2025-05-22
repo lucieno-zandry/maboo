@@ -23,7 +23,7 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_id, sections, images }) => {
   // INTEGRATION CATEGORIE
   const id = category_id;
-     
+
   // Récupérer l'ID de l'article depuis l'URL
   const { articleId } = useParams();
 
@@ -82,9 +82,13 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
 
   return (
     <div className='article' ref={articleRef}>
-      <h1>{title}</h1>
-      <p>By {author}</p>
-      <p>Created at: {new Date(created_at).toLocaleDateString()}</p>
+      <div className="article-header">
+        <h1>{title}</h1>
+        <div className="article-meta">
+          <p>Par {author}</p>
+          <p>Publié le: {new Date(created_at).toLocaleDateString()}</p>
+        </div>
+      </div>
 
       <div className="content-wrapper">
         {/* Première section */}
@@ -94,7 +98,7 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
         {/* Images */}
         <div className="images-container">
           {images.map((image) => (
-            <img key={image.id} src={image.url} alt="" />
+            <img key={image.id} src={image.url} alt={image.caption || ""} />
           ))}
         </div>
         {/* Sections restantes */}
@@ -107,45 +111,44 @@ const Article: React.FC<ArticleProps> = ({ title, author, created_at, category_i
 
       <div className="section-information">
         <h5 className="display-6">
-          Nos produits connexe à cette article 
+          Nos produits connexes à ce blog
         </h5>
         <p className="section-description">
           Avec un soin méticuleux, nous avons sélectionné spécialement pour vous ces produits exceptionnels.
-          Chaque article a été choisi avec une attention particulière pour répondre à vos besoins et à vos goûts uniques
+          Chaque article a été choisi avec une attention particulière pour répondre à vos besoins et à vos goûts uniques.
         </p>
       </div>
 
 
-        {/* Produits similaire */}
-        <div className="related-products-container">
-            <h3>Produits similaires</h3>
-            
-            {/* Affichage des produits */}
-            <Fade show={Boolean(state.products.length > 0)} className="d-flex flex-nowrap spacing gap-4">
-                {state.products.map((product, key) => (
-                    <HoverableProduct 
-                        product={product} 
-                        key={key}
-                        className="flex-1" // Pour répartir également l'espace
-                    />
-                ))}
-            </Fade>
+      {/* Produits similaires */}
+      <div className="related-products-container">
+        <h3>Produits similaires</h3>
 
-            {/* État de chargement */}
-            <Fade show={state.isLoading} className="d-flex flex-nowrap spacing gap-4">
-                {[...Array(5)].map((_, key) => (
-                    <HoverableProductPlaceholder
-                        key={key}
-                        index={key}
-                    />
-                ))}
-            </Fade>
+        {/* Affichage des produits */}
+        <Fade show={Boolean(state.products.length > 0)} className="spacing">
+          {state.products.map((product, key) => (
+            <HoverableProduct
+              product={product}
+              key={key}
+            />
+          ))}
+        </Fade>
 
-            {/* Message si aucun produit */}
-            <Fade show={!state.isLoading && state.products.length === 0}>
-                <ProductsEmpty />
-            </Fade>
-        </div>
+        {/* État de chargement */}
+        <Fade show={state.isLoading} className="spacing">
+          {[...Array(5)].map((_, key) => (
+            <HoverableProductPlaceholder
+              key={key}
+              index={key}
+            />
+          ))}
+        </Fade>
+
+        {/* Message si aucun produit */}
+        <Fade show={!state.isLoading && state.products.length === 0}>
+          <ProductsEmpty />
+        </Fade>
+      </div>
 
 
 

@@ -2,14 +2,39 @@ footer {
     display: flex;
     justify-content: space-between;
     padding: 1.5rem 0;
+    flex-wrap: wrap;
+
+    @media (max-width: 992px) {
+        gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2.5rem;
+    }
 
     .logo-container {
         max-width: 25%;
+
+        @media (max-width: 992px) {
+            max-width: 40%;
+        }
+
+        @media (max-width: 768px) {
+            max-width: 80%;
+            order: -1;
+        }
     }
 
     h6 {
         font-size: 1.2rem;
         font-weight: bold;
+
+        @media (max-width: 768px) {
+            font-size: 1.3rem;
+        }
     }
 
     ul {
@@ -18,14 +43,32 @@ footer {
         display: flex;
         flex-direction: column;
         gap: .5rem;
+
+        @media (max-width: 768px) {
+            align-items: center;
+        }
     }
 
     li {
         list-style: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: $primary;
+
+            a {
+                color: $primary;
+            }
+        }
     }
 
     li a {
         text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: $primary;
+        }
     }
 
     li,
@@ -37,11 +80,16 @@ footer {
         object-fit: contain;
         object-position: center;
         aspect-ratio: 2;
+        max-width: 100%;
     }
 
     p {
         font-size: 1.5rem;
         margin-top: 1rem;
+
+        @media (max-width: 768px) {
+            font-size: 1.2rem;
+        }
     }
 
     .brand-logo {
@@ -50,5 +98,25 @@ footer {
         height: 1.5rem;
         object-fit: cover;
         object-position: center;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+    }
+
+    // Styles spécifiques pour les liens de contact
+    .contact-links {
+        li {
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 768px) {
+                justify-content: center;
+            }
+
+            i {
+                margin-right: 0.5rem;
+                width: 20px;
+                text-align: center;
+            }
+        }
     }
 }
