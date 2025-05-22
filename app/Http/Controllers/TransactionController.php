@@ -47,6 +47,12 @@ class TransactionController extends Controller
                 $response['payment_url'] = $details->payment_url;
                 break;
 
+            case Transaction::METHOD_AIRTELMONEY:
+                $transaction['status'] = Transaction::STATUS_SUCCESS;
+                event(new OrderTransactionEvent($order, Transaction::STATUS_SUCCESS));
+                $response['payment_url'] = env('FRONTEND_URL') . "/orders/list?active=PROCESSING";
+                break;
+
             default:
                 break;
         }

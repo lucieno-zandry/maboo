@@ -14,7 +14,9 @@ class Transaction extends Model
     const STATUS_SUCCESS = 'SUCCESS';
     const STATUS_FAILED = 'FAILED';
     const STATUS_CANCELLED = 'CANCELLED';
+    const STATUS_PENDING = 'PENDING';
     const METHOD_ORANGEMONEY = 'ORANGEMONEY';
+    const METHOD_AIRTELMONEY = 'AIRTELMONEY';
 
     protected $fillable = [
         'description',
