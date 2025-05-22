@@ -15,17 +15,17 @@ import {
 import ProductVariants from "./ProductVariants/ProductVariants";
 import { ProductVariant } from "../../../../utilities/constants/types";
 import ColorSelector from "./Colors/ColorSelector";
-import RelatedArticles from "./RelatedArticles/RelatedArticles";
-// import RelatedProducts from "./RelatedArticles/RelatedProducts";
+// import RelatedArticles from "./RelatedArticles/RelatedArticles";
 
+// import RelatedProducts from "./RelatedArticles/RelatedProducts";
 // import RelatedProducts, { Product } from './RelatedArticles/RelatedProducts';
 
-const articleData = [
-  { id: 1, name: 'BEABA', description: 'Sac à langer à dos Wellington Gris Foncé', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
-  { id: 2, name: 'CHILDHOME', description: 'Sac à dos Family Club Signature Vert', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
-  { id: 3, name: 'TINÉO', description: 'Sac à dos à langer gris', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
-  { id: 4, name: 'TINÉO', description: 'Sac à dos à langer noir', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
-];
+// const articleData = [
+//   { id: 1, name: 'BEABA', description: 'Sac à langer à dos Wellington Gris Foncé', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+//   { id: 2, name: 'CHILDHOME', description: 'Sac à dos Family Club Signature Vert', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+//   { id: 3, name: 'TINÉO', description: 'Sac à dos à langer gris', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+//   { id: 4, name: 'TINÉO', description: 'Sac à dos à langer noir', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+// ];
 
 
 const RightSide = React.memo(() => {
@@ -116,11 +116,11 @@ const RightSide = React.memo(() => {
   );
 
 
-  console.log("state is: ",state);
-  console.log("product is: ",product);
+  // console.log("state is: ",state);
+  // console.log("product is: ",product);
 
-  console.log("state variant: ",state.variant);
-  console.log("state color: ",state.selectedColor);
+  // console.log("state variant: ",state.variant);
+  // console.log("state color: ",state.selectedColor);
 
   return (
     <Fade className="right-side-container" show>
@@ -180,11 +180,7 @@ const RightSide = React.memo(() => {
         <ProductMerchant merchant={product.merchant} />
       </div>
 
-      {/* <div className="max-w-7xl mx-auto px-4">
-        <RelatedArticles/>
-      </div> */}
-
-      <RelatedArticles articles={articleData} />
+      {/*       <RelatedArticles articles={articleData} />      */}
 
 
       {/* <RelatedProducts products={articlesDatas} /> */}
