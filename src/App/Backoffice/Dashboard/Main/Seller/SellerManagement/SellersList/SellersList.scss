@@ -1,0 +1,109 @@
+// Style pour la liste des vendeurs
+.sellers-list {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+
+  .sellers-list-header {
+    display: grid;
+    grid-template-columns: 50px 60px 2fr 2fr 1fr 1fr 2fr;
+    padding: 12px 15px;
+    font-weight: bold;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
+
+    div {
+      padding: 0 10px;
+    }
+  }
+  
+  // Nouveau style pour les actions groupées
+  .sellers-bulk-actions {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: flex-end;
+    
+    button {
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      
+      &.btn-danger {
+        background-color: #dc3545;
+        color: white;
+        
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+  }
+
+  .sellers-items {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  .seller-row {
+    display: grid;
+    grid-template-columns: 50px 60px 2fr 2fr 1fr 1fr 2fr;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    div {
+      padding: 0 10px;
+    }
+
+    .seller-status {
+      .status-validated {
+        display: inline-block;
+        padding: 4px 8px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 4px;
+        font-size: 0.85rem;
+      }
+
+      .status-pending {
+        display: inline-block;
+        padding: 4px 8px;
+        background-color: #ffc107;
+        color: #212529;
+        border-radius: 4px;
+        font-size: 0.85rem;
+      }
+    }
+
+    .seller-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-start;
+
+      button {
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.edit-seller-form {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+
+    h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+
+            &.error {
+                border-color: #ff3333;
+            }
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel-button {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            color: #333;
+
+            &:hover {
+                background-color: #e0e0e0;
+            }
+        }
+    }
+}

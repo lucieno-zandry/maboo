@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { professionalData } from '../Professionals';
 import Fade from '../../../../utilities/minitiatures/Fade/Fade';
+import './Professional.scss';
 
 /**
  * Composant d'affichage détaillé d'un professionnel
@@ -10,6 +11,9 @@ import Fade from '../../../../utilities/minitiatures/Fade/Fade';
 const Professional = React.memo(() => {
     // Récupération de l'ID du professionnel à partir de l'URL
     const { professionalId } = useParams<{ professionalId: string }>();
+    
+    // Simulation du statut d'abonnement (à remplacer par une vérification réelle plus tard)
+    const [isSubscribed, setIsSubscribed] = React.useState(false);
     
     // État local pour gérer les données et le chargement
     const [state, setState] = React.useState({
@@ -165,61 +169,95 @@ const Professional = React.memo(() => {
                                 </div>
                             </div>
                             
-                            {/* Section des services */}
-                            <div className="row mb-4">
-                                <div className="col-md-6">
-                                    <div className="card h-100">
-                                        <div className="card-header">
-                                            <h4>Services</h4>
+                            {/* Contenu réservé aux abonnés */}
+                            {isSubscribed ? (
+                                <>
+                                    {/* Section des services */}
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <div className="card h-100">
+                                                <div className="card-header">
+                                                    <h4>Services</h4>
+                                                </div>
+                                                <div className="card-body">
+                                                    <ul className="list-group list-group-flush">
+                                                        {state.professional.services.map((service, index) => (
+                                                            <li key={index} className="list-group-item">
+                                                                <i className="fa fa-check-circle text-success me-2"></i>
+                                                                {service}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="card-body">
-                                            <ul className="list-group list-group-flush">
-                                                {state.professional.services.map((service, index) => (
-                                                    <li key={index} className="list-group-item">
-                                                        <i className="fa fa-check-circle text-success me-2"></i>
-                                                        {service}
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                        
+                                        {/* Section de disponibilité */}
+                                        <div className="col-md-6">
+                                            <div className="card h-100">
+                                                <div className="card-header">
+                                                    <h4>Disponibilité</h4>
+                                                </div>
+                                                <div className="card-body">
+                                                    <table className="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Jour</th>
+                                                                <th>Horaires</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {state.professional.availability.map((slot, index) => (
+                                                                <tr key={index}>
+                                                                    <td>{slot.day}</td>
+                                                                    <td>{slot.hours}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="row mb-4">
+                                    <div className="col-12">
+                                        <div className="card premium-content-card">
+                                            <div className="card-body text-center py-5">
+                                                <h3 className="mb-4">Accédez à toutes les informations de ce professionnel</h3>
+                                                <p className="mb-4">Pour voir les services proposés, la disponibilité et plus d'informations sur ce professionnel, abonnez-vous à notre service premium.</p>
+                                                <button 
+                                                    className="btn btn-primary btn-lg"
+                                                    onClick={() => setIsSubscribed(true)}
+                                                >
+                                                    S'abonner maintenant
+                                                </button>
+                                                <p className="mt-3 text-muted small">
+                                                    <i className="fa fa-info-circle me-1"></i>
+                                                    Ce bouton simule l'abonnement pour la démonstration
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                {/* Section de disponibilité */}
-                                <div className="col-md-6">
-                                    <div className="card h-100">
-                                        <div className="card-header">
-                                            <h4>Disponibilité</h4>
-                                        </div>
-                                        <div className="card-body">
-                                            <table className="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Jour</th>
-                                                        <th>Horaires</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {state.professional.availability.map((slot, index) => (
-                                                        <tr key={index}>
-                                                            <td>{slot.day}</td>
-                                                            <td>{slot.hours}</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            )}
                             
-                            {/* Bouton de retour */}
+                            {/* Bouton de retour et toggle abonnement (pour démo) */}
                             <div className="row mb-4">
-                                <div className="col-12">
+                                <div className="col-12 d-flex justify-content-between">
                                     <Link to="/professionals" className="btn btn-primary">
                                         <i className="fa fa-arrow-left me-2"></i>
                                         Retour à la liste des professionnels
                                     </Link>
+                                    
+                                    {/* Bouton pour basculer l'état d'abonnement (pour démo) */}
+                                    <button 
+                                        className={`btn ${isSubscribed ? 'btn-outline-danger' : 'btn-outline-success'}`}
+                                        onClick={() => setIsSubscribed(!isSubscribed)}
+                                    >
+                                        {isSubscribed ? 'Simuler désinscription' : 'Simuler abonnement'}
+                                    </button>
                                 </div>
                             </div>
                         </>

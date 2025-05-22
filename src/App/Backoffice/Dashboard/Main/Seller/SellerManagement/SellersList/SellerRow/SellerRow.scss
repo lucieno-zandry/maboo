@@ -1,0 +1,101 @@
+// Style pour la ligne d'un vendeur
+.seller-row {
+  div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .seller-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .checkbox {
+      margin: 0;
+      display: block !important; // Force l'affichage
+      
+      input[type="checkbox"] {
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        width: 16px !important;
+        height: 16px !important;
+      }
+      
+      label {
+        // Pour cacher le texte vide tout en gardant le checkbox accessible
+        font-size: 0;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .seller-actions {
+    display: flex;
+    gap: 10px;
+    
+    button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+      
+      &.btn-secondary {
+        background-color: #ffc107;
+        color: #212529;
+        
+        &:hover:not(:disabled) {
+          background-color: #e0a800;
+        }
+      }
+      
+      &.btn-danger {
+        background-color: #dc3545;
+        color: white;
+        
+        &:hover:not(:disabled) {
+          background-color: #c82333;
+        }
+        
+        &.loading {
+          background-color: #e0a0a8;
+          position: relative;
+          padding-right: 30px;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            margin-top: -6px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spinner 0.8s linear infinite;
+          }
+        }
+        
+        &.error {
+          background-color: #721c24;
+          box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.5);
+        }
+      }
+    }
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
