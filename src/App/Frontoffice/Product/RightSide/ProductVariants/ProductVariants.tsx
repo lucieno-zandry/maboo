@@ -30,7 +30,7 @@ const ProductVariants = React.memo((props: Props) => {
         variant.inStock > 0 && onChange(variant);
     }, [onChange]);
 
-    const handleClick = React.useCallback((variant_id: number, imageUrl?: string) => {
+    const handleClick = React.useCallback((variant_id: number, imageUrl?: string | undefined) => {
         (active?.id === variant_id && imageUrl) && setPreview(imageUrl);
     }, [active]);
 

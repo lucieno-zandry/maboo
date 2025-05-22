@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-    image?: string,
+    image?: string | null,
 }
 
 const RoundedImage = React.memo((props: Props) => {
@@ -10,7 +10,8 @@ const RoundedImage = React.memo((props: Props) => {
     if (image) {
         return <img
             className="rounded-image"
-            src={image} />
+            src={image}
+            alt="" />
     } else {
         return <div className="rounded-image"></div>
     }

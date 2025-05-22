@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { FC } from 'react';
 import Section, { SectionProps } from './Section/Section';
 import { ImageProps } from './Image/Image';
 import { getCategoryProducts } from '../../api/actions';

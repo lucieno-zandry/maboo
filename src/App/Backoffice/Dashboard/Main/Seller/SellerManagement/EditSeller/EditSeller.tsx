@@ -51,7 +51,13 @@ const EditSeller = React.memo(() => {
 
             // Stocker l'URL de l'image actuelle si elle existe
             if (current.image) {
-                setCurrentImageUrl(current.image);
+                // Si c'est une chaîne de caractères, on peut l'utiliser comme URL
+                if (typeof current.image === 'string') {
+                    setCurrentImageUrl(current.image);
+                } else {
+                    // Si c'est un File ou un Blob, on ne peut pas l'utiliser directement
+                    setCurrentImageUrl(null);
+                }
             } else {
                 setCurrentImageUrl(null);
             }

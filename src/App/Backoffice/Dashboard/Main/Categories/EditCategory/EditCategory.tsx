@@ -21,7 +21,7 @@ type UpdateData = {
     category_name?: string,
     parent?: Category | null,
     image?: {
-        imageUrl?: string,
+        imageUrl?: string | null,
         imageData: File | null
     }
 }

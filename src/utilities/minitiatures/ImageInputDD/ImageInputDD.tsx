@@ -2,7 +2,7 @@ import React from "react";
 
 export type Image = {
     imageData: File | null,
-    imageUrl?: string
+    imageUrl?: string | null
 }
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
     size?: 'lg' | 'md' | 'sm',
     addImage: (image: Image) => void,
     removeImage: (url: string) => void
-    imageUrl?: string,
+    imageUrl?: string | null,
     maxAllowedSize?: number
 }
 
