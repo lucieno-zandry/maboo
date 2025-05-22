@@ -2,7 +2,7 @@ import React from "react";
 import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
 import mvola from '../../../../../assets/icons/Mvola.png';
 import orangeMoney from '../../../../../assets/icons/orange-money.jpeg';
-import airtelMoney from '../../../../../assets/icons/airtel-money.png';
+import walletmoney from '../../../../../assets/icons/wallet-money.png';
 import { AIRTELMONEY, MVOLA, ORANGEMONEY, usePaymentMethod } from "../Order";
 
 const PaymentMethod = React.memo(() => {
@@ -28,7 +28,9 @@ const PaymentMethod = React.memo(() => {
                     name="payment-method"
                     value={MVOLA}
                     onChange={() => setCurrent(MVOLA)}
-                    checked={current === MVOLA} />
+                    checked={current === MVOLA} 
+                    disabled={true}
+                    />
                     
                 <SquaredImage image={mvola} />
                 <div className="">Mvola</div>
@@ -41,8 +43,8 @@ const PaymentMethod = React.memo(() => {
                     onChange={() => setCurrent(AIRTELMONEY)}
                     checked={current === AIRTELMONEY} />
 
-                <SquaredImage image={airtelMoney} />
-                <div className="">Airtel Money</div>
+                <SquaredImage image={walletmoney} />
+                <div className="">Cash</div>
             </label>
         </form>
     </div>

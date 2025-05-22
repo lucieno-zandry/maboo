@@ -63,7 +63,7 @@ const articleDatas = [
     images: [
         {
             id: 1,
-            url: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png",
+            url: "https://images.pexels.com/photos/3875220/pexels-photo-3875220.jpeg?auto=format&fit=crop&w=1034&h=432&q=80",
             caption: "Les étapes du développement de bébé",
             order: 1
         }
@@ -128,7 +128,7 @@ const articleDatas = [
     images: [
         {
             id: 1,
-            url: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png",
+            url: "https://images.pexels.com/photos/3763583/pexels-photo-3763583.jpeg?auto=format&fit=crop&w=1034&h=432&q=80",
             caption: "L'équilibre entre maternité et bien-être personnel",
             order: 1
         }

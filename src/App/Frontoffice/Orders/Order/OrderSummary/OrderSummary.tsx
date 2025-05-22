@@ -38,7 +38,7 @@ const OrderSummary = React.memo(() => {
             .finally(() => {
                 pagePreloader.disable();
             });
-    }, [toasts, pagePreloader]);
+    }, [toasts, pagePreloader, order.id, paymentMethod.current]);
 
     return <div className="order-summary-container">
         <div>
