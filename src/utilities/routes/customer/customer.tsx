@@ -20,6 +20,9 @@ import Auth from "../../minitiatures/Auth/Auth";
 import Authenticated from "../../minitiatures/Authenticated/Authenticated";
 import Cart from "../../../App/Frontoffice/Cart/Cart";
 import Articles from "../../../App/Frontoffice/Articles/Articles";
+import Professionals from "../../../App/Frontoffice/Professionals/Professionals";
+import Professional from "../../../App/Frontoffice/Professionals/Professional/Professional";
+// import Article from './path/to/Article';
 
 export default function () {
     return <Routes>
@@ -29,6 +32,10 @@ export default function () {
             <Route element={<Product />} path='product/:slug' />
             <Route element={<Search />} path='search/:words' />
             <Route element={<Articles />} path='articles' />
+            <Route element={<Articles />} path="articles/:articleId" />
+            <Route element={<Professionals />} path="professionals" />
+            <Route element={<Professional />} path="professionals/:professionalId" />
+
 
             <Route element={<Guest />}>
                 <Route element={<Auth />} path="auth">

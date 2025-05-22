@@ -14,6 +14,19 @@ import {
 } from "../../../../utilities/api/customer/hooks";
 import ProductVariants from "./ProductVariants/ProductVariants";
 import { ProductVariant } from "../../../../utilities/constants/types";
+import ColorSelector from "./Colors/ColorSelector";
+import RelatedArticles from "./RelatedArticles/RelatedArticles";
+// import RelatedProducts from "./RelatedArticles/RelatedProducts";
+
+// import RelatedProducts, { Product } from './RelatedArticles/RelatedProducts';
+
+const articleData = [
+  { id: 1, name: 'BEABA', description: 'Sac à langer à dos Wellington Gris Foncé', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+  { id: 2, name: 'CHILDHOME', description: 'Sac à dos Family Club Signature Vert', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+  { id: 3, name: 'TINÉO', description: 'Sac à dos à langer gris', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+  { id: 4, name: 'TINÉO', description: 'Sac à dos à langer noir', imageUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/614007/img_placeholder_1034x432.png' },
+];
+
 
 const RightSide = React.memo(() => {
   const addToCart = useAddToCart();
@@ -34,17 +47,28 @@ const RightSide = React.memo(() => {
     count: 1,
     loading: false,
     variant: defaultVariant,
+    selectedColor: product.colors?.[0] || null, // Initialisation avec la première couleur
   });
-
   const handleCountChange = React.useCallback((count: number) => {
     setState((s) => ({ ...s, count }));
   }, []);
+
+
+  const handleColorChange = React.useCallback((color: any) => {
+    setState((s) => ({ ...s, selectedColor: color }));
+  }, []);
+
 
   const handleAddToCart = React.useCallback(() => {
     const payload = {
       product_id: product.id,
       quantity: state.count,
+      // product_color_id: state.selectedColor?.id // Ajout de la couleur au payload
     } as Payload;
+     
+    if (state.selectedColor) {
+      payload.product_color_id = state.selectedColor?.id ;
+    }
 
     if (state.variant) {
       payload.product_variant_id = state.variant.id;
@@ -56,7 +80,9 @@ const RightSide = React.memo(() => {
       onFinally: () => setState((s) => ({ ...s, loading: false })),
       product_slug: product.slug,
     });
-  }, [product.id, state.count, state.variant, product.slug]);
+
+    console.log('payload is: ', payload);
+  },[product.id, state.count, state.variant, state.selectedColor, product.slug]);
 
   const price = React.useMemo(() => {
     const others = state.variant?.price || product.sale_price;
@@ -89,6 +115,13 @@ const RightSide = React.memo(() => {
     [state]
   );
 
+
+  console.log("state is: ",state);
+  console.log("product is: ",product);
+
+  console.log("state variant: ",state.variant);
+  console.log("state color: ",state.selectedColor);
+
   return (
     <Fade className="right-side-container" show>
       <div className="product-hierarchy">
@@ -104,6 +137,11 @@ const RightSide = React.memo(() => {
       </div>
 
       <DoublePrice firstPrice={product.price} secondPrice={price} />
+      
+      <div>
+        <span>En stock: </span>
+        {state.variant?.inStock}
+      </div>
 
       <div className="d-flex gap-3">
         <CountButton
@@ -124,12 +162,33 @@ const RightSide = React.memo(() => {
         </Button>
       </div>
 
+
+       {/* Ajout du sélecteur de couleurs */}
+       {product.colors && product.colors.length > 0 && (
+        <ColorSelector
+          colors={product.colors}
+          selectedColor={state.selectedColor}
+          onChange={handleColorChange}
+        />
+      )}
+      
+
       <ProductVariants onChange={handleVariantChange} active={state.variant} />
 
       <div className="product-merchant">
         <h6>Marchand: </h6>
         <ProductMerchant merchant={product.merchant} />
       </div>
+
+      {/* <div className="max-w-7xl mx-auto px-4">
+        <RelatedArticles/>
+      </div> */}
+
+      <RelatedArticles articles={articleData} />
+
+
+      {/* <RelatedProducts products={articlesDatas} /> */}
+
     </Fade>
   );
 });

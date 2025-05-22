@@ -8,11 +8,18 @@ const SellerCollapse = React.memo(() => {
             Vendeurs
         </Accordion.Button>
         <Accordion.Collapse eventKey="0">
-            <ListOfPage
-            icon="fa-regular fa-inboxes"
-            path="/sellers/requests"
-            title="Requêtes"
-            className="p-3" />
+            <div>
+                <ListOfPage
+                    icon="fa-regular fa-inboxes"
+                    path="/sellers/requests"
+                    title="Requêtes"
+                    className="p-3" />
+                <ListOfPage
+                    icon="fa-regular fa-users"
+                    path="/sellers/management"
+                    title="Gestion"
+                    className="p-3" />
+            </div>
         </Accordion.Collapse>
     </Accordion.Item>
 });

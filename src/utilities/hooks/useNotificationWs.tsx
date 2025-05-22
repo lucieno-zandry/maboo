@@ -3,7 +3,13 @@ import { getWstoken } from "../api/actions";
 import useToasts from "../minitiatures/Toast/hooks/useToasts";
 import useAuth from "./useAuth";
 
-const BASE_URL = import.meta.env.VITE_APP_NOTIFICATION_WS_URL;
+// In development, use the WebSocket proxy configured in vite.config.ts
+// In production, use the full URL from environment variables
+const isDevelopment = import.meta.env.DEV;
+const BASE_URL = isDevelopment
+  ? `ws://${window.location.host}/socket/client/notification`
+  : import.meta.env.VITE_APP_NOTIFICATION_WS_URL;
+
 const DEFAULT_STATE = {
     token: '',
     connection: null as WebSocket | null,

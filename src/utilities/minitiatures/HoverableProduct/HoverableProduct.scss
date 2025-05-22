@@ -1,19 +1,35 @@
 .hoverable-product {
+    margin-bottom: 1rem;
+
+    @media (max-width: 576px) {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1.5rem;
+    }
 
     .product-image-container {
         position: relative;
-
         min-height: 200px;
         max-height: 400px;
         max-width: 200px;
-
         aspect-ratio: 1;
         overflow: hidden;
         border-radius: $border-radius;
+        margin: 0 auto;
+
+        @media (max-width: 768px) {
+            min-height: 180px;
+            max-width: 180px;
+        }
+
+        @media (max-width: 576px) {
+            min-height: 160px;
+            max-width: 100%;
+        }
 
         &:hover {
             .curtain {
-                top: 0 // transform: none;
+                top: 0;
             }
         }
     }
@@ -36,11 +52,9 @@
         width: 100%;
         height: 100%;
         position: absolute;
-
         top: -100%;
         left: 0;
         transition: top .3s ease-in-out;
-
         background: linear-gradient(to bottom right, rgba($danger, .8), rgba($primary, .4));
         display: flex;
         justify-content: end;
@@ -54,12 +68,37 @@
         width: 40px;
         gap: .5rem;
     }
+
+    .product-card-information {
+        text-align: center;
+
+        h6 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+
+            @media (max-width: 768px) {
+                font-size: 0.9rem;
+            }
+        }
+    }
 }
 
 .hoverable-product-placeholder {
     min-height: 200px;
     width: 200px;
     border-radius: $border-radius;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        min-height: 180px;
+        width: 180px;
+    }
+
+    @media (max-width: 576px) {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1.5rem;
+    }
 
     .product-image {
         width: 100%;
@@ -70,5 +109,6 @@
     .product-title {
         height: 25px;
         width: 50%;
+        margin: 0 auto;
     }
 }

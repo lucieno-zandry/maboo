@@ -1,0 +1,51 @@
+.professional-detail-container {
+    margin-top: 2rem;
+    
+    .premium-content-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+        position: relative;
+        overflow: hidden;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #4a90e2, #63b3ed);
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        h3 {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background-color: #3a7bc8;
+                border-color: #3a7bc8;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}

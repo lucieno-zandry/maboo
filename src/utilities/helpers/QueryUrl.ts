@@ -3,13 +3,20 @@ const URL_HOST = "http://localhost:5173";
 class QueryUrl {
   private url: URL;
   private isValid: boolean = false;
+  private isRelative: boolean = false;
 
   constructor(url: string) {
     let Url = null;
 
+    // Check if this is a relative URL starting with /
+    if (url.startsWith('/')) {
+      this.isRelative = true;
+      url = url.substring(1); // Remove the leading slash
+    }
+
     this.checkValidity(url);
 
-    Url = new URL(this.isValid ? url : URL_HOST + url);
+    Url = new URL(this.isValid ? url : URL_HOST + (this.isRelative ? '/' : '') + url);
     this.url = Url;
   }
 
@@ -42,7 +49,15 @@ class QueryUrl {
   }
 
   getString(): string {
-    return this.isValid ? this.url.href : this.url.href.slice(URL_HOST.length);
+    if (this.isValid) {
+      return this.url.href;
+    } else if (this.isRelative) {
+      // For relative URLs, keep the leading slash
+      return '/' + this.url.href.slice(URL_HOST.length + 1);
+    } else {
+      // For other URLs, remove the host
+      return this.url.href.slice(URL_HOST.length);
+    }
   }
 
   get(key: string): string | null {

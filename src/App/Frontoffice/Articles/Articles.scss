@@ -1,3 +1,45 @@
+.article-container-main {
+  padding: 2rem 0;
+  background-color: #f9f9f9;
+}
+
 .articles-container {
-  margin-top: 8rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  .article {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .content-wrapper {
+      margin-top: 1.5rem;
+    }
+
+    .images-container {
+      margin: 1.5rem 0;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+    }
+  }
 }

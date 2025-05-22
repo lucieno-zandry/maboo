@@ -7,6 +7,16 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+
+    @media (max-width: 768px) {
+        height: calc(100vh - 4rem);
+        margin-top: 4rem;
+        background-attachment: scroll;
+    }
+
+    @media (max-width: 576px) {
+        height: 80vh;
+    }
 }
 
 .header-gradient {
@@ -16,8 +26,36 @@
     display: flex;
     align-items: center;
 
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+
     .header-content {
         width: 50%;
+
+        @media (max-width: 992px) {
+            width: 70%;
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+
+        h3 {
+            @media (max-width: 768px) {
+                font-size: 1.8rem;
+            }
+
+            @media (max-width: 576px) {
+                font-size: 1.5rem;
+            }
+        }
+
+        p {
+            @media (max-width: 768px) {
+                font-size: 0.9rem;
+            }
+        }
     }
 }
 
@@ -25,6 +63,11 @@
     display: flex;
     gap: .5rem;
     width: fit-content;
+    margin-top: 1rem;
+
+    @media (max-width: 576px) {
+        font-size: 0.9rem;
+    }
 
     i{
         align-self: center;

@@ -41,9 +41,15 @@ async function execute(action: () => Promise<AxiosResponse>, url: string) {
 }
 
 function createInstance(headers: Headers): AxiosInstance {
+  // In development, we use the proxy configured in vite.config.ts
+  // In production, we use the full URL from environment variables
+  const isDevelopment = import.meta.env.DEV;
+  const baseURL = isDevelopment ? '/api' : import.meta.env.VITE_APP_API_URL;
+
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_API_URL,
+    baseURL,
     headers,
+    withCredentials: true, // Ajouter cette option pour les requêtes CORS avec cookies
   });
 
   return instance;

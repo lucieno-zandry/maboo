@@ -16,7 +16,7 @@ const Categories = React.memo(() => {
                 Il existe trois types de confiance : la confiance dans la famille, la confiance dans un être cher ou un petit ami et la confiance dans les amis.
             </p>
         </div>
-        <div className="categories-container d-flex justify-content-between">
+        <div className="categories-wrapper">
             <ForTheBaby />
             <ForBoth />
             <ForTheMother />

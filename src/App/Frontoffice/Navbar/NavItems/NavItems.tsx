@@ -38,7 +38,11 @@ const NavItems = React.memo(() => {
         })}
 
         <li className="nav-item">
-            <Link className={`nav-link ${location.pathname === '/articles' && 'active'}`} to="/articles">Articles</Link>
+            <Link className={`nav-link ${location.pathname === '/articles' && 'active'}`} to="/articles">Blog</Link>
+        </li>
+
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname === '/professionals' && 'active'}`} to="/professionals">Partenaires</Link>
         </li>
     </ul>
 });

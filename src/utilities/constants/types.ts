@@ -8,7 +8,7 @@ export type User = {
   created_at: string;
   updated_at: string;
   phone_number: string;
-  image: string | null;
+  image: string | null | File | Blob;
   validated_at: string | null;
   type: "ADMIN" | "CUSTOMER" | "SELLER" | "PROFESSIONNAL";
 };

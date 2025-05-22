@@ -15,6 +15,7 @@ import Products from "../../../App/Backoffice/Dashboard/Main/Products/Products";
 import Categories from "../../../App/Backoffice/Dashboard/Main/Categories/Categories";
 import Seller from "../../../App/Backoffice/Dashboard/Main/Seller/Seller";
 import SellerRequests from "../../../App/Backoffice/Dashboard/Main/Seller/SellerRequests/SellerRequests";
+import SellerManagement from "../../../App/Backoffice/Dashboard/Main/Seller/SellerManagement/SellerManagement";
 import Admins from "../../../App/Backoffice/Dashboard/Main/Admin/Admin";
 import AdminRequests from "../../../App/Backoffice/Dashboard/Main/Admin/AdminRequests/AdminRequests";
 import Orders from "../../../App/Backoffice/Dashboard/Main/Orders/Orders";
@@ -46,6 +47,8 @@ export default function () {
                     <Route element={<Categories />} path="categories" />
                     <Route element={<Seller />} path="sellers">
                         <Route element={<SellerRequests />} path="requests" />
+                        <Route element={<SellerManagement />} path="management" />
+                        <Route element={<SellerManagement />} index />
                     </Route>
                     <Route element={<Admins />} path="admins">
                         <Route element={<AdminRequests />} path="requests" />

@@ -53,7 +53,7 @@ const Category = React.memo(() => {
                                 newState.scrollEnd = false;
                             }
 
-                            dispatch(setCategoryProducts({ products: mergedProducts, selectorId }))
+                            dispatch(setCategoryProducts({ products: freshProducts, selectorId }))
                         } else {
                             newState.scrollEnd = false;
                         }
@@ -65,6 +65,7 @@ const Category = React.memo(() => {
     }, [products, selectorId, state.offset]);
 
     console.log('render');
+    // console.log("id is:",id);
 
     return <div className="category-container container">
         <Fade show={Boolean(products && products.length > 0)} className="d-flex flex-wrap gap-4 col-12">
