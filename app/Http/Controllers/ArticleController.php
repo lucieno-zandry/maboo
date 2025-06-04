@@ -8,7 +8,6 @@ use App\Http\Requests\ArticleDestroyRequest;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
-use App\Models\Category;
 use App\Models\Image;
 use App\Models\Paragraph;
 use App\Models\Product;

@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductColorController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\ProfessionalDataController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
@@ -326,4 +327,10 @@ Route::prefix('professional')
                 Route::post('/login', 'login');
                 Route::post('/signup', 'signup');
             });
+
+        Route::get('get/{id}', [ProfessionalDataController::class, 'show']);
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('data/update', [ProfessionalDataController::class, 'update']);
+        });
     });

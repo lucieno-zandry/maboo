@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
+    public function professional_data()
+    {
+        return $this->hasOne(ProfessionalData::class, 'user_id');
+    }
 }
