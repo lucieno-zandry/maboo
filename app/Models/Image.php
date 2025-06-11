@@ -10,6 +10,13 @@ class Image extends Model
 {
     use HasFactory, WithPagination;
 
+    protected $fillable = [
+        'url',
+        'caption',
+        'order',
+        'article_id'
+    ];
+
     public function article()
     {
         return $this->belongsTo(Article::class);
