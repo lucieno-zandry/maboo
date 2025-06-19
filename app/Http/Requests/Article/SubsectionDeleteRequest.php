@@ -12,7 +12,8 @@ class SubsectionDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->can('create', Article::class);
+        // FIX: Vérification basique, permissions individuelles dans le contrôleur
+        return auth()->check();
     }
 
     /**

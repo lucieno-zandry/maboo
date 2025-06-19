@@ -31,6 +31,15 @@ class ImageController extends Controller
     public function destroy(ImageDeleteRequest $request): array
     {
         $ids = explode(',', $request->images_ids);
+        
+        // FIX: Vérifier les permissions individuellement pour chaque image
+        foreach ($ids as $id) {
+            $image = Image::find($id);
+            if (!$image || !auth()->user()->can('delete', $image)) {
+                abort(403, "Vous n'avez pas l'autorisation de supprimer cette image");
+            }
+        }
+        
         $deleted = Image::whereIn('id', $ids)->delete();
 
         return [

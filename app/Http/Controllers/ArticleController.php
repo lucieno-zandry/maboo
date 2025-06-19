@@ -8,7 +8,6 @@ use App\Http\Requests\ArticleDestroyRequest;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
-use App\Models\Category;
 use App\Models\Image;
 use App\Models\Paragraph;
 use App\Models\Product;
@@ -62,39 +61,25 @@ class ArticleController extends Controller
         if (isset($data['sections']) && !empty($data['sections'])) {
             $sections = $data['sections'];
 
-            foreach ($sections as $sectionData) {
-                $sectionData['article_id'] = $article->id;
-                $section = Section::create($sectionData);
+            foreach ($sections as $section_data) {
+                $section_data['article_id'] = $article->id;
+                $section = Section::create($section_data);
 
-                if (isset($sectionData['subsections']) && !empty($sectionData['subsections'])) {
-                    $subsections = $sectionData['subsections'];
+                if (isset($section_data['subsections']) && !empty($section_data['subsections'])) {
+                    $subsections = $section_data['subsections'];
 
-                    foreach ($subsections as $subsectionData) {
-                        $subsectionData['section_id'] = $section->id;
-                        $subsection = Subsection::create($subsectionData);
+                    foreach ($subsections as $subsection_data) {
+                        $subsection_data['section_id'] = $section->id;
+                        $subsection = Subsection::create($subsection_data);
 
-                        if (isset($subsectionData['paragraphs']) && !empty($subsectionData['paragraphs'])) {
-                            $paragraphs = $subsectionData['paragraphs'];
+                        if (isset($subsection_data['paragraphs']) && !empty($subsection_data['paragraphs'])) {
+                            $paragraphs = $subsection_data['paragraphs'];
 
-                            foreach ($paragraphs as $paragraphData) {
-                                $paragraphData['subsection_id'] = $subsection->id;
-                                $paragraph = Paragraph::create($paragraphData);
-
-                                if (
-                                    !$subsection->paragraphs->some(function ($item) use ($paragraph) {
-                                        return $item->id === $paragraph->id;
-                                    })
-                                )
-                                    $subsection->paragraphs->push($paragraph);
+                            foreach ($paragraphs as $paragraph_data) {
+                                $paragraph_data['subsection_id'] = $subsection->id;
+                                $paragraph = Paragraph::create($paragraph_data);
                             }
                         }
-
-                        if (
-                            !$section->subsections->some(function ($item) use ($subsection) {
-                                return $item->id === $subsection->id;
-                            })
-                        )
-                            $section->subsections->push($subsection);
                     }
                 }
 
@@ -138,6 +123,15 @@ class ArticleController extends Controller
     public function destroy(ArticleDestroyRequest $request)
     {
         $ids = explode(',', $request->articles_ids);
+        
+        // FIX: Vérifier les permissions individuellement pour chaque article
+        foreach ($ids as $id) {
+            $article = Article::find($id);
+            if (!$article || !auth()->user()->can('delete', $article)) {
+                abort(403, "Vous n'avez pas l'autorisation de supprimer l'article '{$article->title}'");
+            }
+        }
+        
         $deleted = Article::whereIn('id', $ids)->delete();
 
         return [
