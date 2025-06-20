@@ -12,7 +12,7 @@ class ProfessionalDataController extends Controller
     public function show(int $professional_id)
     {
         $user = User::with('professional_data')->findOrFail($professional_id);
-        
+
         return [
             'professional' => $user
         ];
@@ -29,6 +29,18 @@ class ProfessionalDataController extends Controller
 
         return [
             'professional_data' => $professionalData
+        ];
+    }
+
+    public function index()
+    {
+        $professionals = User::withPagination()
+            ->with('professional_data')
+            ->where('type', User::TYPE_PROFESSIONAL)
+            ->get();
+
+        return [
+            'professionals' => $professionals
         ];
     }
 }
