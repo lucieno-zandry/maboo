@@ -51,6 +51,15 @@ class SubsectionController extends Controller
     public function destroy(SubsectionDeleteRequest $request)
     {
         $ids = explode(',', $request->subsections_ids);
+        
+        // FIX: Vérifier les permissions individuellement pour chaque sous-section
+        foreach ($ids as $id) {
+            $subsection = Subsection::find($id);
+            if (!$subsection || !auth()->user()->can('delete', $subsection)) {
+                abort(403, "Vous n'avez pas l'autorisation de supprimer cette sous-section");
+            }
+        }
+        
         $deleted = Subsection::whereIn('id', $ids)->delete();
 
         return [

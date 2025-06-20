@@ -52,6 +52,15 @@ class SectionController extends Controller
     public function destroy(SectionDeleteRequest $request)
     {
         $ids = explode(',', $request->sections_ids);
+        
+        // FIX: Vérifier les permissions individuellement pour chaque section
+        foreach ($ids as $id) {
+            $section = Section::find($id);
+            if (!$section || !auth()->user()->can('delete', $section)) {
+                abort(403, "Vous n'avez pas l'autorisation de supprimer cette section");
+            }
+        }
+        
         $deleted = Section::whereIn('id', $ids)->delete();
 
         return [

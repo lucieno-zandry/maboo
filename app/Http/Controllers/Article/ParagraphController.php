@@ -51,6 +51,15 @@ class ParagraphController extends Controller
     public function destroy(ParagraphDeleteRequest $request)
     {
         $ids = explode(',', $request->paragraphs_ids);
+        
+        // FIX: Vérifier les permissions individuellement pour chaque paragraphe
+        foreach ($ids as $id) {
+            $paragraph = Paragraph::find($id);
+            if (!$paragraph || !auth()->user()->can('delete', $paragraph)) {
+                abort(403, "Vous n'avez pas l'autorisation de supprimer ce paragraphe");
+            }
+        }
+        
         $deleted = Paragraph::whereIn('id', $ids)->delete();
 
         return [

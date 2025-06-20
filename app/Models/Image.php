@@ -10,6 +10,11 @@ class Image extends Model
 {
     use HasFactory, WithPagination;
 
+    /**
+     * Les attributs qui peuvent être assignés en masse.
+     * CORRECTION: Ajout des champs fillable manquants pour permettre
+     * la création d'images d'articles via le CRUD frontend.
+     */
     protected $fillable = [
         'url',
         'caption',

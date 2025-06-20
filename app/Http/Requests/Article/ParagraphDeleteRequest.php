@@ -12,7 +12,8 @@ class ParagraphDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->can('create', Paragraph::class);
+        // FIX: Vérification basique, permissions individuelles dans le contrôleur
+        return auth()->check();
     }
 
     /**

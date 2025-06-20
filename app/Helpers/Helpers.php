@@ -53,7 +53,9 @@ class Helpers
         if (empty($options['folder']))
             $options['folder'] = 'users';
 
-        $path = $file->store($options['folder'], $options);
-        return $path;
+        // FIX: Stocker dans public/ pour accessibilité HTTP
+        $path = $file->store('public/' . $options['folder'], $options);
+        // Retourner le chemin sans 'public/' pour cohérence avec les produits
+        return str_replace('public/', '', $path);
     }
 }

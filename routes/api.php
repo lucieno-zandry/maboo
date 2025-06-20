@@ -186,31 +186,44 @@ Route::prefix('article')->group(function () {
         });
     });
 
+    # FIX: Ajouter middleware auth:sanctum pour toutes les routes CUD
     Route::prefix('section')->controller(SectionController::class)->group(function () {
-        Route::post('create', 'store');
-        Route::put('update/{section}', 'update');
         Route::get('all', 'index');
-        Route::delete('delete', 'destroy');
+        
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('create', 'store');
+            Route::put('update/{section}', 'update');
+            Route::delete('delete', 'destroy');
+        });
     });
 
     Route::prefix('subsection')->controller(SubsectionController::class)->group(function () {
-        Route::post('create', 'store');
-        Route::put('update/{subsection}', 'update');
         Route::get('all', 'index');
-        Route::delete('delete', 'destroy');
+        
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('create', 'store');
+            Route::put('update/{subsection}', 'update');
+            Route::delete('delete', 'destroy');
+        });
     });
 
     Route::prefix('paragraph')->controller(ParagraphController::class)->group(function () {
-        Route::post('create', 'store');
-        Route::put('update/{paragraph}', 'update');
         Route::get('all', 'index');
-        Route::delete('delete', 'destroy');
+        
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('create', 'store');
+            Route::put('update/{paragraph}', 'update');
+            Route::delete('delete', 'destroy');
+        });
     });
 
     Route::prefix('image')->controller(ImageController::class)->group(function () {
-        Route::post('create', 'store');
         Route::get('all', 'index');
-        Route::delete('delete', 'destroy');
+        
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('create', 'store');
+            Route::delete('delete', 'destroy');
+        });
     });
 });
 
