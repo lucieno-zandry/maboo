@@ -22,7 +22,7 @@ const articles = [
 const Articles: React.FC = () => {
     return <div className='articles-container'>
         <AddArticle />
-        <ArticlesList articles={articles} />;
+        <ArticlesList articles={articles} />
     </div>
 };
 

@@ -14,10 +14,13 @@ const VariantsList = React.memo(() => {
             <table className="table table-striped table-hover align-middle table-borderless">
                 <thead>
                     <tr>
-                        <th className="col-3"></th>
-                        <th className="col-3">Nom</th>
-                        <th className="col-3">Prix</th>
-                        <th className="col-3">En stock</th>
+                        <th className="col-2"></th>
+                        <th className="col-2">Nom</th>
+                        <th className="col-2">Prix</th>
+                        <th className="col-2">Prix promo</th>
+                        <th className="col-2">SKU</th>
+                        <th className="col-2">En stock</th>
+                        <th className="col-3">Attributs</th>
                         <th className="col-1"></th>
                     </tr>
                 </thead>

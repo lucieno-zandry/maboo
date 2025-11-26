@@ -22,6 +22,8 @@ type Edits = {
     price: number | '',
     inStock: number | '',
     image: Image,
+    special_price: number | '',
+    sku: string,
 }
 
 export type EditProductVariantData = {
@@ -29,12 +31,16 @@ export type EditProductVariantData = {
     price?: number,
     image?: File,
     inStock?: number,
+    special_price?: number,
+    sku?: string,
 }
 
 type ValidationMessages = {
     name?: string,
     price?: string,
     inStock?: string,
+    special_price?: string,
+    sku?: string,
 }
 
 const DEFAULT_EDIT_IMAGE: Image = {
@@ -47,6 +53,8 @@ const DEFAULT_EDITS: Edits = {
     price: '',
     inStock: '',
     image: { ...DEFAULT_EDIT_IMAGE },
+    special_price: '',
+    sku: '',
 }
 
 const Edit = React.memo((props: PartialsProps) => {
@@ -74,6 +82,11 @@ const Edit = React.memo((props: PartialsProps) => {
         setState(s => ({ ...s, edits: { ...s.edits, name: value } }));
     }, []);
 
+    const handleSkuChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setState(s => ({ ...s, edits: { ...s.edits, sku: value } }));
+    }, []);
+
     const handleNumberChange = React.useCallback((value: number | '', e: React.ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target;
         console.log(name, value);
@@ -88,6 +101,10 @@ const Edit = React.memo((props: PartialsProps) => {
                 setState(s => ({ ...s, edits: { ...s.edits, inStock: value } }));
                 break;
 
+            case 'product_variant_special_price':
+                setState(s => ({ ...s, edits: { ...s.edits, special_price: value } }));
+                break;
+
             default:
                 break;
         }
@@ -100,6 +117,8 @@ const Edit = React.memo((props: PartialsProps) => {
             name: variant.name,
             price: variant.price,
             inStock: variant.inStock,
+            special_price: variant.special_price ?? undefined,
+            sku: variant.sku ?? undefined,
         });
 
         if (image.imageData) {
@@ -172,6 +191,8 @@ const Edit = React.memo((props: PartialsProps) => {
         newEdits.price = variant.price;
         newEdits.image.imageUrl = appImage(variant.image);
         newEdits.inStock = variant.inStock;
+        newEdits.special_price = (variant.special_price ?? '') as number | '';
+        newEdits.sku = variant.sku ?? '';
 
         setState(s => ({ ...s, edits: newEdits }))
     }, [variant]);
@@ -199,6 +220,20 @@ const Edit = React.memo((props: PartialsProps) => {
                 onChange={handleNumberChange}
                 options={{ error: state.validationMessages?.price }}
                 name="product_variant_price" />
+        </td>
+        <td className="variant-item-special-price">
+            <NumberInput
+                value={state.edits.special_price.toLocaleString()}
+                onChange={handleNumberChange}
+                options={{ error: state.validationMessages?.special_price }}
+                name="product_variant_special_price" />
+        </td>
+        <td className="variant-item-sku">
+            <Input
+                type="text"
+                value={state.edits.sku}
+                onChange={handleSkuChange}
+                options={{ error: state.validationMessages?.sku }} />
         </td>
         <td className="variant-item-instock">
             <NumberInput

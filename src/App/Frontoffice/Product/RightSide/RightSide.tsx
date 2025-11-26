@@ -1,21 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Rootstate } from "../../../../utilities/redux/store";
+import { useNavigate } from "react-router-dom";
 import SmallText from "../../../../utilities/minitiatures/SmallText/SmallText";
 import CountButton from "../../../../utilities/minitiatures/CountButton/CountButton";
 import Button from "../../../../utilities/minitiatures/Button/Button";
 import DoublePrice from "../../../../utilities/minitiatures/DoublePrice/DoublePrice";
 import ProductMerchant from "../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
-import {
-  Payload,
-  useAddToCart,
-} from "../../../../utilities/api/customer/hooks";
+import { addToCart } from "../../../../utilities/api/customer/actions";
 import ProductVariants from "./ProductVariants/ProductVariants";
 import { ProductVariant } from "../../../../utilities/constants/types";
 import ColorSelector from "./Colors/ColorSelector";
 import RelatedArticles from "./RelatedArticles/RelatedArticles";
+import useToasts from "../../../../utilities/minitiatures/Toast/hooks/useToasts";
+import useAuth from "../../../../utilities/hooks/useAuth";
+import links from "../../../../utilities/helpers/links";
+import VariantSelector from "./VariantSelector/VariantSelector";
 // import RelatedProducts from "./RelatedArticles/RelatedProducts";
 
 // import RelatedProducts, { Product } from './RelatedArticles/RelatedProducts';
@@ -28,12 +27,25 @@ const articleData = [
 ];
 
 
-const RightSide = React.memo(() => {
-  const addToCart = useAddToCart();
-  const slug = useParams().slug!;
-  const product = useSelector(
-    (state: Rootstate) => state.frontoffice.products[slug]!
-  );
+type Props = { product: {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  price: number;
+  sale_price: number;
+  inStock: number;
+  category?: { name: string } | null;
+  merchant: any;
+  colors?: any[];
+  variants: ProductVariant[];
+} };
+
+const RightSide = React.memo((props: Props) => {
+  const { product } = props;
+  const toasts = useToasts();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const defaultVariant = React.useMemo(() => {
     if (product.variants.length > 0) {
@@ -60,32 +72,42 @@ const RightSide = React.memo(() => {
 
 
   const handleAddToCart = React.useCallback(() => {
-    const payload = {
+    if (!auth) {
+      const intended = { path: `/product/${product.slug}`, target: true };
+      sessionStorage.setItem('intended', JSON.stringify(intended));
+      navigate(links.loginPage);
+      return;
+    }
+
+    const payload: any = {
       product_id: product.id,
       quantity: state.count,
-      // product_color_id: state.selectedColor?.id // Ajout de la couleur au payload
-    } as Payload;
-     
-    if (state.selectedColor) {
-      payload.product_color_id = state.selectedColor?.id ;
-    }
+    };
 
-    if (state.variant) {
-      payload.product_variant_id = state.variant.id;
-    }
+    if (state.selectedColor) payload.product_color_id = state.selectedColor.id;
+    if (state.variant) payload.product_variant_id = state.variant.id;
 
-    addToCart({
-      payload,
-      onInit: () => setState((s) => ({ ...s, loading: true })),
-      onFinally: () => setState((s) => ({ ...s, loading: false })),
-      product_slug: product.slug,
-    });
-
-    console.log('payload is: ', payload);
-  },[product.id, state.count, state.variant, state.selectedColor, product.slug]);
+    setState(s => ({ ...s, loading: true }));
+    addToCart(payload)
+      .then(() => {
+        toasts.push({
+          title: "Ajouté au panier",
+          content: "Votre panier a été mis à jour avec succès",
+          type: "success",
+        });
+      })
+      .catch(() => {
+        toasts.push({
+          title: "Impossible d'ajouter au panier",
+          content: "Une erreur s'est produite lors de l'ajout au panier",
+          type: "danger",
+        });
+      })
+      .finally(() => setState(s => ({ ...s, loading: false })));
+  }, [auth, navigate, product.slug, product.id, state.count, state.selectedColor, state.variant, toasts.push]);
 
   const price = React.useMemo(() => {
-    const others = state.variant?.price || product.sale_price;
+    const others = (state.variant?.special_price ?? state.variant?.price) || product.sale_price;
     const current = others || product.price;
 
     if (state.count > 1) {
@@ -97,7 +119,7 @@ const RightSide = React.memo(() => {
 
   const maxCount = React.useMemo(() => {
     if (state.variant) {
-      return state.variant.inStock;
+      return state.variant.stock ?? state.variant.inStock;
     }
 
     return product.inStock;
@@ -137,10 +159,15 @@ const RightSide = React.memo(() => {
       </div>
 
       <DoublePrice firstPrice={product.price} secondPrice={price} />
+      {state.variant?.attributes && (
+        <div className="variant-attributes">
+          {Object.entries(state.variant.attributes).map(([k, v]) => `${k}: ${v}`).join(', ')}
+        </div>
+      )}
       
       <div>
         <span>En stock: </span>
-        {state.variant?.inStock}
+        {(state.variant?.stock ?? state.variant?.inStock) as number | undefined}
       </div>
 
       <div className="d-flex gap-3">
@@ -164,7 +191,7 @@ const RightSide = React.memo(() => {
 
 
        {/* Ajout du sélecteur de couleurs */}
-       {product.colors && product.colors.length > 0 && (
+      {(!product.variants.some(v => v.attributes && Object.keys(v.attributes).length > 0)) && product.colors && product.colors.length > 0 && (
         <ColorSelector
           colors={product.colors}
           selectedColor={state.selectedColor}
@@ -173,7 +200,11 @@ const RightSide = React.memo(() => {
       )}
       
 
-      <ProductVariants onChange={handleVariantChange} active={state.variant} />
+      {(product.variants.some(v => v.attributes && Object.keys(v.attributes).length > 0)) ? (
+        <VariantSelector variants={product.variants} active={state.variant} onChange={handleVariantChange} />
+      ) : (
+        <ProductVariants onChange={handleVariantChange} active={state.variant} variants={product.variants} />
+      )}
 
       <div className="product-merchant">
         <h6>Marchand: </h6>

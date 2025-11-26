@@ -1,16 +1,14 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { Rootstate } from "../../../../utilities/redux/store";
-import { useParams } from "react-router-dom";
 import appImage from "../../../../utilities/helpers/appImage";
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 import SquaredImage from "../../../../utilities/minitiatures/SquaredImage/SquaredImage";
+import { Product } from "../../../../utilities/constants/types";
 
-const LeftSide = React.memo(() => {
+type Props = { product: Product };
 
-    const slug = useParams().slug!;
-    const product = useSelector((state: Rootstate) => state.frontoffice.products[slug]!);
+const LeftSide = React.memo((props: Props) => {
+    const { product } = props;
 
     const [state, setState] = React.useState({
         activeIndex: 0,

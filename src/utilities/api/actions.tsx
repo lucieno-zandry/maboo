@@ -6,6 +6,7 @@ import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
 import userType from "../helpers/userType";
 import api from "./api";
+import { mockProducts } from "../constants/fakes";
 
 export const getAuth = () => {
     return api.get(links.getAuth);
@@ -120,8 +121,14 @@ export const createProductVariant = (payload: {
     product_id: number,
     price?: number,
     inStock: number,
+    sku?: string,
+    special_price?: number,
+    stock?: number,
+    attributes?: { [key: string]: string },
 }) => {
-    return api.post('/product/variant/create', toFormData(payload))
+    const data = { ...payload } as any;
+    if (data.attributes) data.attributes = JSON.stringify(data.attributes);
+    return api.post('/product/variant/create', toFormData(data))
 }
 
 export const deleteProductVariants = (ids: number[]) => {
@@ -244,4 +251,45 @@ export const getMerchantProducts = (options?: {
     if (options?.limit) Url.addParam('limit', options.limit);
 
     return api.get(Url.getString());
+}
+
+export const getProducts = () => {
+    return api.get('/products');
+}
+
+export const getProductsMock = () => {
+    return Promise.resolve({ data: { products: mockProducts } });
+}
+
+export const normalizeProducts = (products: any[]): import("../constants/types").Product[] => {
+    return products.map((p: any) => ({
+        id: p.id,
+        created_at: p.created_at,
+        updated_at: p.updated_at,
+        slug: p.slug,
+        title: p.title,
+        description: p.description,
+        category_id: p.category_id,
+        images: [],
+        price: 0,
+        sale_price: 0,
+        inStock: 0,
+        category: null,
+        merchant: {} as any,
+        colors: [],
+        variants: (p.variants || []).map((v: any) => ({
+            id: v.id,
+            created_at: v.created_at,
+            updated_at: v.updated_at,
+            product_id: v.product_id,
+            sku: v.sku,
+            price: v.price,
+            special_price: v.special_price,
+            stock: v.stock,
+            image: v.image || '',
+            name: v.sku || '',
+            inStock: v.stock || 0,
+            attributes: v.attributes || null,
+        })),
+    }));
 }

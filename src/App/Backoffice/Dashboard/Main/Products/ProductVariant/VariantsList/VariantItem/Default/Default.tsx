@@ -24,8 +24,19 @@ const Default = React.memo((props: PartialsProps) => {
         <td className="variant-item-price">
             <Price amount={variant.price} />
         </td>
+        <td className="variant-item-special-price">
+            <Price amount={variant.special_price ?? 0} />
+        </td>
+        <td className="variant-item-sku">
+            {variant.sku}
+        </td>
         <td>
-            {toFormatedString(variant.inStock)}
+            {toFormatedString(variant.stock ?? variant.inStock)}
+        </td>
+        <td className="variant-item-attributes">
+            {variant.attributes && Object.keys(variant.attributes).length > 0 && (
+                Object.entries(variant.attributes!).map(([k, v]) => `${k}:${v}`).join(', ')
+            )}
         </td>
         <td>
             <Dropdown className="actions-dropdown">

@@ -45,6 +45,10 @@ export type ProductVariant = {
   created_at: string;
   updated_at: string;
   inStock: number;
+  sku?: string;
+  special_price?: number | null;
+  stock?: number;
+  attributes?: { [key: string]: string } | null;
 };
 
 export type ProductColor = {

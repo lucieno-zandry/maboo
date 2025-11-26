@@ -20,11 +20,17 @@ type Payload = {
     image?: string,
     product_id?: number,
     inStock?: number,
+    sku?: string,
+    special_price?: number,
+    stock?: number,
+    attributes?: { [key: string]: string },
 }
 
 type FormInputData = {
     product_variant_name?: string,
     product_variant_price?: number,
+    product_variant_special_price?: number,
+    product_variant_sku?: string,
 }
 
 const DEFAULT_IMAGE: Image = {
@@ -39,6 +45,9 @@ const DEFAULT_STATE = {
     price: Number,
     name: '',
     inStock: Number,
+    special_price: Number,
+    sku: '',
+    attributes: [] as { key: string, value: string }[],
     loading: false,
     validationMessages: null as Payload | null
 }
@@ -71,6 +80,10 @@ const AddVariant = React.memo(() => {
                 setState(s => ({ ...s, inStock: value }));
                 break;
 
+            case 'product_variant_special_price':
+                setState(s => ({ ...s, special_price: value }));
+                break;
+
             default:
                 break;
         }
@@ -81,10 +94,35 @@ const AddVariant = React.memo(() => {
         setState(s => ({ ...s, name: value }));
     }, []);
 
+    const handleSkuChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setState(s => ({ ...s, sku: value }));
+    }, []);
+
+    const addAttributeRow = React.useCallback(() => {
+        setState(s => ({ ...s, attributes: [...s.attributes, { key: '', value: '' }] }));
+    }, []);
+
+    const removeAttributeRow = React.useCallback((index: number) => {
+        setState(s => ({ ...s, attributes: s.attributes.filter((_, i) => i !== index) }));
+    }, []);
+
+    const handleAttributeChange = React.useCallback((index: number, field: 'key' | 'value', val: string) => {
+        setState(s => ({
+            ...s,
+            attributes: s.attributes.map((row, i) => i === index ? { ...row, [field]: val } : row)
+        }));
+    }, []);
+
+    const attributesValid = React.useMemo(() => state.attributes.every(r => (
+        (r.key === '' && r.value === '') || (r.key !== '' && r.value !== '')
+    )), [state.attributes]);
+
     const allowed = React.useMemo(() => Boolean(
         state.image.imageData &&
         state.name &&
-        state.inStock), [state]);
+        state.inStock &&
+        attributesValid), [state, attributesValid]);
 
     const handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -94,11 +132,13 @@ const AddVariant = React.memo(() => {
         let validationMessages: Payload | null = null;
 
         if (errors) {
-            const { product_variant_price, product_variant_name, ...messages } = errors;
-            validationMessages = { ...messages };
-
-            if (product_variant_price) validationMessages.price = product_variant_price;
-            if (product_variant_name) validationMessages.name = product_variant_name;
+            const { product_variant_price, product_variant_name, product_variant_special_price, product_variant_sku } = errors;
+            const vm: Payload = {};
+            if (product_variant_price) vm.price = product_variant_price as unknown as number;
+            if (product_variant_name) vm.name = product_variant_name as unknown as string;
+            if (product_variant_special_price) vm.special_price = product_variant_special_price as unknown as number;
+            if (product_variant_sku) vm.sku = product_variant_sku as unknown as string;
+            validationMessages = Object.keys(vm).length ? vm : null;
         }
 
         setState(s => ({ ...s, validationMessages, loading: !validationMessages }));
@@ -112,6 +152,12 @@ const AddVariant = React.memo(() => {
                 inStock: state.inStock || 1,
                 image: state.image.imageData!,
                 product_id: current.id,
+                special_price: state.special_price || undefined,
+                sku: state.sku || undefined,
+                attributes: state.attributes.reduce((acc, cur) => {
+                    if (cur.key && cur.value) acc[cur.key] = cur.value;
+                    return acc;
+                }, {} as { [key: string]: string }),
             }
 
             createProductVariant(payload)
@@ -192,6 +238,31 @@ const AddVariant = React.memo(() => {
         </div>
 
         <div className="mb-3">
+            <label htmlFor="special_price" className="form-label">Prix promotionnel</label>
+            <NumberInput
+                onChange={handleNumberChange}
+                value={state.special_price.toLocaleString()}
+                className="add-variant-special-price"
+                name="product_variant_special_price"
+                id="special_price"
+                placeholder="Prix promotionnel"
+            />
+        </div>
+
+        <div className="mb-3">
+            <label htmlFor="sku" className="form-label">SKU</label>
+            <Input
+                type="text"
+                name="product_variant_sku"
+                id="sku"
+                className="form-control"
+                placeholder="SKU"
+                value={state.sku}
+                onChange={handleSkuChange}
+            />
+        </div>
+
+        <div className="mb-3">
             <label htmlFor="inStock" className="form-label">Nombre en stock *</label>
             <NumberInput
                 onChange={handleNumberChange}
@@ -205,6 +276,22 @@ const AddVariant = React.memo(() => {
                 required />
 
             <small id="add-variant-inStock-help" className="text-muted">Le nombre de stock pour ce variant</small>
+        </div>
+
+        <div className="mb-3">
+            <div className="d-flex justify-content-between align-items-center mb-2">
+                <label className="form-label">Attributs</label>
+                <Button type="button" className="btn btn-outline-secondary btn-sm" onClick={addAttributeRow}>Ajouter un attribut</Button>
+            </div>
+            <div className="d-flex flex-column gap-2">
+                {state.attributes.map((row, i) => (
+                    <div className="d-flex gap-2" key={i}>
+                        <Input type="text" className="form-control" placeholder="Nom" value={row.key} onChange={e => handleAttributeChange(i, 'key', e.target.value)} />
+                        <Input type="text" className="form-control" placeholder="Valeur" value={row.value} onChange={e => handleAttributeChange(i, 'value', e.target.value)} />
+                        <Button type="button" className="btn btn-outline-danger" onClick={() => removeAttributeRow(i)}>Supprimer</Button>
+                    </div>
+                ))}
+            </div>
         </div>
 
         <div className="add-product-variant-action">
