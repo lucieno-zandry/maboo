@@ -1,7 +1,7 @@
 import React from "react";
-import Fade from "../../utilities/minitiatures/Fade/Fade";
-import { Product } from "../../utilities/constants/types";
-import { getProducts, getProductsMock, normalizeProducts } from "../../utilities/api/actions";
+import Fade from "../../../utilities/minitiatures/Fade/Fade";
+import { Product } from "../../../utilities/constants/types";
+import { getProducts, getProductsMock, normalizeProducts } from "../../../utilities/api/actions";
 
 const VariantsDemo = React.memo(() => {
   const [state, setState] = React.useState<{ products: Product[]; loading: boolean }>({ products: [], loading: true });
