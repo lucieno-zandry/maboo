@@ -17,7 +17,15 @@ const VariantsDemo = React.memo(() => {
         if (mounted) setState({ products, loading: false });
       })
       .catch(() => {
-        if (mounted) setState({ products: [], loading: false });
+        getProductsMock()
+          .then(res => {
+            const raw = res.data.products || [];
+            const products = normalizeProducts(raw);
+            if (mounted) setState({ products, loading: false });
+          })
+          .catch(() => {
+            if (mounted) setState({ products: [], loading: false });
+          });
       });
     return () => { mounted = false };
   }, []);
