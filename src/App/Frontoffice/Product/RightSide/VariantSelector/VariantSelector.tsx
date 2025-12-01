@@ -75,18 +75,20 @@ const VariantSelector = React.memo((props: Props) => {
           <div className="d-flex flex-wrap gap-2">
             {(options[k] || []).map(val => {
               const active = selected[k] === val;
-              const available = variants.some(v => {
+              const existsForKeyValue = variants.some(v => (v.attributes || {})[k] === val && ((v.stock ?? v.inStock) > 0));
+              const availableWithCurrent = variants.some(v => {
                 const attrs = v.attributes || {};
                 const matchesOthers = keys.every(key => key === k ? true : (selected[key] ? attrs[key] === selected[key] : true));
                 return attrs[k] === val && matchesOthers && ((v.stock ?? v.inStock) > 0);
               });
+              const cls = active ? 'btn-dark' : (availableWithCurrent ? 'btn-outline-dark' : 'btn-outline-secondary');
               return (
                 <button
                   key={val}
                   type="button"
-                  className={`btn btn-sm ${active ? 'btn-dark' : 'btn-outline-dark'}`}
+                  className={`btn btn-sm ${cls}`}
                   onClick={() => handleChange(k, val)}
-                  disabled={!available}
+                  disabled={!existsForKeyValue}
                 >
                   {val}
                 </button>

@@ -11,11 +11,14 @@ const DoublePrice = React.memo((props: Props) => {
     const { firstPrice, secondPrice, className = '' } = props;
 
     return <>
-        {secondPrice ? <div className={`d-flex gap-2 ${className}`}>
-            <Price amount={firstPrice} className="product-price" dashed />
-            <Price amount={secondPrice} className="product-price" />
-        </div> :
-            <Price amount={firstPrice} className={`product-price ${className}`} />}
+        {secondPrice ? (
+            <div className={`d-flex gap-2 ${className}`}>
+                {firstPrice > 0 && <Price amount={firstPrice} className="product-price" dashed />}
+                <Price amount={secondPrice} className="product-price" />
+            </div>
+        ) : (
+            <Price amount={firstPrice} className={`product-price ${className}`} />
+        )}
     </>
 })
 
