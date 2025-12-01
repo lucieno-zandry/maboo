@@ -59,17 +59,23 @@ const VariantSelector = React.memo((props: Props) => {
   return (
     <div className="variant-selector">
       {keys.map(k => (
-        <div className="variant-selector-group" key={k}>
-          <label className="form-label">{k}</label>
-          <select
-            className="form-select"
-            value={selected[k] || ""}
-            onChange={e => handleChange(k, e.target.value)}
-          >
-            {(options[k] || []).map(val => (
-              <option value={val} key={val}>{val}</option>
-            ))}
-          </select>
+        <div className="variant-selector-group mb-3" key={k}>
+          <div className="mb-1 text-muted">{k}</div>
+          <div className="d-flex flex-wrap gap-2">
+            {(options[k] || []).map(val => {
+              const active = selected[k] === val;
+              return (
+                <button
+                  key={val}
+                  type="button"
+                  className={`btn btn-sm ${active ? 'btn-dark' : 'btn-outline-dark'}`}
+                  onClick={() => handleChange(k, val)}
+                >
+                  {val}
+                </button>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>

@@ -48,21 +48,21 @@ const Products = React.memo(() => {
   }, [state.products, state.filter]);
 
   return (
-    <Fade className="container" show>
-      <div className="d-flex gap-2 mb-3">
+    <Fade className="products-container container" show>
+      <div className="products-filter">
         <button className={`btn btn-sm ${state.filter === 'all' ? 'btn-dark' : 'btn-outline-dark'}`} onClick={() => setState(s => ({ ...s, filter: 'all' }))}>Tous</button>
         <button className={`btn btn-sm ${state.filter === 'bebe' ? 'btn-dark' : 'btn-outline-dark'}`} onClick={() => setState(s => ({ ...s, filter: 'bebe' }))}>Bébé</button>
         <button className={`btn btn-sm ${state.filter === 'maman' ? 'btn-dark' : 'btn-outline-dark'}`} onClick={() => setState(s => ({ ...s, filter: 'maman' }))}>Maman</button>
       </div>
 
-      <div className="d-flex gap-3 flex-wrap">
+      <div className="products-grid">
         {list.map(p => (
           <HoverableProduct key={p.id} product={p} />
         ))}
       </div>
 
       {state.loading && (
-        <div className="d-flex gap-3 flex-wrap">
+        <div className="products-grid">
           {generateArray(6).map((_, i) => (
             <HoverableProductPlaceholder index={i} key={i} />
           ))}
@@ -73,3 +73,4 @@ const Products = React.memo(() => {
 });
 
 export default Products;
+import "./Products.scss";
