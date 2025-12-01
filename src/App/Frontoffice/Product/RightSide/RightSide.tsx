@@ -159,11 +159,6 @@ const RightSide = React.memo((props: Props) => {
       </div>
 
       <DoublePrice firstPrice={product.price} secondPrice={price} />
-      {state.variant?.attributes && (
-        <div className="variant-attributes">
-          {Object.entries(state.variant.attributes).map(([k, v]) => `${k}: ${v}`).join(', ')}
-        </div>
-      )}
       
       <div>
         <span>En stock: </span>

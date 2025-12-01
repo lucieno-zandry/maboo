@@ -40,19 +40,30 @@ const VariantSelector = React.memo((props: Props) => {
     setSelected(defaultSelected);
   }, [defaultSelected]);
 
-  const resolve = React.useCallback((sel: { [k: string]: string }) => {
-    const found = variants.find(v => {
-      const attrs = v.attributes || {};
-      return keys.every(k => attrs[k] === sel[k]);
-    });
-    if (found) onChange(found);
-  }, [variants, keys, onChange]);
 
   const handleChange = React.useCallback((k: string, val: string) => {
     const next = { ...selected, [k]: val };
-    setSelected(next);
-    resolve(next);
-  }, [selected, resolve]);
+    const matchExact = variants.find(v => {
+      const attrs = v.attributes || {};
+      return keys.every(key => attrs[key] === next[key]) && ((v.stock ?? v.inStock) > 0);
+    });
+
+    if (matchExact) {
+      setSelected(next);
+      onChange(matchExact);
+      return;
+    }
+
+    const matchSameKey = variants.find(v => {
+      const attrs = v.attributes || {};
+      return attrs[k] === val && ((v.stock ?? v.inStock) > 0);
+    });
+
+    if (matchSameKey) {
+      setSelected({ ...(matchSameKey.attributes || {}) });
+      onChange(matchSameKey);
+    }
+  }, [selected, variants, keys, onChange]);
 
   if (keys.length === 0) return null;
 
@@ -64,12 +75,18 @@ const VariantSelector = React.memo((props: Props) => {
           <div className="d-flex flex-wrap gap-2">
             {(options[k] || []).map(val => {
               const active = selected[k] === val;
+              const available = variants.some(v => {
+                const attrs = v.attributes || {};
+                const matchesOthers = keys.every(key => key === k ? true : (selected[key] ? attrs[key] === selected[key] : true));
+                return attrs[k] === val && matchesOthers && ((v.stock ?? v.inStock) > 0);
+              });
               return (
                 <button
                   key={val}
                   type="button"
                   className={`btn btn-sm ${active ? 'btn-dark' : 'btn-outline-dark'}`}
                   onClick={() => handleChange(k, val)}
+                  disabled={!available}
                 >
                   {val}
                 </button>
