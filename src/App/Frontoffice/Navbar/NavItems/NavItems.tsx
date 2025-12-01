@@ -22,20 +22,9 @@ const NavItems = React.memo(() => {
             <Link className={`nav-link ${location.pathname === '/' && 'active'}`} to="/">Home</Link>
         </li>
 
-        {categories && categories.map((hierarchy, key) => {
-            const pathname = categoryPathname(hierarchy.category.id);
-
-            return <li className="nav-item" key={key}>
-                <Link
-                    className={`nav-link ${pathname === location.pathname && 'active'}`}
-                    to={pathname}>
-                    {hierarchy.category.name} <i className="fa fa-chevron-down"></i>
-                </Link>
-                {hierarchy.children.length > 0 &&
-                    <Submenu
-                        categories={hierarchy.children} />}
-            </li>
-        })}
+        <li className="nav-item">
+            <Link className={`nav-link ${location.pathname === '/products' && 'active'}`} to="/products">Produits</Link>
+        </li>
 
         <li className="nav-item">
             <Link className={`nav-link ${location.pathname === '/articles' && 'active'}`} to="/articles">Blog</Link>

@@ -23,6 +23,7 @@ import Articles from "../../../App/Frontoffice/Articles/Articles";
 import Professionals from "../../../App/Frontoffice/Professionals/Professionals";
 import Professional from "../../../App/Frontoffice/Professionals/Professional/Professional";
 import VariantsDemo from "../../../App/Frontoffice/VariantsDemo/VariantsDemo";
+import Products from "../../../App/Frontoffice/Products/Products";
 // import Article from './path/to/Article';
 
 export default function () {
@@ -33,6 +34,7 @@ export default function () {
             <Route element={<Product />} path='product/:slug' />
             <Route element={<Search />} path='search/:words' />
             <Route element={<VariantsDemo />} path='variants-demo' />
+            <Route element={<Products />} path='products' />
             <Route element={<Articles />} path='articles' />
             <Route element={<Articles />} path="articles/:articleId" />
             <Route element={<Professionals />} path="professionals" />

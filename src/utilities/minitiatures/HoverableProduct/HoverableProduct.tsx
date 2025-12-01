@@ -4,7 +4,11 @@ import { Product } from "../../constants/types";
 import appImage from "../../helpers/appImage";
 import DoublePrice from "../DoublePrice/DoublePrice";
 import Button from "../Button/Button";
-import { useAddToCart } from "../../api/customer/hooks";
+import { addToCart } from "../../api/customer/actions";
+import useToasts from "../Toast/hooks/useToasts";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import links from "../../helpers/links";
 
 type Props = {
     product: Product,
@@ -18,7 +22,9 @@ type Payload = {
 };
 
 const HoverableProduct = React.memo((props: Props) => {
-    const addToCart = useAddToCart();
+    const toasts = useToasts();
+    const { auth } = useAuth();
+    const navigate = useNavigate();
     const { product, className = '' } = React.useMemo(() => props, [props]);
 
     const [state, setState] = React.useState({
@@ -54,13 +60,22 @@ const HoverableProduct = React.memo((props: Props) => {
     }, [product]);
 
     const handleAddToCart = React.useCallback(() => {
-        addToCart({
-            payload,
-            onInit: () => setState(s => ({ ...s, loading: true })),
-            onFinally: () => setState(s => ({ ...s, loading: false })),
-            product_slug: product.slug,
-        })
-    }, [product.id, payload, product.slug]);
+        if (!auth) {
+            const intended = { path: `/product/${product.slug}`, target: true };
+            sessionStorage.setItem('intended', JSON.stringify(intended));
+            navigate(links.loginPage);
+            return;
+        }
+        setState(s => ({ ...s, loading: true }));
+        addToCart(payload)
+            .then(() => {
+                toasts.push({ title: "Ajouté au panier", content: "Votre panier a été mis à jour avec succès", type: "success" });
+            })
+            .catch(() => {
+                toasts.push({ title: "Impossible d'ajouter au panier", content: "Une erreur s'est produite lors de l'ajout au panier", type: "danger" });
+            })
+            .finally(() => setState(s => ({ ...s, loading: false })));
+    }, [auth, navigate, product.slug, payload, toasts.push]);
 
     return <div className={"hoverable-product " + className}>
         <div className="product-image-container">
