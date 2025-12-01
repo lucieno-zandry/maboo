@@ -1,10 +1,8 @@
 import React from "react";
-import Submenu from "../Submenu/Submenu";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../utilities/redux/store";
 import { refreshCategories } from "../../../../utilities/redux/frontoffice/frontofficeSlice";
-import categoryPathname from "../../../../utilities/helpers/categoryPathname";
 
 const NavItems = React.memo(() => {
     const categories = useSelector((state: Rootstate) => state.frontoffice.categories);

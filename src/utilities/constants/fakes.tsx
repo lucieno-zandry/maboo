@@ -106,10 +106,43 @@ export const mockProducts: Product[] = [
     {
         ...fakeProduct,
         id: 2,
+        category_id: 1,
         slug: 'odio-harum-nisi-beatae-sapiente',
-        title: 'Prof.',
-        description: 'Eos dolorem eligendi possimus et...',
-    }
+        title: 'Sac à langer Premium',
+        description: 'Sac à langer multi-poches avec variantes matériau/couleur/design.',
+    },
+    {
+        ...fakeProduct,
+        id: 3,
+        category_id: 1,
+        slug: 'brassiere-coton-ml',
+        title: 'Brassière Coton ML',
+        description: 'Brassière en coton avec tailles et couleurs variées.',
+    },
+    {
+        ...fakeProduct,
+        id: 4,
+        category_id: 1,
+        slug: 'body-coton-mc',
+        title: 'Body Coton MC',
+        description: 'Body coton manches courtes avec options de motif/couleur.',
+    },
+    {
+        ...fakeProduct,
+        id: 5,
+        category_id: 2,
+        slug: 'sac-a-main-maman',
+        title: 'Sac à main Maman',
+        description: 'Sac à main avec variantes matériau/couleur.',
+    },
+    {
+        ...fakeProduct,
+        id: 6,
+        category_id: 2,
+        slug: 'ensemble-laine',
+        title: 'Ensemble Laine',
+        description: 'Ensemble en laine avec tailles et couleurs.',
+    },
 ];
 
 export const fakeCartItem: CartItem = {

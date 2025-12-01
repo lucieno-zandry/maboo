@@ -19,17 +19,25 @@ const Product = React.memo(() => {
         let mounted = true;
         setState(s => ({ ...s, loading: true }));
         const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
-        const promise = useMocks ? getProductsMock() : getProduct(slug);
-        promise
+        const request = useMocks ? getProductsMock() : getProduct(slug);
+        request
             .then(response => {
                 const data = response.data;
                 const product = useMocks
                     ? (data.products as ProductType[]).find(p => p.slug === slug)
                     : (data?.product as ProductType | undefined);
-                if (mounted) setState({ product: product ?? null, loading: false });
+                if (mounted && product) setState({ product, loading: false });
+                else throw new Error('No product');
             })
             .catch(() => {
-                if (mounted) setState({ product: null, loading: false });
+                getProductsMock()
+                    .then(res => {
+                        const product = (res.data.products as ProductType[]).find(p => p.slug === slug) || null;
+                        if (mounted) setState({ product, loading: false });
+                    })
+                    .catch(() => {
+                        if (mounted) setState({ product: null, loading: false });
+                    });
             });
         return () => { mounted = false };
     }, [slug]);
