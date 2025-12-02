@@ -6,7 +6,7 @@ import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
 import userType from "../helpers/userType";
 import api from "./api";
-import { mockProducts } from "../constants/fakes";
+import { mockListProducts } from "../constants/fakes";
 
 export const getAuth = () => {
     return api.get(links.getAuth);
@@ -258,7 +258,7 @@ export const getProducts = () => {
 }
 
 export const getProductsMock = () => {
-    return Promise.resolve({ data: { products: mockProducts } });
+    return Promise.resolve({ data: { products: mockListProducts } });
 }
 
 export const normalizeProducts = (products: any[]): import("../constants/types").Product[] => {

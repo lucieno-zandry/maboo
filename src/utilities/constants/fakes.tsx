@@ -187,3 +187,139 @@ export const fakeOrder: Order = {
     updated_at: isoString,
     transaction: null,
 }
+
+type ListProductVariant = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  product_id: number;
+  sku: string;
+  price: number;
+  special_price: number | null;
+  stock: number;
+  image: string | null;
+};
+
+type ListProduct = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  slug: string;
+  title: string;
+  description: string;
+  category_id: number;
+  variants: ListProductVariant[];
+};
+
+export const mockListProducts: ListProduct[] = [
+  {
+    id: 1,
+    created_at: "2025-12-01T09:00:00.000000Z",
+    updated_at: "2025-12-01T09:00:00.000000Z",
+    slug: "professional-laptop-15-inch",
+    title: "Professional Laptop 15\"",
+    description: "High-performance laptop perfect for developers and creative professionals. Features latest generation processor and dedicated graphics.",
+    category_id: 1,
+    variants: [
+      {
+        id: 1,
+        created_at: "2025-12-01T10:00:00.000000Z",
+        updated_at: "2025-12-01T10:00:00.000000Z",
+        product_id: 1,
+        sku: "LAPTOP-001",
+        price: 999,
+        special_price: 899,
+        stock: 50,
+        image: "https://example.com/laptop.jpg",
+      },
+      {
+        id: 2,
+        created_at: "2025-12-01T10:05:00.000000Z",
+        updated_at: "2025-12-01T10:05:00.000000Z",
+        product_id: 1,
+        sku: "LAPTOP-002",
+        price: 1299,
+        special_price: null,
+        stock: 25,
+        image: null,
+      },
+    ],
+  },
+  {
+    id: 2,
+    created_at: "2025-12-01T09:30:00.000000Z",
+    updated_at: "2025-12-01T09:30:00.000000Z",
+    slug: "wireless-mouse-ergonomic",
+    title: "Wireless Ergonomic Mouse",
+    description: "Comfortable wireless mouse with ergonomic design. Perfect for long work sessions with adjustable DPI settings.",
+    category_id: 2,
+    variants: [
+      {
+        id: 3,
+        created_at: "2025-12-01T10:15:00.000000Z",
+        updated_at: "2025-12-01T10:15:00.000000Z",
+        product_id: 2,
+        sku: "MOUSE-BLK-001",
+        price: 49,
+        special_price: 39,
+        stock: 150,
+        image: "https://example.com/mouse-black.jpg",
+      },
+      {
+        id: 4,
+        created_at: "2025-12-01T10:20:00.000000Z",
+        updated_at: "2025-12-01T10:20:00.000000Z",
+        product_id: 2,
+        sku: "MOUSE-WHT-001",
+        price: 49,
+        special_price: null,
+        stock: 200,
+        image: "https://example.com/mouse-white.jpg",
+      },
+    ],
+  },
+  {
+    id: 3,
+    created_at: "2025-12-01T08:00:00.000000Z",
+    updated_at: "2025-12-01T11:00:00.000000Z",
+    slug: "mechanical-keyboard-rgb",
+    title: "RGB Mechanical Keyboard",
+    description: "Premium mechanical keyboard with customizable RGB lighting. Cherry MX switches for the best typing experience.",
+    category_id: 2,
+    variants: [
+      {
+        id: 5,
+        created_at: "2025-12-01T10:30:00.000000Z",
+        updated_at: "2025-12-01T10:30:00.000000Z",
+        product_id: 3,
+        sku: "KB-RGB-RED",
+        price: 149,
+        special_price: null,
+        stock: 75,
+        image: "https://example.com/keyboard-red.jpg",
+      },
+      {
+        id: 6,
+        created_at: "2025-12-01T10:35:00.000000Z",
+        updated_at: "2025-12-01T10:35:00.000000Z",
+        product_id: 3,
+        sku: "KB-RGB-BLU",
+        price: 149,
+        special_price: 129,
+        stock: 60,
+        image: "https://example.com/keyboard-blue.jpg",
+      },
+      {
+        id: 7,
+        created_at: "2025-12-01T10:40:00.000000Z",
+        updated_at: "2025-12-01T10:40:00.000000Z",
+        product_id: 3,
+        sku: "KB-RGB-BRN",
+        price: 149,
+        special_price: null,
+        stock: 45,
+        image: null,
+      },
+    ],
+  },
+];
