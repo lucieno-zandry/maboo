@@ -78,6 +78,32 @@ export type Product = {
   merchant: User;
 };
 
+// ----------------------------- Products List (Frontend /products) -----------------------------
+export type ProductListVariant = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  product_id: number;
+  sku: string;
+  price: number;
+  special_price: number | null;
+  stock: number;
+  image: string | null;
+};
+
+export type ProductList = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  slug: string;
+  title: string;
+  description: string;
+  category_id: number;
+  variants: ProductListVariant[];
+};
+
+export type Products = ProductList[];
+
 export type CartItem = {
   id: number;
   product_id: number;

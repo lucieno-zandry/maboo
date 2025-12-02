@@ -1,12 +1,12 @@
 import React from "react";
 import Fade from "../../../utilities/minitiatures/Fade/Fade";
 import HoverableProduct, { HoverableProductPlaceholder } from "../../../utilities/minitiatures/HoverableProduct/HoverableProduct";
-import { Product } from "../../../utilities/constants/types";
-import { getProducts, getProductsMock, normalizeProducts } from "../../../utilities/api/actions";
+import { ProductList } from "../../../utilities/constants/types";
+import { getProducts, getProductsMock } from "../../../utilities/api/actions";
 import generateArray from "../../../utilities/helpers/generateArray";
 
 const Products = React.memo(() => {
-  const [state, setState] = React.useState<{ products: Product[]; loading: boolean; filter: 'all' | 'bebe' | 'maman' }>({
+  const [state, setState] = React.useState<{ products: ProductList[]; loading: boolean; filter: 'all' | 'bebe' | 'maman' }>({
     products: [],
     loading: true,
     filter: 'all',
@@ -18,15 +18,13 @@ const Products = React.memo(() => {
     const request = useMocks ? getProductsMock() : getProducts();
     request
       .then(res => {
-        const raw = res.data.products || [];
-        const products = normalizeProducts(raw);
+        const products: ProductList[] = res.data.products || [];
         if (mounted) setState(s => ({ ...s, products, loading: false }));
       })
       .catch(() => {
         getProductsMock()
           .then(res => {
-            const raw = res.data.products || [];
-            const products = normalizeProducts(raw);
+            const products: ProductList[] = res.data.products || [];
             if (mounted) setState(s => ({ ...s, products, loading: false }));
           })
           .catch(() => {
@@ -57,7 +55,7 @@ const Products = React.memo(() => {
 
       <div className="products-grid">
         {list.map(p => (
-          <HoverableProduct key={p.id} product={p} />
+          <HoverableProduct key={p.id} product={p as any} showPrice={false} />
         ))}
       </div>
 

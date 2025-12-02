@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Product } from "../../constants/types";
+import { Product, ProductList } from "../../constants/types";
 import appImage from "../../helpers/appImage";
 import DoublePrice from "../DoublePrice/DoublePrice";
 import Button from "../Button/Button";
@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import links from "../../helpers/links";
 
 type Props = {
-    product: Product,
-    className?: string
+    product: Product | ProductList,
+    className?: string,
+    showPrice?: boolean,
 };
 
 type Payload = {
@@ -25,7 +26,7 @@ const HoverableProduct = React.memo((props: Props) => {
     const toasts = useToasts();
     const { auth } = useAuth();
     const navigate = useNavigate();
-    const { product, className = '' } = React.useMemo(() => props, [props]);
+    const { product, className = '', showPrice = true } = React.useMemo(() => props, [props]);
 
     const [state, setState] = React.useState({
         loading: false,
@@ -45,19 +46,12 @@ const HoverableProduct = React.memo((props: Props) => {
     }, [product.id, product.variants]);
 
     const price = React.useMemo(() => {
-        const price = {
-            firstPrice: product.price,
-            secondPrice: product.sale_price || undefined
-        };
-
-        if (product.variants.length > 0) {
-            const variant = product.variants[0];
-            price.firstPrice = (product.price > variant.price) ? product.price : variant.price;
-            price.secondPrice = (product.price > variant.price) ? variant.price : undefined;
-        }
-
-        return price;
-    }, [product]);
+        if (!showPrice) return null;
+        const variant = product.variants[0];
+        const firstPrice = (variant?.price) || 0;
+        const secondPrice = variant?.special_price ?? undefined;
+        return { firstPrice, secondPrice } as { firstPrice: number, secondPrice?: number };
+    }, [product, showPrice]);
 
     const handleAddToCart = React.useCallback(() => {
         if (!auth) {
@@ -103,14 +97,17 @@ const HoverableProduct = React.memo((props: Props) => {
                 </div>
             </div>
 
-            {product.images.length > 0 ? <img
-                alt="An image of a product"
-                src={appImage(product.images[0].name)} className="product-image" /> :
-                <div className="product-image" />}
+            {('images' in product && product.images.length > 0) ? (
+                <img alt="An image of a product" src={appImage(product.images[0].name)} className="product-image" />
+            ) : (product.variants[0]?.image ? (
+                <img alt="An image of a product" src={appImage(product.variants[0].image as any)} className="product-image" />
+            ) : (
+                <div className="product-image" />
+            ))}
         </div>
         <div className="mt-3 product-card-information">
             <h6>{product.title}</h6>
-            <DoublePrice {...price} />
+            {showPrice && price && <DoublePrice {...price} />}
         </div>
     </div>
 });
