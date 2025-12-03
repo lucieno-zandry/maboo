@@ -1,6 +1,5 @@
 import React from "react";
 import { OrderItem } from "../../constants/types";
-import { fakeCartItem } from "../../constants/fakes";
 import SquaredImage from "../SquaredImage/SquaredImage";
 import appImage from "../../helpers/appImage";
 import SmallText from "../SmallText/SmallText";
@@ -15,7 +14,8 @@ type Props = {
 const OrderItemComponent = React.memo((props: Props) => {
 
   const { className = '' } = props;
-  const item = props.orderItem.cart_item || fakeCartItem;
+  const item = props.orderItem.cart_item;
+  if (!item) return null;
   const { product } = item;
   const image = item.product_variant?.image || product?.images[0]?.name || null ;
 
@@ -31,7 +31,7 @@ const OrderItemComponent = React.memo((props: Props) => {
           {product.description}
         </SmallText>
       </div>
-      <Price amount={item.subtotal} />
+      <Price amount={item.subtotal || 0} />
       <div>
         <span className="item-subtitle">quantité:</span>{" "}
         <span>{item.quantity}</span>

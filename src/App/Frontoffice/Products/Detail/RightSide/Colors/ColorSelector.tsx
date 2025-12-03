@@ -28,7 +28,6 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({ colors, onChange, selecte
             className={`color-swatch ${selectedColor?.id === color.id ? 'selected' : ''}`}
             style={{
               backgroundColor: color.code,
-              // Pour les couleurs claires comme le blanc, ajoutez une bordure visible
               border: color.code.toLowerCase() === '#ffffff' ? '1px solid #e0e0e0' : 'none'
             }}
             title={color.name}
@@ -39,40 +38,11 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({ colors, onChange, selecte
       </div>
 
       <style>{`
-        .color-selector-container {
-          font-family: inherit;
-        }
-
-        .color-label {
-          font-size: 0.9rem;
-          color: #666;
-          font-weight: 500;
-        }
-
-        .color-swatch {
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          cursor: pointer;
-          padding: 0;
-          position: relative;
-          transition: transform 0.2s;
-        }
-
-        .color-swatch:hover {
-          transform: scale(1.1);
-        }
-
-        .color-swatch.selected::after {
-          content: '';
-          position: absolute;
-          top: -4px;
-          left: -4px;
-          right: -4px;
-          bottom: -4px;
-          border: 2px solid #666;
-          border-radius: 50%;
-        }
+        .color-selector-container { font-family: inherit; }
+        .color-label { font-size: 0.9rem; color: #666; font-weight: 500; }
+        .color-swatch { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; padding: 0; position: relative; transition: transform 0.2s; }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.selected::after { content: ''; position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px; border: 2px solid #666; border-radius: 50%; }
       `}</style>
     </div>
   );

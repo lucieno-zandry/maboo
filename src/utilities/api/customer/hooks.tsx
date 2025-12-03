@@ -32,7 +32,7 @@ export const useAddToCart = () => {
 
     const handleUnauthorized = React.useCallback((slug: string) => {
         const intended = {
-            path: `/product/${slug}`,
+            path: `/products/${slug}`,
             target: true,
         }
 

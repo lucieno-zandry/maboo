@@ -1,5 +1,6 @@
 .hoverable-product {
     margin-bottom: 1rem;
+    width: 200px;
 
     @media (max-width: 576px) {
         width: 100%;
@@ -75,6 +76,9 @@
         h6 {
             font-size: 1rem;
             margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             @media (max-width: 768px) {
                 font-size: 0.9rem;

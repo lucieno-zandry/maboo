@@ -1,0 +1,7 @@
+.related-articles {
+  margin-top: 2rem;
+  h2 { font-size: 1rem; color: rgba(0, 0, 0, .6); }
+  .carousel-container { display: flex; align-items: center; gap: .5rem; }
+  .articles-container-connexe { display: flex; gap: .5rem; }
+  .article-card { cursor: pointer; }
+}

@@ -1,0 +1,12 @@
+.product-variants-list {
+    display: flex;
+    gap: .5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.product-variant-item {
+    label {
+        cursor: pointer;
+    }
+}

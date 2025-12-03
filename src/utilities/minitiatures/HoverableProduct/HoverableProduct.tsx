@@ -55,7 +55,7 @@ const HoverableProduct = React.memo((props: Props) => {
 
     const handleAddToCart = React.useCallback(() => {
         if (!auth) {
-            const intended = { path: `/product/${product.slug}`, target: true };
+            const intended = { path: `/products/${product.slug}`, target: true };
             sessionStorage.setItem('intended', JSON.stringify(intended));
             navigate(links.loginPage);
             return;
@@ -81,7 +81,7 @@ const HoverableProduct = React.memo((props: Props) => {
                         tabIndex={-1}
                         data-bs-toggle='tooltip'
                         title='Voir le produit'
-                        to={'/product/' + product.slug}>
+                        to={'/products/' + product.slug}>
                         <i className="fa fa-eye"></i>
                     </Link>
                     <Button

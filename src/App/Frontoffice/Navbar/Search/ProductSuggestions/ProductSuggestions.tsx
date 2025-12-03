@@ -38,7 +38,7 @@ const ProductSuggestions = React.memo((props: Props) => {
             return <div
                 className="product-suggestion"
                 key={product.id}
-                onClick={() => navigate(`/product/${product.slug}`)}>
+                onClick={() => navigate(`/products/${product.slug}`)}>
                 <SquaredImage
                     image={appImage(product.images[0]?.name)} />
                 <h6 className="product-title">{product.title}</h6>

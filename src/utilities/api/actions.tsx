@@ -6,7 +6,8 @@ import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
 import userType from "../helpers/userType";
 import api from "./api";
-import { mockProducts } from "../constants/fakes";
+import { mockProducts, mockProductDetail, mockProductDetail2 } from "../constants/fakes";
+import type { ProductList, ProductDetail, ProductVariantDetail, VariantGroup, VariantOption } from "../constants/types";
 
 export const getAuth = () => {
     return api.get(links.getAuth);
@@ -193,7 +194,12 @@ export const getCategoryProducts = (id: number, options?: {
 }
 
 export const getProduct = (slug: string) => {
-    return api.get(`/product/get/${slug}`);
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        const product = findMockDetailBySlug(slug);
+        return Promise.resolve({ data: { product } });
+    }
+    return api.get(`/product/get/${slug}`).catch(() => ({ data: { product: findMockDetailBySlug(slug) } }));
 }
 
 export const getOrder = (id: string) => {
@@ -254,12 +260,14 @@ export const getMerchantProducts = (options?: {
 }
 
 export const getProducts = () => {
-    return api.get('/products');
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        return Promise.resolve({ data: { products: mockProducts } });
+    }
+    return api.get('/products').catch(() => ({ data: { products: mockProducts } }));
 }
 
-export const getProductsMock = () => {
-    return Promise.resolve({ data: { products: mockProducts } });
-}
+// Deprecated: les fonctions Mock sont désormais intégrées dans getProducts/getProduct
 
 export const normalizeProducts = (products: any[]): import("../constants/types").Product[] => {
     return products.map((p: any) => ({
@@ -292,4 +300,68 @@ export const normalizeProducts = (products: any[]): import("../constants/types")
             attributes: v.attributes || null,
         })),
     }));
+}
+
+function findMockDetailBySlug(slug: string): ProductDetail {
+    if (slug === 'coussin-allaitement-ergonomique') return mockProductDetail2 as ProductDetail;
+    if (slug === 'body-bebe-coton-bio-manches-longues') return mockProductDetail as ProductDetail;
+    const fromList = (mockProducts as ProductList[]).find(p => p.slug === slug);
+    if (!fromList) return mockProductDetail as ProductDetail;
+    return buildDetailFromList(fromList);
+}
+
+function buildDetailFromList(p: ProductList): ProductDetail {
+    const groupId = 100 + p.id;
+    const group: VariantGroup = {
+        id: groupId,
+        created_at: p.created_at,
+        updated_at: p.updated_at,
+        product_id: p.id,
+        name: 'SKU',
+        variant_options: [] as VariantOption[],
+    };
+
+    const variants: ProductVariantDetail[] = (p.variants || []).map((v, idx) => {
+        const optionId = 1000 + v.id;
+        const option: VariantOption = {
+            id: optionId,
+            created_at: v.created_at,
+            updated_at: v.updated_at,
+            value: v.sku,
+            variant_group_id: groupId,
+        };
+        group.variant_options.push(option);
+        return {
+            id: v.id,
+            created_at: v.created_at,
+            updated_at: v.updated_at,
+            product_id: v.product_id,
+            sku: v.sku,
+            price: v.price,
+            special_price: v.special_price,
+            stock: v.stock,
+            image: v.image,
+            variant_options: [{
+                id: optionId,
+                created_at: v.created_at,
+                updated_at: v.updated_at,
+                value: v.sku,
+                variant_group_id: groupId,
+                pivot: { variant_id: v.id, variant_option_id: optionId },
+            }],
+        };
+    });
+
+    const detail: ProductDetail = {
+        id: p.id,
+        created_at: p.created_at,
+        updated_at: p.updated_at,
+        slug: p.slug,
+        title: p.title,
+        description: p.description,
+        category_id: p.category_id,
+        variant_groups: [group],
+        variants,
+    };
+    return detail;
 }

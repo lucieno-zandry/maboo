@@ -207,3 +207,58 @@ export interface Section {
   order?: number;
   subsections: Subsection[];
 }
+
+// ----------------------------- Détail Produit (Backend) -----------------------------
+export interface VariantOptionWithPivot {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  value: string;
+  variant_group_id: number;
+  pivot: {
+    variant_id: number;
+    variant_option_id: number;
+  };
+}
+
+export interface VariantOption {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  value: string;
+  variant_group_id: number;
+}
+
+export interface VariantGroup {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  product_id: number;
+  name: string;
+  variant_options: VariantOption[];
+}
+
+export interface ProductVariantDetail {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  product_id: number;
+  sku: string;
+  price: number;
+  special_price: number | null;
+  stock: number;
+  image: string | null;
+  variant_options: VariantOptionWithPivot[];
+}
+
+export interface ProductDetail {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  slug: string;
+  title: string;
+  description: string;
+  category_id: number;
+  variant_groups: VariantGroup[];
+  variants: ProductVariantDetail[];
+}

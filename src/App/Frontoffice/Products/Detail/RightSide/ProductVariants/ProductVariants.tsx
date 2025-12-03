@@ -1,8 +1,8 @@
 import React from "react";
-import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
-import appImage from "../../../../../utilities/helpers/appImage";
-import ImagePreview from "../../../../../utilities/minitiatures/ImagePreview/ImagePreview";
-import { ProductVariant } from "../../../../../utilities/constants/types";
+import SquaredImage from "../../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
+import appImage from "../../../../../../utilities/helpers/appImage";
+import ImagePreview from "../../../../../../utilities/minitiatures/ImagePreview/ImagePreview";
+import { ProductVariant } from "../../../../../../utilities/constants/types";
 
 type Props = {
     onChange: Function,

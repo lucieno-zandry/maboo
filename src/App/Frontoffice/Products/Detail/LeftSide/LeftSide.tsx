@@ -1,9 +1,9 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import appImage from "../../../../utilities/helpers/appImage";
-import Fade from "../../../../utilities/minitiatures/Fade/Fade";
-import SquaredImage from "../../../../utilities/minitiatures/SquaredImage/SquaredImage";
-import { Product } from "../../../../utilities/constants/types";
+import appImage from "../../../../../utilities/helpers/appImage";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
+import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
+import { Product } from "../../../../../utilities/constants/types";
 
 type Props = { product: Product };
 
@@ -18,7 +18,6 @@ const LeftSide = React.memo((props: Props) => {
         setState(s => ({ ...s, activeIndex: index }));
     }, []);
 
-
     return <Fade className="left-side-container" show>
         {product.images.length > 0 ? <>
             <Carousel
@@ -26,31 +25,27 @@ const LeftSide = React.memo((props: Props) => {
                 indicators={false}
                 controls={false}
                 className="product-image-carousel">
-                {product.images.map(image => {
-                    return <Carousel.Item key={image.id}>
+                {product.images.map(image => (
+                    <Carousel.Item key={image.id}>
                         <SquaredImage
                             image={appImage(image.name)}
                             className="product-carousel-image"/>
                     </Carousel.Item>
-                })}
+                ))}
             </Carousel>
             <ul className="product-images-nav">
-                {product.images.map((image, key) => {
-                    return <li
+                {product.images.map((image, key) => (
+                    <li
                         key={key}
                         className={`product-images-nav-item ${state.activeIndex === key && 'active'}`}
                         onClick={() => setActiveIndex(key)}>
                         <img src={appImage(image.name)} className="img-thumbnail"/>
                     </li>
-                })}
+                ))}
             </ul>
         </> : <>
-            <div className="product-no-image">
-
-            </div>
+            <div className="product-no-image"></div>
         </>}
-
-        
     </Fade>
 })
 

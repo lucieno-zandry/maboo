@@ -39,7 +39,7 @@
   - Activables via `VITE_USE_MOCKS='true'`.
 
 - Démo listing: `src/App/Frontoffice/VariantsDemo/VariantsDemo.tsx`
-  - Route `/variants-demo` (ajoutée dans `src/utilities/routes/customer/customer.tsx`).
+  - La route `/variants-demo` a été retirée; utiliser la page détail produit.
   - Affiche produits + variantes (sku, prix, stock, attributes) pour valider l’intégration.
 
 ## Backoffice Variantes
@@ -75,7 +75,7 @@
 - Activer mocks: définir `VITE_USE_MOCKS='true'`.
 - Tester:
   - Détail: `/product/<slug>` (ex: `/product/odio-harum-nisi-beatae-sapiente`).
-  - Demo: `/variants-demo` pour visualiser la liste et ses variantes.
+  - Démo supprimée; voir `/product/:slug` pour l’implémentation réelle.
 
 ## Notes
 - Si `attributes` existent, le sélecteur par dimensions est utilisé et `ColorSelector` est masqué.

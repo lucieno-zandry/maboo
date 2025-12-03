@@ -1,4 +1,4 @@
-import { Products, ProductDetail } from "../../types/product.types";
+import { Products, ProductDetail } from "./types";
 
 const isoString = new Date().toISOString();
 
@@ -12,10 +12,10 @@ export const mockProducts: Products = [
     description: "Body doux et confortable en coton 100% bio, parfait pour les peaux sensibles. Col américain pour un habillage facile. Certifié OEKO-TEX.",
     category_id: 1,
     variants: [
-      { id: 1, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-BLANC", price: 12.90, special_price: null, stock: 45, image: "/images/body-blanc-0-3m.jpg" },
-      { id: 2, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-3-6M-BLANC", price: 13.90, special_price: null, stock: 38, image: "/images/body-blanc-3-6m.jpg" },
-      { id: 3, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-6-12M-BLANC", price: 14.90, special_price: null, stock: 52, image: "/images/body-blanc-6-12m.jpg" },
-      { id: 4, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-ROSE", price: 12.90, special_price: 10.90, stock: 30, image: "/images/body-rose-0-3m.jpg" },
+      { id: 1, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-BLANC", price: 12.90, special_price: null, stock: 45, image: "https://picsum.photos/seed/body-blanc-0-3m/600/600" },
+      { id: 2, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-3-6M-BLANC", price: 13.90, special_price: null, stock: 38, image: "https://picsum.photos/seed/body-blanc-3-6m/600/600" },
+      { id: 3, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-6-12M-BLANC", price: 14.90, special_price: null, stock: 52, image: "https://picsum.photos/seed/body-blanc-6-12m/600/600" },
+      { id: 4, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-ROSE", price: 12.90, special_price: 10.90, stock: 30, image: "https://picsum.photos/seed/body-rose-0-3m/600/600" },
     ],
   },
   {
@@ -27,118 +27,9 @@ export const mockProducts: Products = [
     description: "Coussin d'allaitement évolutif et multifonction. Idéal pour l'allaitement, le biberon et comme coussin de grossesse. Housse amovible et lavable en machine.",
     category_id: 2,
     variants: [
-      { id: 5, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-GRIS", price: 49.90, special_price: 39.90, stock: 15, image: "/images/coussin-gris.jpg" },
-      { id: 6, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BEIGE", price: 49.90, special_price: null, stock: 22, image: "/images/coussin-beige.jpg" },
-      { id: 7, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BLEU", price: 49.90, special_price: null, stock: 18, image: "/images/coussin-bleu.jpg" },
-    ],
-  },
-  {
-    id: 3,
-    created_at: "2024-01-17T09:15:00.000000Z",
-    updated_at: "2024-01-17T09:15:00.000000Z",
-    slug: "gigoteuse-quatre-saisons-tog-2-5",
-    title: "Gigoteuse Quatre Saisons TOG 2.5",
-    description: "Turbulette confortable et sécurisante pour des nuits paisibles. Double zip pour faciliter le change. Matière respirante et hypoallergénique.",
-    category_id: 1,
-    variants: [
-      { id: 8, created_at: isoString, updated_at: isoString, product_id: 3, sku: "GIGOTEUSE-0-6M-ETOILES", price: 34.90, special_price: null, stock: 28, image: "/images/gigoteuse-etoiles-0-6m.jpg" },
-      { id: 9, created_at: isoString, updated_at: isoString, product_id: 3, sku: "GIGOTEUSE-6-18M-ETOILES", price: 37.90, special_price: null, stock: 35, image: "/images/gigoteuse-etoiles-6-18m.jpg" },
-      { id: 10, created_at: isoString, updated_at: isoString, product_id: 3, sku: "GIGOTEUSE-18-36M-ETOILES", price: 39.90, special_price: null, stock: 20, image: "/images/gigoteuse-etoiles-18-36m.jpg" },
-    ],
-  },
-  {
-    id: 4,
-    created_at: "2024-01-18T11:45:00.000000Z",
-    updated_at: "2024-01-18T11:45:00.000000Z",
-    slug: "poussette-3-roues-tout-terrain",
-    title: "Poussette 3 Roues Tout-Terrain",
-    description: "Poussette sportive avec suspension réglable et grandes roues gonflables. Pliage compact d'une main. Nacelle et siège auto compatibles (vendus séparément).",
-    category_id: 3,
-    variants: [
-      { id: 11, created_at: isoString, updated_at: isoString, product_id: 4, sku: "POUSSETTE-3R-NOIR", price: 399.0, special_price: 349.0, stock: 8, image: "/images/poussette-noir.jpg" },
-      { id: 12, created_at: isoString, updated_at: isoString, product_id: 4, sku: "POUSSETTE-3R-GRIS", price: 399.0, special_price: 349.0, stock: 5, image: "/images/poussette-gris.jpg" },
-      { id: 13, created_at: isoString, updated_at: isoString, product_id: 4, sku: "POUSSETTE-3R-BLEU", price: 399.0, special_price: null, stock: 12, image: "/images/poussette-bleu.jpg" },
-    ],
-  },
-  {
-    id: 5,
-    created_at: "2024-01-19T16:30:00.000000Z",
-    updated_at: "2024-01-19T16:30:00.000000Z",
-    slug: "bavoirs-bandana-lot-de-5",
-    title: "Bavoirs Bandana - Lot de 5",
-    description: "Set de 5 bavoirs bandana ultra-absorbants en coton double épaisseur. Design moderne et tendance. Boutons pression ajustables pour grandir avec bébé.",
-    category_id: 1,
-    variants: [
-      { id: 14, created_at: isoString, updated_at: isoString, product_id: 5, sku: "BAVOIRS-LOT5-MIXTE", price: 19.90, special_price: null, stock: 67, image: "/images/bavoirs-mixte.jpg" },
-      { id: 15, created_at: isoString, updated_at: isoString, product_id: 5, sku: "BAVOIRS-LOT5-FILLE", price: 19.90, special_price: 16.90, stock: 54, image: "/images/bavoirs-fille.jpg" },
-      { id: 16, created_at: isoString, updated_at: isoString, product_id: 5, sku: "BAVOIRS-LOT5-GARCON", price: 19.90, special_price: 16.90, stock: 48, image: "/images/bavoirs-garcon.jpg" },
-    ],
-  },
-  {
-    id: 6,
-    created_at: "2024-01-20T08:00:00.000000Z",
-    updated_at: "2024-01-20T08:00:00.000000Z",
-    slug: "tire-lait-electrique-double-pompage",
-    title: "Tire-Lait Électrique Double Pompage",
-    description: "Tire-lait électrique silencieux avec écran LCD et mémoire des réglages. 10 niveaux d'intensité. Batterie rechargeable pour une utilisation nomade. Pièces sans BPA.",
-    category_id: 2,
-    variants: [
-      { id: 17, created_at: isoString, updated_at: isoString, product_id: 6, sku: "TIRE-LAIT-ELEC-DBL", price: 129.90, special_price: null, stock: 14, image: "/images/tire-lait-double.jpg" },
-      { id: 18, created_at: isoString, updated_at: isoString, product_id: 6, sku: "TIRE-LAIT-ELEC-SIM", price: 89.90, special_price: 79.90, stock: 21, image: "/images/tire-lait-simple.jpg" },
-    ],
-  },
-  {
-    id: 7,
-    created_at: "2024-01-21T13:20:00.000000Z",
-    updated_at: "2024-01-21T13:20:00.000000Z",
-    slug: "tapis-eveil-arches-amovibles",
-    title: "Tapis d'Éveil avec Arches Amovibles",
-    description: "Tapis d'activités moelleux avec arches et jouets suspendus. Stimule les sens de bébé avec miroir, hochets et textures variées. Surface rembourrée confortable.",
-    category_id: 4,
-    variants: [
-      { id: 19, created_at: isoString, updated_at: isoString, product_id: 7, sku: "TAPIS-EVEIL-FORET", price: 59.90, special_price: null, stock: 25, image: "/images/tapis-foret.jpg" },
-      { id: 20, created_at: isoString, updated_at: isoString, product_id: 7, sku: "TAPIS-EVEIL-OCEAN", price: 59.90, special_price: 49.90, stock: 18, image: "/images/tapis-ocean.jpg" },
-      { id: 21, created_at: isoString, updated_at: isoString, product_id: 7, sku: "TAPIS-EVEIL-SAVANE", price: 59.90, special_price: null, stock: 32, image: "/images/tapis-savane.jpg" },
-    ],
-  },
-  {
-    id: 8,
-    created_at: "2024-01-22T10:10:00.000000Z",
-    updated_at: "2024-01-22T10:10:00.000000Z",
-    slug: "baignoire-pliable-support-integre",
-    title: "Baignoire Bébé Pliable avec Support",
-    description: "Baignoire ergonomique avec réducteur nouveau-né intégré. Se plie pour un rangement gain de place. Bouchon de vidange et indicateur de température.",
-    category_id: 3,
-    variants: [
-      { id: 22, created_at: isoString, updated_at: isoString, product_id: 8, sku: "BAIGNOIRE-PLI-GRIS", price: 54.90, special_price: null, stock: 19, image: "/images/baignoire-gris.jpg" },
-      { id: 23, created_at: isoString, updated_at: isoString, product_id: 8, sku: "BAIGNOIRE-PLI-BLEU", price: 54.90, special_price: 44.90, stock: 16, image: "/images/baignoire-bleu.jpg" },
-    ],
-  },
-  {
-    id: 9,
-    created_at: "2024-01-23T15:40:00.000000Z",
-    updated_at: "2024-01-23T15:40:00.000000Z",
-    slug: "chauffe-biberon-sterilisateur-2-en-1",
-    title: "Chauffe-Biberon Stérilisateur 2-en-1",
-    description: "Appareil multifonction pour chauffer le lait et stériliser biberons et tétines. Arrêt automatique et maintien au chaud. Compatible tous types de biberons.",
-    category_id: 3,
-    variants: [
-      { id: 24, created_at: isoString, updated_at: isoString, product_id: 9, sku: "CHAUFFE-BIB-2EN1", price: 44.90, special_price: null, stock: 41, image: "/images/chauffe-biberon.jpg" },
-    ],
-  },
-  {
-    id: 10,
-    created_at: "2024-01-24T12:25:00.000000Z",
-    updated_at: "2024-01-24T12:25:00.000000Z",
-    slug: "ensemble-5-bodies-manches-courtes",
-    title: "Ensemble 5 Bodies Manches Courtes",
-    description: "Pack économique de 5 bodies en coton doux. Pressions entre-jambes pour faciliter le change. Couleurs mixtes assorties. Lavage en machine à 40°C.",
-    category_id: 1,
-    variants: [
-      { id: 25, created_at: isoString, updated_at: isoString, product_id: 10, sku: "PACK5-BODY-1M", price: 24.90, special_price: 19.90, stock: 88, image: "/images/pack-bodies-1m.jpg" },
-      { id: 26, created_at: isoString, updated_at: isoString, product_id: 10, sku: "PACK5-BODY-3M", price: 24.90, special_price: 19.90, stock: 95, image: "/images/pack-bodies-3m.jpg" },
-      { id: 27, created_at: isoString, updated_at: isoString, product_id: 10, sku: "PACK5-BODY-6M", price: 26.90, special_price: 21.90, stock: 72, image: "/images/pack-bodies-6m.jpg" },
-      { id: 28, created_at: isoString, updated_at: isoString, product_id: 10, sku: "PACK5-BODY-12M", price: 26.90, special_price: 21.90, stock: 63, image: "/images/pack-bodies-12m.jpg" },
+      { id: 5, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-GRIS", price: 49.90, special_price: 39.90, stock: 15, image: "https://picsum.photos/seed/coussin-gris/600/600" },
+      { id: 6, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BEIGE", price: 49.90, special_price: null, stock: 22, image: "https://picsum.photos/seed/coussin-beige/600/600" },
+      { id: 7, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BLEU", price: 49.90, special_price: null, stock: 18, image: "https://picsum.photos/seed/coussin-bleu/600/600" },
     ],
   },
 ];
@@ -189,7 +80,7 @@ export const mockProductDetail: ProductDetail = {
       price: 12.90,
       special_price: null,
       stock: 45,
-      image: "/images/body-blanc-0-3m.jpg",
+      image: "https://picsum.photos/seed/body-blanc-0-3m/600/600",
       variant_options: [
         { id: 1, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "0-3 mois", variant_group_id: 1, pivot: { variant_id: 1, variant_option_id: 1 } },
         { id: 5, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Blanc", variant_group_id: 2, pivot: { variant_id: 1, variant_option_id: 5 } },
@@ -204,7 +95,7 @@ export const mockProductDetail: ProductDetail = {
       price: 13.90,
       special_price: null,
       stock: 38,
-      image: "/images/body-blanc-3-6m.jpg",
+      image: "https://picsum.photos/seed/body-blanc-3-6m/600/600",
       variant_options: [
         { id: 2, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "3-6 mois", variant_group_id: 1, pivot: { variant_id: 2, variant_option_id: 2 } },
         { id: 5, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Blanc", variant_group_id: 2, pivot: { variant_id: 2, variant_option_id: 5 } },
@@ -219,7 +110,7 @@ export const mockProductDetail: ProductDetail = {
       price: 14.90,
       special_price: null,
       stock: 52,
-      image: "/images/body-blanc-6-12m.jpg",
+      image: "https://picsum.photos/seed/body-blanc-6-12m/600/600",
       variant_options: [
         { id: 3, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "6-12 mois", variant_group_id: 1, pivot: { variant_id: 3, variant_option_id: 3 } },
         { id: 5, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Blanc", variant_group_id: 2, pivot: { variant_id: 3, variant_option_id: 5 } },
@@ -234,7 +125,7 @@ export const mockProductDetail: ProductDetail = {
       price: 12.90,
       special_price: 10.90,
       stock: 30,
-      image: "/images/body-rose-0-3m.jpg",
+      image: "https://picsum.photos/seed/body-rose-0-3m/600/600",
       variant_options: [
         { id: 1, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "0-3 mois", variant_group_id: 1, pivot: { variant_id: 4, variant_option_id: 1 } },
         { id: 6, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Rose", variant_group_id: 2, pivot: { variant_id: 4, variant_option_id: 6 } },
@@ -249,7 +140,7 @@ export const mockProductDetail: ProductDetail = {
       price: 13.90,
       special_price: 11.90,
       stock: 25,
-      image: "/images/body-rose-3-6m.jpg",
+      image: "https://picsum.photos/seed/body-rose-3-6m/600/600",
       variant_options: [
         { id: 2, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "3-6 mois", variant_group_id: 1, pivot: { variant_id: 5, variant_option_id: 2 } },
         { id: 6, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Rose", variant_group_id: 2, pivot: { variant_id: 5, variant_option_id: 6 } },
@@ -264,7 +155,7 @@ export const mockProductDetail: ProductDetail = {
       price: 12.90,
       special_price: null,
       stock: 40,
-      image: "/images/body-bleu-0-3m.jpg",
+      image: "https://picsum.photos/seed/body-bleu-0-3m/600/600",
       variant_options: [
         { id: 1, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "0-3 mois", variant_group_id: 1, pivot: { variant_id: 6, variant_option_id: 1 } },
         { id: 7, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Bleu", variant_group_id: 2, pivot: { variant_id: 6, variant_option_id: 7 } },
@@ -294,7 +185,7 @@ export const mockProductDetail: ProductDetail = {
       price: 15.90,
       special_price: null,
       stock: 28,
-      image: "/images/body-gris-12-18m.jpg",
+      image: "https://picsum.photos/seed/body-gris-12-18m/600/600",
       variant_options: [
         { id: 4, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "12-18 mois", variant_group_id: 1, pivot: { variant_id: 8, variant_option_id: 4 } },
         { id: 8, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", value: "Gris", variant_group_id: 2, pivot: { variant_id: 8, variant_option_id: 8 } },
@@ -335,7 +226,7 @@ export const mockProductDetail2: ProductDetail = {
       price: 49.90,
       special_price: 39.90,
       stock: 15,
-      image: "/images/coussin-gris.jpg",
+      image: "https://picsum.photos/seed/coussin-gris/600/600",
       variant_options: [
         { id: 9, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", value: "Gris", variant_group_id: 3, pivot: { variant_id: 9, variant_option_id: 9 } },
       ],
@@ -349,7 +240,7 @@ export const mockProductDetail2: ProductDetail = {
       price: 49.90,
       special_price: null,
       stock: 22,
-      image: "/images/coussin-beige.jpg",
+      image: "https://picsum.photos/seed/coussin-beige/600/600",
       variant_options: [
         { id: 10, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", value: "Beige", variant_group_id: 3, pivot: { variant_id: 10, variant_option_id: 10 } },
       ],
@@ -363,7 +254,7 @@ export const mockProductDetail2: ProductDetail = {
       price: 49.90,
       special_price: null,
       stock: 18,
-      image: "/images/coussin-bleu.jpg",
+      image: "https://picsum.photos/seed/coussin-bleu/600/600",
       variant_options: [
         { id: 11, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", value: "Bleu", variant_group_id: 3, pivot: { variant_id: 11, variant_option_id: 11 } },
       ],

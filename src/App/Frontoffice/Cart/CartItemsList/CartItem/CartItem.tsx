@@ -128,7 +128,7 @@ const CartItem = React.memo((props: Props) => {
             image={image} />
 
         <div className="col-3">
-            <Link className="product-title" to={`/product/${cartItem.product.slug}`}>
+            <Link className="product-title" to={`/products/${cartItem.product.slug}`}>
                 {cartItem.product.title}
             </Link>
             <p className="product-description p-0">

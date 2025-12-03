@@ -53,9 +53,9 @@
   @import "./App/Frontoffice/User/User.scss";
   @import "./App/Frontoffice/Category/Category.scss";
   @import "./App/Frontoffice/Category/ProductsEmpty/ProductsEmpty.scss";
-  @import "./App/Frontoffice/Product/Product.scss";
-  @import "./App/Frontoffice/Product/LeftSide/LeftSide.scss";
-  @import "./App/Frontoffice/Product/RightSide/RightSide.scss";
+  @import "./App/Frontoffice/Products/Detail/Product.scss";
+  @import "./App/Frontoffice/Products/Detail/LeftSide/LeftSide.scss";
+  @import "./App/Frontoffice/Products/Detail/RightSide/RightSide.scss";
   @import "./App/Frontoffice/Navbar/Cart/CartButton.scss";
   @import "./App/Frontoffice/Cart/Cart.scss";
   @import "./App/Frontoffice/Cart/CartEmpty/CartEmpty.scss";
@@ -68,7 +68,7 @@
   @import "./App/Frontoffice/Orders/Order/OrderSummary/OrderSummary.scss";
   @import "./App/Frontoffice/Orders/OrderItemsGroup/OrderItemsGroup.scss";
   @import "./App/Frontoffice/Orders/EmptyOrders/EmptyOrders.scss";
-  @import "./App/Frontoffice/Product/RightSide/ProductVariants/ProductVariants.scss";
+  @import "./App/Frontoffice/Products/Detail/RightSide/ProductVariants/ProductVariants.scss";
   @import "./App/Frontoffice/Search/Search.scss";
   @import "./App/Frontoffice/Articles/Articles.scss";
 }

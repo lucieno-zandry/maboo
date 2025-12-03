@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Homepage from "../../../App/Frontoffice/Homepage/Homepage";
 import User from "../../../App/Frontoffice/User/User";
 import Category from "../../../App/Frontoffice/Category/Category";
-import Product from "../../../App/Frontoffice/Product/Product";
+import ProductDetail from "../../../App/Frontoffice/Products/Detail/Product";
 import Orders from "../../../App/Frontoffice/Orders/Orders";
 import List from "../../../App/Frontoffice/Orders/List/List";
 import Order from "../../../App/Frontoffice/Orders/Order/Order";
@@ -22,8 +22,7 @@ import Cart from "../../../App/Frontoffice/Cart/Cart";
 import Articles from "../../../App/Frontoffice/Articles/Articles";
 import Professionals from "../../../App/Frontoffice/Professionals/Professionals";
 import Professional from "../../../App/Frontoffice/Professionals/Professional/Professional";
-import VariantsDemo from "../../../App/Frontoffice/VariantsDemo/VariantsDemo";
-import Products from "../../../App/Frontoffice/Products/Products";
+import ProductsList from "../../../App/Frontoffice/Products/List/ProductsList";
 // import Article from './path/to/Article';
 
 export default function () {
@@ -31,10 +30,9 @@ export default function () {
         <Route element={<Frontoffice />}>
             <Route index element={<Homepage />} />
             <Route element={<Category />} path='category/:id' />
-            <Route element={<Product />} path='product/:slug' />
+            <Route element={<ProductDetail />} path='products/:slug' />
             <Route element={<Search />} path='search/:words' />
-            <Route element={<VariantsDemo />} path='variants-demo' />
-            <Route element={<Products />} path='products' />
+            <Route element={<ProductsList />} path='products' />
             <Route element={<Articles />} path='articles' />
             <Route element={<Articles />} path="articles/:articleId" />
             <Route element={<Professionals />} path="professionals" />

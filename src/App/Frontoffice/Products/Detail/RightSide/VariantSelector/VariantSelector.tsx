@@ -1,5 +1,6 @@
 import React from "react";
-import { ProductVariant } from "../../../../../utilities/constants/types";
+import { ProductVariant } from "../../../../../../utilities/constants/types";
+import "./VariantSelector.scss";
 
 type Props = {
   variants: ProductVariant[];
@@ -40,7 +41,6 @@ const VariantSelector = React.memo((props: Props) => {
     setSelected(defaultSelected);
   }, [defaultSelected]);
 
-
   const handleChange = React.useCallback((k: string, val: string) => {
     const next = { ...selected, [k]: val };
     const matchExact = variants.find(v => {
@@ -71,7 +71,7 @@ const VariantSelector = React.memo((props: Props) => {
     <div className="variant-selector">
       {keys.map(k => (
         <div className="variant-selector-group mb-3" key={k}>
-          <div className="mb-1 text-muted">{k}</div>
+          <div className="mb-1 text-muted">{k}{selected[k] ? `: ${selected[k]}` : ''}</div>
           <div className="d-flex flex-wrap gap-2">
             {(options[k] || []).map(val => {
               const active = selected[k] === val;
@@ -86,7 +86,7 @@ const VariantSelector = React.memo((props: Props) => {
                 <button
                   key={val}
                   type="button"
-                  className={`btn btn-sm ${cls}`}
+                  className={`btn btn-sm variant-option ${cls}`}
                   onClick={() => handleChange(k, val)}
                   disabled={!existsForKeyValue}
                 >

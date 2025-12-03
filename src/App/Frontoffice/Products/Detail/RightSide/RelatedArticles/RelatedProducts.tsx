@@ -32,7 +32,6 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.id} className="product-card">
-            
             <h3>{product.name}</h3>
             <p>{product.description}</p>
           </div>
