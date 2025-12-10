@@ -6,15 +6,12 @@ import Button from "../../../../../../../utilities/minitiatures/Button/Button";
 import SelectedCategory from "../../../Categories/AddCategory/SelectedCategory/SelectedCategory";
 import Input from "../../../../../../../utilities/minitiatures/Input/Input";
 import AddImages from "../../AddImages/AddImages";
-import { useEditProduct } from "../../Products";
+import { useEditProduct, useProducts } from "../../Products";
 import { Category } from "../../../../../../../utilities/constants/types";
 import useCategorySelect from "../../../../../../../utilities/minitiatures/CategorySelect/hooks/useCategorySelect";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { Image } from "../../../../../../../utilities/minitiatures/ImageInputDD/ImageInputDD";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../utilities/redux/store";
 import { AxiosError } from "axios";
-import { refreshProducts } from "../../../../../../../utilities/redux/backoffice/backofficeSlice";
 import appImage from "../../../../../../../utilities/helpers/appImage";
 import { cancelProductUpdate, deleteProductImage, updateProduct } from "../../../../../../../utilities/api/actions";
 
@@ -42,9 +39,9 @@ export type EditProductData = {
 
 const EditProductBody = React.memo(() => {
     const edit = useEditProduct();
+    const { reloadProducts } = useProducts();
     const categorySelect = useCategorySelect();
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
 
     const [state, setState] = React.useState({
         inputValues: DEFAULTINPUTVALUES,
@@ -117,7 +114,7 @@ const EditProductBody = React.memo(() => {
                         type: "success",
                     });
 
-                    dispatch(refreshProducts());
+                    reloadProducts();
                 })
                 .catch((error: AxiosError) => {
                     const { errors } = error.response?.data as { errors: null };
@@ -165,13 +162,13 @@ const EditProductBody = React.memo(() => {
 
     React.useEffect(() => {
         if (edit.current) {
-            const images = edit.current?.images.map(image => {
+            const images = (edit.current?.images || []).map(image => {
                 return {
                     id: image.id,
                     imageUrl: appImage(image.name),
                     imageData: null,
                 }
-            }) || [];
+            });
 
             setState(s => {
                 const newState = { ...s };

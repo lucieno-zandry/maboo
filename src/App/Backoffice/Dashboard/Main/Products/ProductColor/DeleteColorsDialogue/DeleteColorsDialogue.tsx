@@ -4,18 +4,15 @@ import Button from "../../../../../../../utilities/minitiatures/Button/Button";
 import { useDeleteProductColor } from "../ProductColor";
 import valuesOf from "../../../../../../../utilities/helpers/valuesOf";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { refreshProducts } from "../../../../../../../utilities/redux/backoffice/backofficeSlice";
-import { AppDispatch } from "../../../../../../../utilities/redux/store";
-import { useColor } from "../../Products";
+import { useColor, useProducts } from "../../Products";
 import { deleteProductColors } from "../../../../../../../utilities/api/actions";
 
 const DeleteColorsDialogue = React.memo(() => {
     const { currents, setCurrents } = useDeleteProductColor();
     const color = useColor();
+    const { reloadProducts } = useProducts();
 
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
 
     const [state, setState] = React.useState({
         loading: false,
@@ -42,7 +39,7 @@ const DeleteColorsDialogue = React.memo(() => {
                         type: "success",
                     });
 
-                    dispatch(refreshProducts())
+                    reloadProducts()
                     setCurrents([]);
                 })
                 .catch(() => {

@@ -7,9 +7,8 @@ import appImage from "../../helpers/appImage";
 import getParentCategory from "../../helpers/getParentCategory";
 import Button from "../Button/Button";
 import { GlobalsContext } from "../../globals/GlobalsProvider";
-import { useSelector } from "react-redux";
-import { Rootstate } from "../../redux/store";
 import CategoriesEmpty from "../../../App/Backoffice/Dashboard/Main/Categories/CategoriesEmpty/CategoriesEmpty";
+import { getCategories } from "../../api/actions";
 
 type OnFinish = (selected: Category | null) => void;
 
@@ -32,10 +31,17 @@ const DEFAULTSTATE = {
 const CategorySelect = React.memo(() => {
     const { categorySelectRef } = React.useContext(GlobalsContext);
     const [state, setState] = React.useState(DEFAULTSTATE);
-
-    const { categories } = useSelector((state: Rootstate) => state.backoffice);
+    const [categories, setCategories] = React.useState<Category[] | null>(null);
 
     const { show, defaultCheckedId, exceptIds, onFinish, selected } = state;
+
+    React.useEffect(() => {
+        if (show) {
+            getCategories().then(response => {
+                setCategories(response.data);
+            });
+        }
+    }, [show]);
 
     const open = React.useCallback((onFinish: OnFinish, defaultCheckedId?: number | null, exceptIds?: number[] | null) => {
         setState(s => ({

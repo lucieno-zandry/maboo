@@ -1,6 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Rootstate } from "../../../../../../utilities/redux/store";
 import ProductRow from "./ProductRow/ProductRow";
 import { Product } from "../../../../../../utilities/constants/types";
 import Button from "../../../../../../utilities/minitiatures/Button/Button";
@@ -8,8 +6,12 @@ import { useDeleteProduct } from "../Products";
 import Checkbox from "../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import { useFilterRow } from "../../../../../../utilities/hooks/admin/useFilterRow";
 
-const ProductsList = React.memo(() => {
-    const products = useSelector((state: Rootstate) => state.backoffice.products);
+type Props = {
+    products: Product[]
+}
+
+const ProductsList = (props: Props) => {
+    const { products } = props;
     const onDelete = useDeleteProduct();
     const filterRow = useFilterRow();
 
@@ -120,6 +122,6 @@ const ProductsList = React.memo(() => {
             })}
         </tbody>
     </table>
-})
+}
 
 export default ProductsList;

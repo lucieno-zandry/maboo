@@ -1,6 +1,45 @@
-import { Products, ProductDetail } from "./types";
+import { Products, ProductDetail, Category } from "./types";
 
 const isoString = new Date().toISOString();
+
+export const mockCategories: Category[] = [
+  {
+    id: 1,
+    created_at: isoString,
+    updated_at: isoString,
+    name: "Bébé",
+    image: "https://picsum.photos/seed/bebe/600/600",
+    parent_id: null as any,
+    level: 0,
+  },
+  {
+    id: 2,
+    created_at: isoString,
+    updated_at: isoString,
+    name: "Maman",
+    image: "https://picsum.photos/seed/maman/600/600",
+    parent_id: null as any,
+    level: 0,
+  },
+  {
+    id: 3,
+    created_at: isoString,
+    updated_at: isoString,
+    name: "Vêtements",
+    image: "https://picsum.photos/seed/vetements/600/600",
+    parent_id: 1,
+    level: 1,
+  },
+  {
+    id: 4,
+    created_at: isoString,
+    updated_at: isoString,
+    name: "Accessoires",
+    image: "https://picsum.photos/seed/accessoires/600/600",
+    parent_id: 2,
+    level: 1,
+  },
+];
 
 export const mockProducts: Products = [
   {

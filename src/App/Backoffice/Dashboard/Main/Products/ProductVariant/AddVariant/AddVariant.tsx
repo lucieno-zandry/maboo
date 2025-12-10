@@ -5,13 +5,10 @@ import Button from "../../../../../../../utilities/minitiatures/Button/Button";
 import Input from "../../../../../../../utilities/minitiatures/Input/Input";
 import getValidationMessages from "../../../../../../../utilities/helpers/getValidationMessages";
 import getFormData from "../../../../../../../utilities/helpers/getFormData";
-import { useVariant } from "../../Products";
+import { useVariant, useProducts } from "../../Products";
 import { ProductVariant } from "../../../../../../../utilities/constants/types";
 import { AxiosError } from "axios";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../utilities/redux/store";
-import { refreshProducts } from "../../../../../../../utilities/redux/backoffice/backofficeSlice";
 import { createProductVariant } from "../../../../../../../utilities/api/actions";
 
 type Payload = {
@@ -54,8 +51,8 @@ const DEFAULT_STATE = {
 
 const AddVariant = React.memo(() => {
     const { current, setCurrent } = useVariant();
+    const { reloadProducts } = useProducts();
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
 
     const [state, setState] = React.useState(DEFAULT_STATE);
 
@@ -174,7 +171,7 @@ const AddVariant = React.memo(() => {
 
                     setCurrent(newCurrent);
                     newState = DEFAULT_STATE;
-                    dispatch(refreshProducts());
+                    reloadProducts();
                 })
                 .catch((error: AxiosError) => {
                     const data = error.response?.data as { errors: Payload };

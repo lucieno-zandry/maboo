@@ -5,11 +5,8 @@ import { Dropdown } from "react-bootstrap";
 import changedDataOnly from "../../../../../../../../../utilities/helpers/changedDataOnly";
 import useToasts from "../../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { AxiosError } from "axios";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../../../utilities/redux/store";
-import { refreshProducts } from "../../../../../../../../../utilities/redux/backoffice/backofficeSlice";
 import usePagePreloader from "../../../../../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
-import { useColor } from "../../../../Products";
+import { useColor, useProducts } from "../../../../Products";
 import arrayReplace from "../../../../../../../../../utilities/helpers/arrayReplace";
 import { ProductColor } from "../../../../../../../../../utilities/constants/types";
 import { HexColorPicker } from "react-colorful";
@@ -38,7 +35,7 @@ const DEFAULT_EDITS: Edits = {
 const Edit = React.memo((props: PartialsProps) => {
     const { color, toggleEditMode } = props;
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
+    const { reloadProducts } = useProducts();
     const pagePreloader = usePagePreloader();
     const contextColor = useColor();
 
@@ -87,7 +84,7 @@ const Edit = React.memo((props: PartialsProps) => {
 
                     newState.edits = { ...DEFAULT_EDITS };
                     toggleEditMode();
-                    dispatch(refreshProducts());
+                    reloadProducts();
                 })
                 .catch((error: AxiosError) => {
                     switch (error.response?.status) {

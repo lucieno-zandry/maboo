@@ -12,10 +12,8 @@ import { Image } from "../../../../../../../utilities/minitiatures/ImageInputDD/
 import truthyEntriesOnly from "../../../../../../../utilities/helpers/truthyEntriesOnly";
 import { AxiosError } from "axios";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../utilities/redux/store";
-import { refreshProducts } from "../../../../../../../utilities/redux/backoffice/backofficeSlice";
 import { createProduct } from "../../../../../../../utilities/api/actions";
+import { useProducts } from "../../Products";
 
 type Props = {
     setShow: (show: boolean) => void
@@ -35,7 +33,7 @@ const DEFAULTINPUTVALUES = {
 const AddProductBody = React.memo((props: Props) => {
     const toasts = useToasts();
     const categorySelect = useCategorySelect();
-    const dispatch = useDispatch<AppDispatch>();
+    const { reloadProducts } = useProducts();
 
     const [state, setState] = React.useState({
         inputValues: DEFAULTINPUTVALUES,
@@ -88,7 +86,7 @@ const AddProductBody = React.memo((props: Props) => {
                     type: "success",
                 });
 
-                dispatch(refreshProducts());
+                reloadProducts();
             })
             .catch((error: AxiosError) => {
                 const { errors } = error.response?.data as { errors: null };
@@ -106,7 +104,7 @@ const AddProductBody = React.memo((props: Props) => {
                 newState.loading = false;
                 setState(newState);
             });
-    }, [state, props.setShow, toasts.push]);
+    }, [state, props.setShow, toasts.push, reloadProducts]);
 
     const addImage = React.useCallback((image: Image) => {
         setState(s => {

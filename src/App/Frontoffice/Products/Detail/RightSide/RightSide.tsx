@@ -14,13 +14,14 @@ import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToas
 import useAuth from "../../../../../utilities/hooks/useAuth";
 import links from "../../../../../utilities/helpers/links";
 import VariantSelector from "./VariantSelector/VariantSelector";
+import { articleDatas } from "../../../Articles/articlesData";
 
-const articleData = [
-  { id: 1, name: 'BEABA', description: 'Sac à langer à dos Wellington Gris Foncé', imageUrl: 'https://picsum.photos/seed/beaba/1034/432' },
-  { id: 2, name: 'CHILDHOME', description: 'Sac à dos Family Club Signature Vert', imageUrl: 'https://picsum.photos/seed/childhome/1034/432' },
-  { id: 3, name: 'TINÉO', description: 'Sac à dos à langer gris', imageUrl: 'https://picsum.photos/seed/tineo/1034/432' },
-  { id: 4, name: 'TINÉO', description: 'Sac à dos à langer noir', imageUrl: 'https://picsum.photos/seed/tineo2/1034/432' },
-];
+const relatedArticles = articleDatas.map(article => ({
+  id: article.id,
+  name: article.title,
+  description: article.sections[0]?.subsections[0]?.paragraphs[0]?.content || '',
+  imageUrl: article.images[0]?.url || ''
+}));
 
 type Props = { product: {
   id: number;
@@ -141,7 +142,7 @@ const RightSide = React.memo((props: Props) => {
         <ProductVariants onChange={handleVariantChange} active={state.variant} variants={product.variants} />
       )}
 
-      <RelatedArticles articles={articleData} />
+      <RelatedArticles articles={relatedArticles} />
     </Fade>
   );
 });

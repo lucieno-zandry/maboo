@@ -4,9 +4,6 @@ import ProductsList from "./ProductsList/ProductsList";
 import AddProduct from "./AddProduct/AddProduct";
 import DeleteProduct from "./DeleteProduct/DeleteProduct";
 import EditProduct from "./EditProduct/EditProduct";
-import { refreshCategories, setAdminProducts } from "../../../../../utilities/redux/backoffice/backofficeSlice";
-import { AppDispatch, Rootstate } from "../../../../../utilities/redux/store";
-import { useDispatch, useSelector } from "react-redux";
 import { Product } from "../../../../../utilities/constants/types";
 import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
 import TablePlaceholder from "../../../../../utilities/minitiatures/TablePlaceholder/TablePlaceholder";
@@ -41,6 +38,8 @@ const ProductsContext = React.createContext({
     onDelete: DEFAULT_DELETE,
     variant: DEFAULT_PRODUCT_VARIANT,
     color: DEFAULT_PRODUCT_COLOR,
+    products: null as Product[] | null,
+    reloadProducts: () => { },
 });
 
 export const useEditProduct = () => {
@@ -59,12 +58,16 @@ export const useColor = () => {
     return React.useContext(ProductsContext).color;
 }
 
+export const useProducts = () => {
+    const { products, reloadProducts } = React.useContext(ProductsContext);
+    return { products, reloadProducts };
+}
+
 const dataLimit = 20;
 
 const Products = React.memo(() => {
 
-    const { categories, products } = useSelector((state: Rootstate) => state.backoffice);
-    const dispatch = useDispatch<AppDispatch>();
+    const [products, setProducts] = React.useState<Product[] | null>(null);
 
     const [state, setState] = React.useState({
         edit: DEFAULT_EDIT,
@@ -74,9 +77,20 @@ const Products = React.memo(() => {
     });
 
     const [query, setQuery] = React.useState({
-        offset: products ? products.length : 0,
+        offset: 0,
         scrollEnd: true,
     });
+
+    const reloadProducts = React.useCallback(() => {
+        getMerchantProducts({ limit: dataLimit, offset: 0 })
+            .then(response => {
+                setProducts(response.data.products);
+                setQuery(q => ({ ...q, offset: response.data.products.length }));
+            })
+            .catch(() => {
+                setProducts([]);
+            });
+    }, []);
 
     const edit = React.useMemo(() => {
         const setCurrent = (product: Product | null) => {
@@ -119,12 +133,11 @@ const Products = React.memo(() => {
     }), [state.color.current]);
 
     React.useEffect(() => {
-        if (!categories) {
-            dispatch(refreshCategories());
-        }
-    }, [categories, products]);
+        reloadProducts();
+    }, [reloadProducts]);
 
     const handleScrollEnd = React.useCallback(() => {
+        if (!products) return;
         const newQuery = { ...query };
         getMerchantProducts({ limit: dataLimit, offset: query.offset })
             .then(response => {
@@ -133,7 +146,7 @@ const Products = React.memo(() => {
                 if (freshProducts.length > 0) {
                     const newProducts = arrayMerge<Product>(products || [], freshProducts);
                     newQuery.offset = newProducts.length;
-                    dispatch(setAdminProducts(newProducts));
+                    setProducts(newProducts);
                 }
 
                 if (freshProducts.length < dataLimit) {
@@ -144,10 +157,10 @@ const Products = React.memo(() => {
             })
     }, [products, query]);
 
-    return <ProductsContext.Provider value={{ edit, onDelete, variant, color }}>
+    return <ProductsContext.Provider value={{ edit, onDelete, variant, color, products, reloadProducts }}>
         <div className="products-container">
             <Fade show={Boolean(products && products.length > 0)}>
-                <ProductsList />
+                <ProductsList products={products || []} />
             </Fade>
             <Fade show={Boolean(products && products.length === 0)}>
                 <ProductsEmpty />

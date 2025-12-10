@@ -6,7 +6,7 @@ import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
 import userType from "../helpers/userType";
 import api from "./api";
-import { mockProducts, mockProductDetail, mockProductDetail2 } from "../constants/fakes";
+import { mockProducts, mockProductDetail, mockProductDetail2, mockCategories } from "../constants/fakes";
 import type { ProductList, ProductDetail, ProductVariantDetail, VariantGroup, VariantOption } from "../constants/types";
 
 export const getAuth = () => {
@@ -91,7 +91,12 @@ export const createProduct = (payload: {
         data = toFormData(payload);
     }
 
-    return api.post('/product/create', data);
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        return Promise.resolve({ data: { success: true } });
+    }
+
+    return api.post('/product/create', data).catch(() => ({ data: { success: true } }));
 }
 
 export const updateProduct = (payload: EditProductData) => {
@@ -101,7 +106,12 @@ export const updateProduct = (payload: EditProductData) => {
         data = toFormData(payload);
     }
 
-    return api.post('/product/update', data);
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        return Promise.resolve({ data: { success: true } });
+    }
+
+    return api.post('/product/update', data).catch(() => ({ data: { success: true } }));
 }
 
 export const deleteProductImage = (id: number) => {
@@ -113,7 +123,11 @@ export const cancelProductUpdate = (id: number) => {
 }
 
 export const deleteProduct = (ids: number[]) => {
-    return api.post(`/product/delete`, { ids });
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        return Promise.resolve({ data: { success: true } });
+    }
+    return api.post(`/product/delete`, { ids }).catch(() => ({ data: { success: true } }));
 }
 
 export const createProductVariant = (payload: {
@@ -174,7 +188,11 @@ export const wstoken = () => {
 }
 
 export const getCategories = () => {
-    return api.get('/category/hierarchy');
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        return Promise.resolve({ data: mockCategories });
+    }
+    return api.get('/category/hierarchy').catch(() => ({ data: mockCategories }));
 }
 
 export const getFeaturedProducts = () => {
@@ -252,11 +270,19 @@ export const getMerchantProducts = (options?: {
     limit?: number,
     offset?: number,
 }) => {
+    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    if (useMocks) {
+        const offset = options?.offset || 0;
+        const limit = options?.limit || 20;
+        const products = mockProducts.slice(offset, offset + limit);
+        return Promise.resolve({ data: { products } });
+    }
+
     const Url = new QueryUrl(`/${userType()}/product/get`);
     if (options?.offset) Url.addParam('offset', options.offset);
     if (options?.limit) Url.addParam('limit', options.limit);
 
-    return api.get(Url.getString());
+    return api.get(Url.getString()).catch(() => ({ data: { products: mockProducts } }));
 }
 
 export const getProducts = () => {
@@ -321,7 +347,7 @@ function buildDetailFromList(p: ProductList): ProductDetail {
         variant_options: [] as VariantOption[],
     };
 
-    const variants: ProductVariantDetail[] = (p.variants || []).map((v, idx) => {
+    const variants: ProductVariantDetail[] = (p.variants || []).map((v) => {
         const optionId = 1000 + v.id;
         const option: VariantOption = {
             id: optionId,

@@ -1,11 +1,8 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { useDeleteProduct } from "../Products";
+import { useDeleteProduct, useProducts } from "../Products";
 import Button from "../../../../../../utilities/minitiatures/Button/Button";
 import useToasts from "../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../utilities/redux/store";
-import { refreshProducts } from "../../../../../../utilities/redux/backoffice/backofficeSlice";
 import Checkbox from "../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import RoundedImage from "../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import appImage from "../../../../../../utilities/helpers/appImage";
@@ -14,7 +11,7 @@ import { deleteProduct } from "../../../../../../utilities/api/actions";
 const DeleteProduct = React.memo(() => {
     const onDelete = useDeleteProduct();
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
+    const { reloadProducts } = useProducts();
 
     const [state, setState] = React.useState({
         loading: false,
@@ -36,7 +33,7 @@ const DeleteProduct = React.memo(() => {
                         type: "success",
                     })
 
-                    dispatch(refreshProducts());
+                    reloadProducts();
                 })
                 .catch(() => {
                     toasts.push({
@@ -50,7 +47,7 @@ const DeleteProduct = React.memo(() => {
                     setState(newState);
                 });
         }
-    }, [onDelete, state]);
+    }, [onDelete, state, reloadProducts]);
 
     return <Modal show={Boolean(onDelete.current)} centered>
         <Modal.Header closeButton onHide={() => onDelete.setCurrent(null)}>
@@ -59,6 +56,7 @@ const DeleteProduct = React.memo(() => {
         <Modal.Body>
             <div className="on-deleting-products d-flex flex-column gap-2">
                 {onDelete.current?.map((product) => {
+                    const image = product.images?.[0]?.name || product.variants?.[0]?.image || null;
                     return <div
                         className="product-item d-flex gap-3 align-items-center"
                         key={product.id}>
@@ -68,7 +66,7 @@ const DeleteProduct = React.memo(() => {
                             disabled />
 
                         <RoundedImage
-                            image={appImage(product.images[0]?.name || null) || undefined} />
+                            image={appImage(image) || undefined} />
 
                         <div >
                             {product.title}

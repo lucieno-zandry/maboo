@@ -25,3 +25,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# User ignored files
+backend
+exemple de données
+task.md

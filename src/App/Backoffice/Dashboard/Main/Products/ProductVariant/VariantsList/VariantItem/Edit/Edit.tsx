@@ -8,11 +8,8 @@ import appImage from "../../../../../../../../../utilities/helpers/appImage";
 import changedDataOnly from "../../../../../../../../../utilities/helpers/changedDataOnly";
 import useToasts from "../../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { AxiosError } from "axios";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../../../utilities/redux/store";
-import { refreshProducts } from "../../../../../../../../../utilities/redux/backoffice/backofficeSlice";
 import usePagePreloader from "../../../../../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
-import { useVariant } from "../../../../Products";
+import { useVariant, useProducts } from "../../../../Products";
 import arrayReplace from "../../../../../../../../../utilities/helpers/arrayReplace";
 import { ProductVariant } from "../../../../../../../../../utilities/constants/types";
 import { updateProductVariant } from "../../../../../../../../../utilities/api/actions";
@@ -60,7 +57,7 @@ const DEFAULT_EDITS: Edits = {
 const Edit = React.memo((props: PartialsProps) => {
     const { variant, toggleEditMode } = props;
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
+    const { reloadProducts } = useProducts();
     const pagePreloader = usePagePreloader();
     const contextVariant = useVariant();
 
@@ -157,7 +154,7 @@ const Edit = React.memo((props: PartialsProps) => {
 
                     newState.edits = { ...DEFAULT_EDITS };
                     toggleEditMode();
-                    dispatch(refreshProducts());
+                    reloadProducts();
                 })
                 .catch((error: AxiosError) => {
                     switch (error.response?.status) {

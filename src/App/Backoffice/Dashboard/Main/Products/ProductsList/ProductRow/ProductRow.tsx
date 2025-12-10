@@ -38,6 +38,20 @@ const ProductRow = (props: Props) => {
         selected && toggleSelected();
     }, [product, onDelete, selected]);
 
+    const image = React.useMemo(() => {
+        if (product.images && product.images.length > 0) {
+            return appImage(product.images[0].name);
+        }
+        if (product.variants && product.variants.length > 0 && product.variants[0].image) {
+            return appImage(product.variants[0].image);
+        }
+        return undefined;
+    }, [product]);
+
+    const price = React.useMemo(() => {
+        return product.price || (product.variants && product.variants.length > 0 ? product.variants[0].price : 0);
+    }, [product]);
+
     return <tr>
         {selected && <td>
             <Checkbox
@@ -46,7 +60,7 @@ const ProductRow = (props: Props) => {
                 onChange={handleSelect} />
         </td>}
         <td>
-            <RoundedImage image={appImage(product.images[0]?.name) || undefined} />
+            <RoundedImage image={image} />
         </td>
         <td>
             {product.title}
@@ -59,7 +73,7 @@ const ProductRow = (props: Props) => {
             </SmallText>
         </td>
         <td>
-            <Price amount={product.price} />
+            <Price amount={price} />
         </td>
         <td>
             {new Date(product.created_at).toLocaleDateString()}
