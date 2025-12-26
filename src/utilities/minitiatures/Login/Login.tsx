@@ -31,7 +31,7 @@ const Login = React.memo(() => {
         const formData: LoginData = getFormData(e);
         const validationMessages = getValidationMessages<LoginData>(formData);
 
-        setState(s => ({ ...s, loading: !Boolean(validationMessages), validationMessages }));
+        setState(s => ({ ...s, loading: !validationMessages, validationMessages }));
         if (!validationMessages) {
             const newState = { ...state };
             login(formData)

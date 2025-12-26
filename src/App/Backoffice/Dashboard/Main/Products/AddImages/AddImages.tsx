@@ -5,12 +5,12 @@ import ImageInputDD, { Image } from "../../../../../../utilities/minitiatures/Im
 type Props = {
     count?: number,
     addImage: (image: Image) => void,
-    removeImage: (url: string) => void,
+    removeImage: (index: number) => void,
     images: Image[],
 }
 
 const AddImages = React.memo((props: Props) => {
-    const { count = 4, images, ...imageInpuDDProps} = props;
+    const { count = 4, images, removeImage, ...imageInpuDDProps} = props;
     const length = React.useMemo(() => (images.length + 1) < count ? images.length + 1 : count, [count, images]);
 
     return <div className="add-images-container d-flex gap-1">
@@ -20,6 +20,7 @@ const AddImages = React.memo((props: Props) => {
                 key={key}
                 imageUrl={images[key]?.imageUrl}
                 {...imageInpuDDProps}
+                removeImage={() => removeImage(key)}
                 id={'image-input-dd' + key} />
         })}
     </div>

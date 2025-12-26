@@ -7,6 +7,7 @@ import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 import { Product as ProductUIType, ProductVariant as ProductUIVariant } from "../../../../utilities/constants/types";
 import { getProduct } from "../../../../utilities/api/actions";
 import { ProductDetail, VariantGroup } from "../../../../utilities/constants/types";
+import ProductsEmpty from "../../Category/ProductsEmpty/ProductsEmpty";
 
 const Product = React.memo(() => {
     const slug = useParams().slug!;
@@ -40,7 +41,8 @@ const Product = React.memo(() => {
                     <RightSide product={state.product} />
                 </>
             )}
-            <Loading show={state.loading || !state.product} />
+            {!state.loading && !state.product && <ProductsEmpty />}
+            <Loading show={state.loading} />
         </Fade>
     );
 })

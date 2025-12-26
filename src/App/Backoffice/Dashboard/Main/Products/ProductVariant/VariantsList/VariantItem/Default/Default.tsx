@@ -10,7 +10,6 @@ import toFormatedString from "../../../../../../../../../utilities/helpers/toFor
 const Default = React.memo((props: PartialsProps) => {
     const { variant, toggleEditMode } = props;
     const deleteProductVariants = useDeleteProductVariant();
-    console.log(variant);
     
     return <>
         <td>

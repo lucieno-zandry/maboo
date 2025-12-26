@@ -6,8 +6,8 @@ import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
 import userType from "../helpers/userType";
 import api from "./api";
-import { mockProducts, mockProductDetail, mockProductDetail2, mockCategories } from "../constants/fakes";
-import type { ProductList, ProductDetail, ProductVariantDetail, VariantGroup, VariantOption } from "../constants/types";
+import { mockProducts, mockProductDetail, mockProductDetail2 } from "../constants/fakes";
+import type { ProductList, ProductListVariant, ProductDetail, ProductVariantDetail, VariantGroup, VariantOption } from "../constants/types";
 
 export const getAuth = () => {
     return api.get(links.getAuth);
@@ -91,7 +91,7 @@ export const createProduct = (payload: {
         data = toFormData(payload);
     }
 
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
     if (useMocks) {
         return Promise.resolve({ data: { success: true } });
     }
@@ -106,7 +106,7 @@ export const updateProduct = (payload: EditProductData) => {
         data = toFormData(payload);
     }
 
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
     if (useMocks) {
         return Promise.resolve({ data: { success: true } });
     }
@@ -123,7 +123,7 @@ export const cancelProductUpdate = (id: number) => {
 }
 
 export const deleteProduct = (ids: number[]) => {
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
     if (useMocks) {
         return Promise.resolve({ data: { success: true } });
     }
@@ -131,7 +131,7 @@ export const deleteProduct = (ids: number[]) => {
 }
 
 export const createProductVariant = (payload: {
-    image: File,
+    image?: File | null,
     name: string,
     product_id: number,
     price?: number,
@@ -142,6 +142,7 @@ export const createProductVariant = (payload: {
     attributes?: { [key: string]: string },
 }) => {
     const data = { ...payload } as any;
+    if (!data.image) delete data.image;
     if (data.attributes) data.attributes = JSON.stringify(data.attributes);
     return api.post('/product/variant/create', toFormData(data))
 }
@@ -188,11 +189,7 @@ export const wstoken = () => {
 }
 
 export const getCategories = () => {
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
-    if (useMocks) {
-        return Promise.resolve({ data: mockCategories });
-    }
-    return api.get('/category/hierarchy').catch(() => ({ data: mockCategories }));
+    return api.get('/category/hierarchy').catch(() => ({ data: { hierarchy: [] } }));
 }
 
 export const getFeaturedProducts = () => {
@@ -212,12 +209,19 @@ export const getCategoryProducts = (id: number, options?: {
 }
 
 export const getProduct = (slug: string) => {
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
     if (useMocks) {
         const product = findMockDetailBySlug(slug);
         return Promise.resolve({ data: { product } });
     }
-    return api.get(`/product/get/${slug}`).catch(() => ({ data: { product: findMockDetailBySlug(slug) } }));
+    return api
+        .get(`/product/get/${slug}`)
+        .then((response) => {
+            const product = response?.data?.product;
+            if (product) return response;
+            return { data: { product: findMockDetailBySlug(slug) } };
+        })
+        .catch(() => ({ data: { product: findMockDetailBySlug(slug) } }));
 }
 
 export const getOrder = (id: string) => {
@@ -270,23 +274,95 @@ export const getMerchantProducts = (options?: {
     limit?: number,
     offset?: number,
 }) => {
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
-    if (useMocks) {
+    const getMockPage = () => {
         const offset = options?.offset || 0;
         const limit = options?.limit || 20;
         const products = mockProducts.slice(offset, offset + limit);
-        return Promise.resolve({ data: { products } });
+        return { data: { products } };
+    };
+
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
+    if (useMocks) {
+        return Promise.resolve(getMockPage());
     }
 
     const Url = new QueryUrl(`/${userType()}/product/get`);
     if (options?.offset) Url.addParam('offset', options.offset);
     if (options?.limit) Url.addParam('limit', options.limit);
 
-    return api.get(Url.getString()).catch(() => ({ data: { products: mockProducts } }));
+    const normalizeVariant = (v: any, productId: number, fallbackCreatedAt: string, fallbackUpdatedAt: string, index: number): ProductListVariant => {
+        return {
+            id: typeof v?.id === 'number' ? v.id : productId * 1000 + index,
+            created_at: v?.created_at || fallbackCreatedAt,
+            updated_at: v?.updated_at || fallbackUpdatedAt,
+            product_id: typeof v?.product_id === 'number' ? v.product_id : productId,
+            sku: String(v?.sku || ''),
+            price: Number(v?.price || 0),
+            special_price: v?.special_price ?? null,
+            stock: Number(v?.stock ?? v?.inStock ?? 0),
+            image: v?.image ?? null,
+        };
+    };
+
+    const normalizeProduct = (p: any): ProductList => {
+        const id = Number(p?.id || 0);
+        const created_at = String(p?.created_at || new Date().toISOString());
+        const updated_at = String(p?.updated_at || created_at);
+
+        let variants: ProductListVariant[] = [];
+
+        if (Array.isArray(p?.variants) && p.variants.length > 0) {
+            variants = p.variants.map((v: any, idx: number) => normalizeVariant(v, id, created_at, updated_at, idx));
+        } else if (p && (p.price !== undefined || p.sale_price !== undefined || p.inStock !== undefined)) {
+            variants = [normalizeVariant({
+                id: id * 1000,
+                created_at,
+                updated_at,
+                product_id: id,
+                sku: p?.sku || '',
+                price: p?.price || 0,
+                special_price: p?.sale_price ?? null,
+                stock: p?.inStock ?? 0,
+                image: null,
+            }, id, created_at, updated_at, 0)];
+        }
+
+        return {
+            id,
+            created_at,
+            updated_at,
+            slug: String(p?.slug || ''),
+            title: String(p?.title || ''),
+            description: String(p?.description || ''),
+            category_id: Number(p?.category_id || 0),
+            variants,
+        };
+    };
+
+    return api
+        .get(Url.getString())
+        .then((response) => {
+            const raw = response?.data?.products;
+            if (!Array.isArray(raw)) return getMockPage();
+
+            const isLegacyShape = (p: any): boolean => {
+                if (!p || typeof p !== 'object') return true;
+                if (!Array.isArray(p.variants) || p.variants.length === 0) return true;
+                return p.variants.some((v: any) => !v || typeof v !== 'object' || !v.sku);
+            };
+
+            if (raw.some(isLegacyShape)) {
+                return getMockPage();
+            }
+
+            const products = raw.map(normalizeProduct);
+            return { ...response, data: { ...response.data, products } };
+        })
+        .catch(() => getMockPage());
 }
 
 export const getProducts = () => {
-    const useMocks = import.meta.env.DEV || (import.meta.env.VITE_USE_MOCKS === 'true');
+    const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
     if (useMocks) {
         return Promise.resolve({ data: { products: mockProducts } });
     }

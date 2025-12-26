@@ -56,7 +56,7 @@ const DeleteProduct = React.memo(() => {
         <Modal.Body>
             <div className="on-deleting-products d-flex flex-column gap-2">
                 {onDelete.current?.map((product) => {
-                    const image = product.images?.[0]?.name || product.variants?.[0]?.image || null;
+                    const image = product.variants?.[0]?.image || null;
                     return <div
                         className="product-item d-flex gap-3 align-items-center"
                         key={product.id}>

@@ -31,7 +31,7 @@ const FirstStep = React.memo((props: Props) => {
         const formData: FirstStepData | null = getFormData(e);
         const validationMessages = getValidationMessages<FirstStepData>(formData);
 
-        setState(s => ({ ...s, validationMessages, loading: !Boolean(validationMessages) }));
+        setState(s => ({ ...s, validationMessages, loading: !validationMessages }));
 
         if (!validationMessages) {
             const newState = { ...state };
@@ -77,8 +77,8 @@ const FirstStep = React.memo((props: Props) => {
                 type="submit"
                 className="btn main-button"
                 options={{ loading: state.loading }}
-                disabled={Boolean(state.validationMessages)}>
-                S'inscrire
+                disabled={state.validationMessages !== null}>
+                Suivant
             </Button>
             <Link type="button"
                 to={links.loginPage}

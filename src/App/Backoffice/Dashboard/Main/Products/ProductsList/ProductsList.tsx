@@ -1,29 +1,45 @@
 import React from "react";
 import ProductRow from "./ProductRow/ProductRow";
-import { Product } from "../../../../../../utilities/constants/types";
+import { Category, ProductList } from "../../../../../../utilities/constants/types";
 import Button from "../../../../../../utilities/minitiatures/Button/Button";
 import { useDeleteProduct } from "../Products";
 import Checkbox from "../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import { useFilterRow } from "../../../../../../utilities/hooks/admin/useFilterRow";
 
 type Props = {
-    products: Product[]
+    products: ProductList[],
+    categories: Category[],
 }
 
 const ProductsList = (props: Props) => {
-    const { products } = props;
+    const { products, categories } = props;
     const onDelete = useDeleteProduct();
     const filterRow = useFilterRow();
 
     const [state, setState] = React.useState({
-        selected: null as Product[] | null,
+        selected: null as ProductList[] | null,
     });
+
+    const [categoryFilter, setCategoryFilter] = React.useState<number | 'all'>('all');
+
+    const categoryById = React.useMemo(() => {
+        const map = new Map<number, Category>();
+        categories.forEach(c => map.set(c.id, c));
+        return map;
+    }, [categories]);
+
+    const filteredProducts = React.useMemo(() => {
+        if (categoryFilter === 'all') return products;
+        return products?.filter(p => p.category_id === categoryFilter);
+    }, [products, categoryFilter]);
+
+    const displayedProducts = React.useMemo(() => filteredProducts || [], [filteredProducts]);
 
     const toggleSelected = React.useCallback(() => {
         setState(s => ({ ...s, selected: s.selected ? null : [] }));
     }, []);
 
-    const addToSelected = React.useCallback((product: Product) => {
+    const addToSelected = React.useCallback((product: ProductList) => {
         setState(s => {
             const state = { ...s };
 
@@ -59,15 +75,15 @@ const ProductsList = (props: Props) => {
         setState(s => {
             const state = { ...s };
 
-            if (state.selected?.length! < products?.length!) {
-                state.selected = products;
+            if ((state.selected?.length ?? 0) < displayedProducts.length) {
+                state.selected = displayedProducts;
             } else {
                 state.selected = [];
             }
             
             return state
         });
-    }, [products]);
+    }, [displayedProducts]);
 
     return <table className="products-list-container table table-striped table-hover align-middle">
         <thead>
@@ -75,7 +91,7 @@ const ProductsList = (props: Props) => {
                 {state.selected && <th className="col-1">
                     <Checkbox
                         label="Tout"
-                        checked={state.selected.length === products?.length}
+                        checked={state.selected.length === displayedProducts.length}
                         onChange={handleSelectAll} />
                 </th>}
                 <th className="col-1"></th>
@@ -83,7 +99,22 @@ const ProductsList = (props: Props) => {
                 <th className="col-2">Description</th>
                 <th className="col-1">Prix</th>
                 <th className="col-1">Créé le</th>
-                <th className="col-2">Catégorie</th>
+                <th className="col-2">
+                    <div className="d-flex align-items-center justify-content-between">
+                        <span>Catégorie</span>
+                        <select
+                            className="form-select form-select-sm"
+                            style={{ width: 'auto', maxWidth: '120px' }}
+                            value={categoryFilter}
+                            onChange={(e) => setCategoryFilter(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                        >
+                            <option value="all">Toutes</option>
+                            {categories.map(c => (
+                                <option key={c.id} value={c.id}>{c.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </th>
                 <th className="col-2 text-align-center">
                     {state.selected ?
                         <Button
@@ -103,7 +134,12 @@ const ProductsList = (props: Props) => {
             </tr>
         </thead>
         <tbody >
-            {products?.map(product => {
+            {displayedProducts.map(product => {
+                const categoryName = categoryById.get(product.category_id)?.name || '';
+                const firstVariant = product.variants?.[0];
+                const price = firstVariant?.price || 0;
+                const salePrice = firstVariant?.special_price || 0;
+
                 const row = <ProductRow
                     product={product}
                     key={product.id}
@@ -111,12 +147,13 @@ const ProductsList = (props: Props) => {
                     removeFromSelected={removeFromSelected}
                     toggleSelected={toggleSelected}
                     selected={state.selected}
+                    categories={categories}
                 />
 
                 return filterRow([
-                    product.category?.name || '',
-                    product.price,
-                    product.sale_price,
+                    categoryName,
+                    price,
+                    salePrice,
                     product.title,
                     product.description], row);
             })}

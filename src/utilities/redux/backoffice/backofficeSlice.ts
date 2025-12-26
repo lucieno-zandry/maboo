@@ -3,7 +3,7 @@ import {
   BackOfficeOrder,
   BackOfficeOrderItem,
   Category,
-  Product,
+  ProductList,
   User,
 } from "../../constants/types";
 
@@ -31,7 +31,7 @@ import {
 
 interface BackofficeState {
   categories: Category[] | null;
-  products: Product[] | null;
+  products: ProductList[] | null;
   sellers: User[] | null;
   seller: {
     requests: User[] | null;
@@ -70,7 +70,7 @@ const backofficeSlice = createSlice({
     setCategories: (state, action: PayloadAction<Category[]>) => {
       state.categories = action.payload;
     },
-    setAdminProducts: (state, action: PayloadAction<Product[]>) => {
+    setAdminProducts: (state, action: PayloadAction<ProductList[]>) => {
       state.products = action.payload;
     },
     setSellers: (state, action: PayloadAction<User[]>) => {
@@ -87,7 +87,7 @@ const backofficeSlice = createSlice({
       )
       .addCase(
         refreshProducts.fulfilled,
-        (state, action: PayloadAction<Product[]>) => {
+        (state, action: PayloadAction<ProductList[]>) => {
           state.products = action.payload;
         }
       )

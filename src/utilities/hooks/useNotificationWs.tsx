@@ -36,7 +36,7 @@ export default function (actions: {
             if (connection && tentatives < TENTATIVES_LIMIT) {
                 initConnection(connection);
                 console.log('notification connection refreshed');
-            };
+            }
         }
     }, [auth]);
 
@@ -91,7 +91,7 @@ export default function (actions: {
             if (state.connection) {
                 state.connection.close();
                 setState(DEFAULT_STATE)
-            };
+            }
         }
     }, [state.token, state.connection]);
 }

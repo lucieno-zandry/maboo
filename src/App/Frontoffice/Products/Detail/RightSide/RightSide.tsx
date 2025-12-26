@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SmallText from "../../../../../utilities/minitiatures/SmallText/SmallText";
 import CountButton from "../../../../../utilities/minitiatures/CountButton/CountButton";
 import Button from "../../../../../utilities/minitiatures/Button/Button";
-import DoublePrice from "../../../../../utilities/minitiatures/DoublePrice/DoublePrice";
+import Price from "../../../../../utilities/minitiatures/Price/Price";
 import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 import { addToCart } from "../../../../../utilities/api/customer/actions";
 import ProductVariants from "./ProductVariants/ProductVariants";
@@ -119,7 +119,7 @@ const RightSide = React.memo((props: Props) => {
           {product.description}
         </SmallText>
       </div>
-      <DoublePrice firstPrice={product.price} secondPrice={price} />
+      <Price amount={price ?? product.price} className="product-price" />
       <div>
         <span>En stock: </span>
         {(state.variant?.stock ?? state.variant?.inStock) as number | undefined}

@@ -67,16 +67,17 @@ const getValidationMessage = (type: string, value: string): string | null => {
             }
             break;
 
-        case "product_variant_price":
+        case "product_variant_price": {
             const variantPrice = parseFloat(value);
 
             if (variantPrice && variantPrice < 1) {
                 message = "Le prix ne doit pas être inférieur à 1";
             }
-            
-            break;
 
-        case "price":
+            break;
+        }
+
+        case "price": {
             const price = parseFloat(value);
 
             if (!price) {
@@ -85,6 +86,7 @@ const getValidationMessage = (type: string, value: string): string | null => {
                 message = "Le prix du produit ne doit pas être négatif";
             }
             break;
+        }
 
         case 'description':
             if (!value) {

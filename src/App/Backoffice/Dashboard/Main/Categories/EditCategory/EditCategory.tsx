@@ -63,7 +63,7 @@ const EditCategory = React.memo(() => {
 
     const handleOpenCategorySelect = React.useCallback(() => {
         setState(s => ({ ...s, show: false }));
-        open(onFinishSelection, editing?.parent_id || state.updateData.parent?.id || null, [editing?.id!])
+        open(onFinishSelection, editing?.parent_id || state.updateData.parent?.id || null, editing ? [editing.id] : [])
     }, [editing, state.updateData]);
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +89,7 @@ const EditCategory = React.memo(() => {
         }
 
         const validationMessages = getValidationMessages<ValidationMessages>(validationMessagesData);
-        setState(s => ({ ...s, loading: !Boolean(validationMessages), validationMessages }));
+        setState(s => ({ ...s, loading: !validationMessages, validationMessages }));
 
         if (!validationMessages) {
             const newState = { ...state };

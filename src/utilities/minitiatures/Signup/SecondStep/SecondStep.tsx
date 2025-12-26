@@ -40,7 +40,7 @@ const SecondStep = React.memo((props: Props) => {
         const formData: SecondStepData = getFormData(e);
         const validationMessages = getValidationMessages<SecondStepData>(formData);
 
-        setState(s => ({ ...s, loading: !Boolean(validationMessages), validationMessages }));
+        setState(s => ({ ...s, loading: !validationMessages, validationMessages }));
         if (!validationMessages) {
             const newState = { ...state };
             signup({ ...formData, email: props.email })

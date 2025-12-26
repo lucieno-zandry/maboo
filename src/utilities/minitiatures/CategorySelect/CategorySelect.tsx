@@ -12,6 +12,31 @@ import { getCategories } from "../../api/actions";
 
 type OnFinish = (selected: Category | null) => void;
 
+function normalizeCategories(data: any): Category[] {
+    const hierarchy = data?.hierarchy ?? data;
+
+    if (Array.isArray(hierarchy) && hierarchy.length > 0) {
+        const first = hierarchy[0];
+        if (first && typeof first === 'object' && 'category' in first) {
+            const categories: Category[] = [];
+            const walk = (nodes: any[]) => {
+                nodes.forEach((node) => {
+                    if (node?.category) categories.push(node.category);
+                    if (Array.isArray(node?.children) && node.children.length > 0) walk(node.children);
+                });
+            };
+            walk(hierarchy);
+            return categories;
+        }
+
+        if (first && typeof first === 'object' && 'id' in first && 'name' in first) {
+            return hierarchy as Category[];
+        }
+    }
+
+    return [];
+}
+
 export const defaultCategorySelect = {
     open: (onFinish: OnFinish, defaultCheckedId?: number | null, exceptIds?: number[] | null) => {
         onFinish;
@@ -38,7 +63,7 @@ const CategorySelect = React.memo(() => {
     React.useEffect(() => {
         if (show) {
             getCategories().then(response => {
-                setCategories(response.data);
+                setCategories(normalizeCategories(response.data));
             });
         }
     }, [show]);

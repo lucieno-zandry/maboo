@@ -17,8 +17,12 @@ export const useDeleteProductVariant = () => {
     return React.useContext(ProductVariantContext).onDelete;
 }
 
-const ProductVariant = React.memo(() => {
-    const variant = useVariant();
+type ProductVariantProviderProps = {
+    children: React.ReactNode,
+}
+
+export const ProductVariantProvider = React.memo((props: ProductVariantProviderProps) => {
+    const { children } = props;
 
     const [state, setState] = React.useState({
         onDelete: {
@@ -34,6 +38,14 @@ const ProductVariant = React.memo(() => {
     }), [state.onDelete.currents]);
 
     return <ProductVariantContext.Provider value={{ onDelete }}>
+        {children}
+    </ProductVariantContext.Provider>
+});
+
+const ProductVariant = React.memo(() => {
+    const variant = useVariant();
+
+    return <ProductVariantProvider>
         <Modal
             show={Boolean(variant.current)}
             onHide={() => variant.setCurrent(null)}
@@ -44,7 +56,7 @@ const ProductVariant = React.memo(() => {
             </Modal.Body>
         </Modal>
         <DeleteVariantsDialogue />
-    </ProductVariantContext.Provider>
+    </ProductVariantProvider>
 });
 
 export default ProductVariant;

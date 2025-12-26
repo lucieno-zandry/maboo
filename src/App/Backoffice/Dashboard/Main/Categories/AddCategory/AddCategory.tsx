@@ -67,7 +67,7 @@ const AddCategory = React.memo(() => {
             categoryName: state.categoryData.categoryName,
         });
 
-        setState(s => ({ ...s, validationMessages, loading: !Boolean(validationMessages) }));
+        setState(s => ({ ...s, validationMessages, loading: !validationMessages }));
 
         if (!validationMessages) {
             const newState = { ...state };

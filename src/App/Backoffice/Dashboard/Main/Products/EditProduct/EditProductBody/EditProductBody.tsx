@@ -1,28 +1,22 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import NumberInput from "../../../../../../../utilities/minitiatures/NumberInput/NumberInput";
-import toFormatedString from "../../../../../../../utilities/helpers/toFormatedString";
 import Button from "../../../../../../../utilities/minitiatures/Button/Button";
 import SelectedCategory from "../../../Categories/AddCategory/SelectedCategory/SelectedCategory";
 import Input from "../../../../../../../utilities/minitiatures/Input/Input";
-import AddImages from "../../AddImages/AddImages";
 import { useEditProduct, useProducts } from "../../Products";
 import { Category } from "../../../../../../../utilities/constants/types";
 import useCategorySelect from "../../../../../../../utilities/minitiatures/CategorySelect/hooks/useCategorySelect";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { Image } from "../../../../../../../utilities/minitiatures/ImageInputDD/ImageInputDD";
 import { AxiosError } from "axios";
-import appImage from "../../../../../../../utilities/helpers/appImage";
-import { cancelProductUpdate, deleteProductImage, updateProduct } from "../../../../../../../utilities/api/actions";
+import { updateProduct } from "../../../../../../../utilities/api/actions";
+import VariantsList from "../../ProductVariant/VariantsList/VariantsList";
+import AddVariant from "../../ProductVariant/AddVariant/AddVariant";
+import { ProductVariantProvider } from "../../ProductVariant/ProductVariant";
+import DeleteVariantsDialogue from "../../ProductVariant/DeleteVariantsDialogue/DeleteVariantsDialogue";
 
-const MAXIMAGES = 4;
 const DEFAULTINPUTVALUES = {
     title: '',
     description: '',
-    price: '' as number | '',
-    inStock: '' as number | '',
-    sale_price: '' as number | '',
-    images: [] as Image[] & { id?: number }[],
     category: null as Category | null,
 }
 
@@ -30,16 +24,14 @@ export type EditProductData = {
     id: number,
     title?: string,
     description?: string,
-    price?: number,
-    sale_price?: number,
-    inStock?: number,
-    images?: File[],
     category_id?: number,
+    images?: File[],
 }
 
 const EditProductBody = React.memo(() => {
     const edit = useEditProduct();
     const { reloadProducts } = useProducts();
+    const { categories } = useProducts();
     const categorySelect = useCategorySelect();
     const toasts = useToasts();
 
@@ -47,7 +39,7 @@ const EditProductBody = React.memo(() => {
         inputValues: DEFAULTINPUTVALUES,
         loading: false,
         validationMessages: null as null | { [key: string]: any },
-        canCancelUpdate: false,
+        lastProductId: null as number | null,
     });
 
     const HandleCategorySelectClose = React.useCallback((selected: Category | null) => {
@@ -63,44 +55,23 @@ const EditProductBody = React.memo(() => {
         setState(s => ({ ...s, inputValues: { ...s.inputValues, [name]: value } }));
     }, []);
 
-    const handleNumberInputChange = React.useCallback((value: number | '', e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name } = e.target;
-        setState(s => ({ ...s, inputValues: { ...s.inputValues, [name]: value } }));
-    }, []);
-
     const handleSubmit = React.useCallback(() => {
         if (edit.current) {
             setState(s => ({ ...s, loading: true }));
             const newState = { ...state };
-            const { title, description, category, images, inStock, price, sale_price } = state.inputValues;
+            const { title, description, category } = state.inputValues;
             const payload = { id: edit.current.id } as EditProductData;
 
             if (title && title !== edit.current.title) {
                 payload.title = state.inputValues.title;
             }
 
-            if (category && category.id !== edit.current.category?.id) {
+            if (category && category.id !== edit.current.category_id) {
                 payload.category_id = category.id;
             }
 
             if (description && description !== edit.current.description) {
                 payload.description = description;
-            }
-
-            if (inStock && inStock !== edit.current.inStock) {
-                payload.inStock = inStock;
-            }
-
-            if (price && price !== edit.current.price) {
-                payload.price = price;
-            }
-
-            if (sale_price && sale_price !== edit.current.sale_price) {
-                payload.sale_price = sale_price;
-            }
-
-            if (images.length > 0 && images.some((image) => image.imageData !== null)) {
-                payload.images = images.map(image => image.imageData!);
             }
 
             updateProduct(payload)
@@ -117,9 +88,9 @@ const EditProductBody = React.memo(() => {
                     reloadProducts();
                 })
                 .catch((error: AxiosError) => {
-                    const { errors } = error.response?.data as { errors: null };
-                    if (errors) {
-                        newState.validationMessages = errors;
+                    const data = error.response?.data as any;
+                    if (error.response?.status === 422 && data?.errors) {
+                        newState.validationMessages = data.errors;
                     } else {
                         toasts.push({
                             title: "Impossible de modifier le produit",
@@ -135,59 +106,23 @@ const EditProductBody = React.memo(() => {
         }
     }, [state, edit, toasts.push]);
 
-    const addImage = React.useCallback((image: Image) => {
-        setState(s => {
-            const images = [...s.inputValues.images];
-            if (images.length <= MAXIMAGES) {
-                images.push(image);
-            }
-            return { ...s, inputValues: { ...s.inputValues, images } };
-        })
-    }, []);
-
-    const removeImage = React.useCallback((url: string) => {
-        const newState = { ...state };
-        const images = [...state.inputValues.images];
-        const image = images.find(image => image.imageUrl === url);
-
-        newState.inputValues.images = images.filter(image => image.imageUrl !== url);
-
-        if (image?.id) {
-            newState.canCancelUpdate = true;
-            deleteProductImage(image.id);
-        }
-
-        setState(newState);
-    }, [state]);
-
     React.useEffect(() => {
-        if (edit.current) {
-            const images = (edit.current?.images || []).map(image => {
-                return {
-                    id: image.id,
-                    imageUrl: appImage(image.name),
-                    imageData: null,
-                }
-            });
-
+        if (edit.current && state.lastProductId !== edit.current.id) {
             setState(s => {
                 const newState = { ...s };
 
+                const category = (categories || []).find(c => c.id === edit.current!.category_id) || null;
                 newState.inputValues.title = edit.current?.title || '';
                 newState.inputValues.description = edit.current?.description || '';
-                newState.inputValues.category = edit.current?.category || null;
-                newState.inputValues.images = images;
-                newState.inputValues.inStock = edit.current?.inStock || '';
-                newState.inputValues.price = edit.current?.price || '';
-                newState.inputValues.sale_price = edit.current?.sale_price || '';
+                newState.inputValues.category = category;
+                newState.lastProductId = edit.current?.id || null;
 
                 return newState;
             });
         }
-    }, [edit.current]);
+    }, [edit.current, categories, state.lastProductId]);
 
     const handleCancel = React.useCallback(() => {
-        state.canCancelUpdate && cancelProductUpdate(edit.current?.id!);
         edit.setCurrent(null);
     }, [state, edit]);
 
@@ -221,31 +156,6 @@ const EditProductBody = React.memo(() => {
                     name="description" value={state.inputValues.description}>
                 </textarea>
             </div>
-            <div className="col-5 my-3">
-                <label htmlFor="product-price">
-                    Prix du produit *
-                </label>
-                <NumberInput
-                    placeholder="prix du produit"
-                    id="product-price"
-                    name="price"
-                    onChange={handleNumberInputChange}
-                    value={toFormatedString(state.inputValues.price)}
-                    maxLength={8}
-                    options={{ error: state.validationMessages?.price }} />
-            </div>
-            <div className="col-5 my-3">
-                <label htmlFor="product-instock">Nombre en stock *</label>
-                <NumberInput
-                    onChange={handleNumberInputChange}
-                    placeholder="nombre en stock"
-                    id="product-instock"
-                    name="inStock"
-                    value={toFormatedString(state.inputValues.inStock)}
-                    maxLength={8}
-                    
-                    options={{ error: state.validationMessages?.inStock }} />
-            </div>
             <div className="col-5 my-3 d-flex justify-content-between">
                 <div>
                     <h6>Catégorie du produit *</h6>
@@ -256,29 +166,12 @@ const EditProductBody = React.memo(() => {
                     className="btn btn-outline-dark btn-sm align-self-start"
                     onClick={handleOpenCategorySelect}>Ouvrir <i className="fa fa-external-link"></i></Button>
             </div>
-            <div className="col-5 my-3">
-                <label htmlFor="product-sale-price" className="form-label">Prix de promotion</label>
-                <NumberInput
-                    name="sale_price"
-                    id="product-sale-price"
-                    placeholder="Prix en promotion"
-                    aria-describedby="product-sale-price-help"
-                    onChange={handleNumberInputChange}
-                    value={toFormatedString(state.inputValues.sale_price)}
-                    maxLength={8}
-                    options={{ error: state.validationMessages?.sale_price }} />
-
-                <small id="product-sale-price-help" className="text-muted">Ne remplir que si le produit est en promotion.</small>
-            </div>
-            <div className="col-8 my-3">
-                <h6>
-                    Images du produit
-                </h6>
-                <AddImages
-                    addImage={addImage}
-                    removeImage={removeImage}
-                    images={state.inputValues.images}
-                    count={MAXIMAGES} />
+            <div className="col-12 my-4">
+                <ProductVariantProvider>
+                    <VariantsList />
+                    <AddVariant />
+                    <DeleteVariantsDialogue />
+                </ProductVariantProvider>
             </div>
         </Modal.Body>
         <Modal.Footer>

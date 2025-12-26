@@ -37,7 +37,7 @@ const ResetPassword = React.memo(() => {
             const formData = getFormData(e) as ResetPasswordData;
             const validationMessages = getValidationMessages<ResetPasswordData>(formData);
 
-            setState(s => ({ ...s, validationMessages, loading: !Boolean(validationMessages) }));
+            setState(s => ({ ...s, validationMessages, loading: !validationMessages }));
 
             if (!validationMessages) {
                 const newState = { ...state };
@@ -55,9 +55,9 @@ const ResetPassword = React.memo(() => {
                         }
                     })
                     .catch((error: AxiosError<any, any>) => {
-                        const { errors } = error.response?.data;
+                        const errors = (error.response?.data as any)?.errors;
 
-                        if (errors.token) {
+                        if (errors?.token) {
                             toasts.push({
                                 title: "Action non autorisée",
                                 content: "Votre demande de réinitialisation de mot de passe a été rejetée",

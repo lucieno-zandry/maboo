@@ -5,9 +5,7 @@
  * @returns La liste contenant les valeurs indiquées
  */
 function generateArray(size: number = 6, value: string | number  = '') {
-    var sizedArray = Array.apply(null, Array(size));
-    var result = sizedArray.map(() => value);
-    return result;
+    return Array.from({ length: size }, () => value);
 }
 
 export default generateArray;

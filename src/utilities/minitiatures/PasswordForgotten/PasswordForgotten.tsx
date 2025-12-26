@@ -33,7 +33,7 @@ const PasswordForgotten = () => {
         e.preventDefault();
         const formData = getFormData(e);
         const validationMessages = getValidationMessages<PasswordForgottenData>(formData);
-        setState(s => ({ ...s, loading: !Boolean(validationMessages), validationMessages }));
+        setState(s => ({ ...s, loading: !validationMessages, validationMessages }));
 
         if (!validationMessages) {
             const newState = { ...state };

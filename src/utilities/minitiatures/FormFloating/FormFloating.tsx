@@ -13,7 +13,7 @@ type Props = {
 } & HTMLMotionProps<'input'>;
 
 const FormFloating = React.memo((props: Props) => {
-    const { className = '', options, label, ...inputProps} = props;
+    const { className = '', options, ...inputProps} = props;
 
     return <div className={`form-floating ${options?.className || ''}`}>
         <motion.input

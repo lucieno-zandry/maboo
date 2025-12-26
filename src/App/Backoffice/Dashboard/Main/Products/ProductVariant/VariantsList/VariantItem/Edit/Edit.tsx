@@ -86,7 +86,6 @@ const Edit = React.memo((props: PartialsProps) => {
 
     const handleNumberChange = React.useCallback((value: number | '', e: React.ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target;
-        console.log(name, value);
 
         switch (name) {
             case 'product_variant_price':
@@ -158,10 +157,11 @@ const Edit = React.memo((props: PartialsProps) => {
                 })
                 .catch((error: AxiosError) => {
                     switch (error.response?.status) {
-                        case 422:
+                        case 422: {
                             const data = error.response?.data as { errors: ValidationMessages };
                             newState.validationMessages = data.errors;
                             break;
+                        }
 
                         default:
                             toasts.push({

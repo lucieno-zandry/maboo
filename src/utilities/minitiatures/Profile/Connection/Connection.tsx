@@ -40,7 +40,8 @@ const Connection = React.memo(() => {
         const changedData = changedDataOnly(formData, user);
 
         setState(s => ({
-            ...s, loading: !Boolean(validationMessages) && Boolean(changedData),
+            ...s,
+            loading: !validationMessages && changedData ? true : false,
             validationMessages
         }));
 

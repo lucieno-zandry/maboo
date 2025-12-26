@@ -1,45 +1,4 @@
-import { Products, ProductDetail, Category } from "./types";
-
-const isoString = new Date().toISOString();
-
-export const mockCategories: Category[] = [
-  {
-    id: 1,
-    created_at: isoString,
-    updated_at: isoString,
-    name: "Bébé",
-    image: "https://picsum.photos/seed/bebe/600/600",
-    parent_id: null as any,
-    level: 0,
-  },
-  {
-    id: 2,
-    created_at: isoString,
-    updated_at: isoString,
-    name: "Maman",
-    image: "https://picsum.photos/seed/maman/600/600",
-    parent_id: null as any,
-    level: 0,
-  },
-  {
-    id: 3,
-    created_at: isoString,
-    updated_at: isoString,
-    name: "Vêtements",
-    image: "https://picsum.photos/seed/vetements/600/600",
-    parent_id: 1,
-    level: 1,
-  },
-  {
-    id: 4,
-    created_at: isoString,
-    updated_at: isoString,
-    name: "Accessoires",
-    image: "https://picsum.photos/seed/accessoires/600/600",
-    parent_id: 2,
-    level: 1,
-  },
-];
+import { Products, ProductDetail } from "./types";
 
 export const mockProducts: Products = [
   {
@@ -51,10 +10,14 @@ export const mockProducts: Products = [
     description: "Body doux et confortable en coton 100% bio, parfait pour les peaux sensibles. Col américain pour un habillage facile. Certifié OEKO-TEX.",
     category_id: 1,
     variants: [
-      { id: 1, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-BLANC", price: 12.90, special_price: null, stock: 45, image: "https://picsum.photos/seed/body-blanc-0-3m/600/600" },
-      { id: 2, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-3-6M-BLANC", price: 13.90, special_price: null, stock: 38, image: "https://picsum.photos/seed/body-blanc-3-6m/600/600" },
-      { id: 3, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-6-12M-BLANC", price: 14.90, special_price: null, stock: 52, image: "https://picsum.photos/seed/body-blanc-6-12m/600/600" },
-      { id: 4, created_at: isoString, updated_at: isoString, product_id: 1, sku: "BODY-BIO-0-3M-ROSE", price: 12.90, special_price: 10.90, stock: 30, image: "https://picsum.photos/seed/body-rose-0-3m/600/600" },
+      { id: 1, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-0-3M-BLANC", price: 12.90, special_price: null, stock: 45, image: "https://picsum.photos/seed/body-blanc-0-3m/600/600" },
+      { id: 2, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-3-6M-BLANC", price: 13.90, special_price: null, stock: 38, image: "https://picsum.photos/seed/body-blanc-3-6m/600/600" },
+      { id: 3, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-6-12M-BLANC", price: 14.90, special_price: null, stock: 52, image: "https://picsum.photos/seed/body-blanc-6-12m/600/600" },
+      { id: 4, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-0-3M-ROSE", price: 12.90, special_price: 10.90, stock: 30, image: "https://picsum.photos/seed/body-rose-0-3m/600/600" },
+      { id: 5, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-3-6M-ROSE", price: 13.90, special_price: 11.90, stock: 25, image: "https://picsum.photos/seed/body-rose-3-6m/600/600" },
+      { id: 6, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-0-3M-BLEU", price: 12.90, special_price: null, stock: 40, image: "https://picsum.photos/seed/body-bleu-0-3m/600/600" },
+      { id: 7, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-6-12M-GRIS", price: 14.90, special_price: null, stock: 35, image: null },
+      { id: 8, created_at: "2024-01-15T10:30:00.000000Z", updated_at: "2024-01-15T10:30:00.000000Z", product_id: 1, sku: "BODY-BIO-12-18M-GRIS", price: 15.90, special_price: null, stock: 28, image: "https://picsum.photos/seed/body-gris-12-18m/600/600" },
     ],
   },
   {
@@ -66,9 +29,9 @@ export const mockProducts: Products = [
     description: "Coussin d'allaitement évolutif et multifonction. Idéal pour l'allaitement, le biberon et comme coussin de grossesse. Housse amovible et lavable en machine.",
     category_id: 2,
     variants: [
-      { id: 5, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-GRIS", price: 49.90, special_price: 39.90, stock: 15, image: "https://picsum.photos/seed/coussin-gris/600/600" },
-      { id: 6, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BEIGE", price: 49.90, special_price: null, stock: 22, image: "https://picsum.photos/seed/coussin-beige/600/600" },
-      { id: 7, created_at: isoString, updated_at: isoString, product_id: 2, sku: "COUSSIN-ALLAIT-BLEU", price: 49.90, special_price: null, stock: 18, image: "https://picsum.photos/seed/coussin-bleu/600/600" },
+      { id: 9, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", product_id: 2, sku: "COUSSIN-ALLAIT-GRIS", price: 49.90, special_price: 39.90, stock: 15, image: "https://picsum.photos/seed/coussin-gris/600/600" },
+      { id: 10, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", product_id: 2, sku: "COUSSIN-ALLAIT-BEIGE", price: 49.90, special_price: null, stock: 22, image: "https://picsum.photos/seed/coussin-beige/600/600" },
+      { id: 11, created_at: "2024-01-16T14:20:00.000000Z", updated_at: "2024-01-16T14:20:00.000000Z", product_id: 2, sku: "COUSSIN-ALLAIT-BLEU", price: 49.90, special_price: null, stock: 18, image: "https://picsum.photos/seed/coussin-bleu/600/600" },
     ],
   },
 ];

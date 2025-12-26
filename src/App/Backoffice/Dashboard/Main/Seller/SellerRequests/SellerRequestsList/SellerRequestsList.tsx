@@ -121,7 +121,7 @@ const SellerRequestsList = React.memo(() => {
                         <Button
                             className="btn btn-primary"
                             onClick={() => validate()}
-                            disabled={!Boolean(state.selected)}
+                            disabled={state.selected.length === 0}
                             options={{ loading: state.loading }}>
                             <i className="fa fa-check-circle"></i> valider
                         </Button> :

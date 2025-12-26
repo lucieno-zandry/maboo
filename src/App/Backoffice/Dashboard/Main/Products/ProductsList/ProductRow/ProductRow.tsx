@@ -1,27 +1,26 @@
 import React from "react";
-import { Product } from "../../../../../../../utilities/constants/types";
+import { Category, ProductList } from "../../../../../../../utilities/constants/types";
 import RoundedImage from "../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import SmallText from "../../../../../../../utilities/minitiatures/SmallText/SmallText";
 import appImage from "../../../../../../../utilities/helpers/appImage";
 import { Dropdown } from "react-bootstrap";
-import { useColor, useDeleteProduct, useEditProduct, useVariant } from "../../Products";
+import { useDeleteProduct, useEditProduct } from "../../Products";
 import Checkbox from "../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import Price from "../../../../../../../utilities/minitiatures/Price/Price";
 
 type Props = {
-    product: Product,
+    product: ProductList,
+    categories: Category[],
     addToSelected: Function,
     removeFromSelected: Function,
     toggleSelected: Function,
-    selected: Product[] | null,
+    selected: ProductList[] | null,
 }
 
 const ProductRow = (props: Props) => {
-    const { product, addToSelected, removeFromSelected, selected, toggleSelected } = props;
-    const { setCurrent } = useEditProduct();
+    const { product, categories, addToSelected, removeFromSelected, selected, toggleSelected } = props;
+    const edit = useEditProduct();
     const onDelete = useDeleteProduct();
-    const variant = useVariant();
-    const color = useColor();
 
     const handleSelect = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { checked } = e.target;
@@ -39,9 +38,6 @@ const ProductRow = (props: Props) => {
     }, [product, onDelete, selected]);
 
     const image = React.useMemo(() => {
-        if (product.images && product.images.length > 0) {
-            return appImage(product.images[0].name);
-        }
         if (product.variants && product.variants.length > 0 && product.variants[0].image) {
             return appImage(product.variants[0].image);
         }
@@ -49,8 +45,14 @@ const ProductRow = (props: Props) => {
     }, [product]);
 
     const price = React.useMemo(() => {
-        return product.price || (product.variants && product.variants.length > 0 ? product.variants[0].price : 0);
+        const first = product.variants?.[0];
+        if (!first) return 0;
+        return (first.special_price ?? first.price) || 0;
     }, [product]);
+
+    const category = React.useMemo(() => {
+        return categories.find(c => c.id === product.category_id) || null;
+    }, [categories, product.category_id]);
 
     return <tr>
         {selected && <td>
@@ -80,11 +82,11 @@ const ProductRow = (props: Props) => {
         </td>
         <td>
             <div className="d-flex gap-1 align-items-center">
-                {product.category ? <>
-                    <RoundedImage image={appImage(product.category.image) || undefined} />
-                    {product.category.name}
-                </> : <div className="text-danger">
-                    <i className="fa fa-xmark-circle"></i> Supprimé
+                {category ? <>
+                    <RoundedImage image={appImage(category.image) || undefined} />
+                    {category.name}
+                </> : <div className="text-muted">
+                    <i className="fa fa-xmark-circle"></i> Non défini
                 </div>}
             </div>
         </td>
@@ -95,14 +97,8 @@ const ProductRow = (props: Props) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <Dropdown.Item
-                        onClick={() => setCurrent(product)}>
+                        onClick={() => edit.open(product)}>
                         <i className="fa fa-pencil"></i> Modifier
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => variant.setCurrent(product)}>
-                        <i className="fa-light fa-table"></i> variants
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => color.setCurrent(product)}>
-                        <i className="fa-light fa-droplet"></i> couleurs
                     </Dropdown.Item>
                     <Dropdown.Item
                         className="text-danger"
